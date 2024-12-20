@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkBlue"
+    tools:context=".CourseInfo">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- top navigation -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/backButton"
+                    android:layout_alignParentStart="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/arrow_left_blue"
+                    android:background="@android:color/transparent"
+                    android:padding="8dp"
+                    android:layout_margin="16dp">
+                </ImageButton>
+
+                <ImageButton
+                    android:id="@+id/mailButton"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/envelope_blue"
+                    android:background="@android:color/transparent"
+                    android:padding="8dp"
+                    android:layout_margin="16dp">
+                </ImageButton>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/discover"
+                android:textColor="@color/white"
+                android:textSize="40sp"
+                android:layout_marginStart="24dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:text="@string/news_and_articles_from_all_around_the_world"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:layout_marginStart="24dp"/>
+
+            <!-- search bar -->
+            <EditText
+                android:id="@+id/searchBar"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="14dp"
+                android:layout_weight="1"
+                android:background="@drawable/white_bordered_rounded_box"
+                android:drawableStart="@drawable/search_icon_green"
+                android:fontFamily="@font/roboto"
+                android:padding="8dp"
+                android:textColor="@color/green"/>
+
+            <!--suggestions bawah search bar-->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/all"
+                        android:backgroundTint="@color/green"
+                        android:textColor="@color/white"
+                        android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto_condensed_regular"/>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/guides"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/darkBlue"
+                        android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto_condensed_regular"/>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/your_rights"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/darkBlue"
+                        android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/roboto_condensed_regular"/>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/discriminations"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/darkBlue"
+                        android:fontFamily="@font/roboto_condensed_regular"/>
+                </LinearLayout>
+                
+            </HorizontalScrollView>
+
+        <!-- recommendations-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="@string/recommendations"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
+            <!-- layout utk cards -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="8dp">
+
+                <!-- Article Cards, nanti programmically tambah -->
+                <include layout="@layout/article_card" />
+                <include layout="@layout/article_card" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>
+

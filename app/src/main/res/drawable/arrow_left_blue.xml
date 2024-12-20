@@ -1,0 +1,11 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="25"
+    android:viewportHeight="25">
+
+  <!-- arrow ni pakai utk backwards navigation -->
+  <path
+      android:pathData="M3.578,12.498C3.578,12.691 3.651,12.883 3.798,13.03L9.794,19.03C10.086,19.323 10.561,19.323 10.854,19.031C11.147,18.738 11.147,18.263 10.855,17.97L6.134,13.246L20.33,13.246C20.744,13.246 21.08,12.91 21.08,12.496C21.08,12.082 20.744,11.746 20.33,11.746L6.142,11.746L10.855,7.03C11.147,6.737 11.147,6.262 10.854,5.97C10.561,5.677 10.086,5.677 9.794,5.97L3.844,11.923C3.681,12.061 3.578,12.266 3.578,12.496L3.578,12.498Z"
+      android:fillColor="@color/blue"/>
+</vector>

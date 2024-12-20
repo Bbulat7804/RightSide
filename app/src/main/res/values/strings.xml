@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">RightSide</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <!-- Discover Page Strings-->
+    <string name="recommendations">Recommendations</string>
+    <string name="discriminations">Discriminations</string>
+    <string name="your_rights">Your Rights</string>
+    <string name="guides">Guides</string>
+    <string name="all">All</string>
+    <string name="news_and_articles_from_all_around_the_world">News and articles from all around the world</string>
+    <string name="discover">DISCOVER</string>
+    <string name="short_summary_of_the_article_max_3_lines_pastu_nanti_keluar_tambah_card_programmically">Short summary of the article. Max 3 lines pastu nanti keluar \'...\' . tambah card programmically</string>
+    <string name="author_date">Author • Date</string>
 </resources>
