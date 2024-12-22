@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkBlue"
-    tools:context=".CourseInfo">
+    tools:context=".DiscoverPage">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/arrow_left_blue"
+                    android:src="@drawable/icon_arrow_left_blue"
                     android:background="@android:color/transparent"
                     android:padding="8dp"
                     android:layout_margin="16dp">
@@ -37,7 +37,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/envelope_blue"
+                    android:src="@drawable/icon_envelope_blue"
                     android:background="@android:color/transparent"
                     android:padding="8dp"
                     android:layout_margin="16dp">
@@ -72,8 +72,8 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginTop="14dp"
                 android:layout_weight="1"
-                android:background="@drawable/white_bordered_rounded_box"
-                android:drawableStart="@drawable/search_icon_green"
+                android:background="@drawable/box_rounded_bordered_white"
+                android:drawableStart="@drawable/icon_search_green"
                 android:fontFamily="@font/roboto"
                 android:padding="8dp"
                 android:textColor="@color/green"/>
@@ -147,8 +147,8 @@
                 android:layout_marginTop="8dp">
 
                 <!-- Article Cards, nanti programmically tambah -->
-                <include layout="@layout/article_card" />
-                <include layout="@layout/article_card" />
+                <include layout="@layout/card_article_discover_page" />
+                <include layout="@layout/card_article_discover_page" />
             </LinearLayout>
 
         </LinearLayout>

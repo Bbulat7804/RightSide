@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, new CourseInfo()) //
+                    .add(R.id.fragment_container, new DiscoverPage()) //
                     .commit();
         }
     }
