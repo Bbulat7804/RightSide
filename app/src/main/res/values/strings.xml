@@ -20,4 +20,8 @@
     <string name="x_lessons">x lessons</string>
     <string name="x_x_5_0">x.x/5.0</string>
     <string name="course_title_max_4_line">COURSE TITLE max 4 line</string>
+    <string name="see_more"><u>see more</u></string>
+    <string name="volunteer_event_title">Volunteer Event Title</string>
+    <string name="org_name">org name</string>
+    <string name="volunteer_event_description_max_3_lines">volunteer event description max 3 lines</string>
 </resources>

@@ -44,6 +44,111 @@
 
             </RelativeLayout>
 
+            <RelativeLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:orientation="vertical"
+                    android:layout_margin="24dp">
+
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Friday, 18 May"
+                        android:textColor="@color/white"
+                        android:textSize="30sp"
+                        android:fontFamily="@font/roboto_bold"/>
+
+                    <TextView
+                        android:id="@+id/location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Arau, Perlis"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/roboto_bold"/>
+
+                    <!-- search bar -->
+                    <EditText
+                        android:id="@+id/searchBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="14dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/box_rounded_bordered_white"
+                        android:drawableStart="@drawable/icon_search_green"
+                        android:fontFamily="@font/roboto"
+                        android:padding="8dp"
+                        android:textColor="@color/green"
+                        android:hint="search for and event"
+                        android:textSize="16sp"/>
+                </LinearLayout>
+
+                <!--<com.google.android.gms.maps.MapView
+                    android:id="@+id/map_view"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="16dp"
+                    android:clipToOutline="true"
+                    android:background="@drawable/map_border_background" />
+-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="160dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Now Calling"
+                    android:textColor="@color/white"
+                    android:textSize="30sp" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginTop="160dp"
+                    android:backgroundTint="@color/darkBlue"
+                    android:text="@string/see_more"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/lightGray"/>
+            </RelativeLayout>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!--nanti tambah sini-->
+                    <include layout="@layout/card_volunteer_page" />
+                    <include layout="@layout/card_volunteer_page" />
+                    <include layout="@layout/card_volunteer_page" />
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Upcoming Events"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+
         </LinearLayout>
 
     </ScrollView>
