@@ -2,13 +2,112 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="700dp"
+    android:layout_marginBottom="140dp"
+    android:background="@color/darkBlue"
     tools:context=".fragment_manage_request">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="MANAGE REQUEST"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/editTextText"
+            android:layout_width="394dp"
+            android:layout_height="39dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/box_rounded_bordered_white"
+            android:drawableStart="@drawable/icon_search_green"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="text"
+            android:paddingLeft="10dp" />
+
+        <LinearLayout
+            android:layout_width="342dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonAll"
+                android:layout_width="26dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/green"
+                android:text="All" />
+
+            <Button
+                android:id="@+id/buttonLegal"
+                android:layout_width="36dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:text="Legal"
+                android:textColor="@color/design_default_color_on_secondary" />
+
+            <Button
+                android:id="@+id/buttonMental"
+                android:layout_width="33dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:text="Mental"
+                android:textColor="@color/design_default_color_on_secondary" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/fragment_card_manage_request" />
+
+                <include layout="@layout/fragment_card_manage_request" />
+
+                <include layout="@layout/fragment_card_manage_request" />
+
+                <include layout="@layout/fragment_card_manage_request" />
+
+                <include layout="@layout/fragment_card_manage_request" />
+
+                <include layout="@layout/fragment_card_manage_request" />
+
+                <include layout="@layout/fragment_card_manage_request" />
+
+                <include layout="@layout/fragment_card_manage_request" />
+
+                <include layout="@layout/fragment_card_manage_request" />
+
+                <include layout="@layout/fragment_card_manage_request" />
+
+                <include layout="@layout/fragment_card_manage_request" />
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
 </FrameLayout>
