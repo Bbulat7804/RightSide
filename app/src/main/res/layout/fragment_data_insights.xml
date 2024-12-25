@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="600dp"
+    android:background="@color/darkBlue"
+    android:backgroundTint="@color/darkBlue"
+    android:foregroundTint="@color/white"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".fragment_data_insights">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/DataInsightsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:fontFamily="@font/roboto_bold"
+                android:foregroundTint="@color/white"
+                android:text="Discrimination Cases"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+
+            <Spinner
+                android:id="@+id/StateDropDown"
+                android:layout_width="136dp"
+                android:layout_height="39dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/box_rounded_bordered_white"
+                android:popupBackground="@drawable/box_rounded_bordered_white" />
+
+            <LinearLayout
+                android:id="@+id/BarCharContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/box_rounded_bordered_white"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/BarChartTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center_horizontal"
+                    android:text="Cases Reported"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/BarChart"
+                    android:layout_width="351dp"
+                    android:layout_height="136dp">
+
+                </com.github.mikephil.charting.charts.BarChart>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/PieChartContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/box_rounded_bordered_white"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/PieChartTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center_horizontal"
+                    android:text="Numbers Users of Affected"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:id="@+id/PieChart1Container"
+                    android:layout_width="348dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/PieChartUnaffected"
+                        android:layout_width="188dp"
+                        android:layout_height="146dp"></com.github.mikephil.charting.charts.PieChart>
+
+                    <LinearLayout
+                        android:id="@+id/PieChart1DataContainer"
+                        android:layout_width="159dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/UnaffectedText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_bold"
+                            android:gravity="center_horizontal"
+                            android:text="Unaffected"
+                            android:textColor="#000000"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/UnaffectedPercentageText"
+                            android:layout_width="match_parent"
+                            android:layout_height="44dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:gravity="center"
+                            android:text="60%"
+                            android:textColor="#5898FE"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/affectedText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_bold"
+                            android:gravity="center_horizontal"
+                            android:text="Affected"
+                            android:textColor="#000000"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/affectedPercentageText"
+                            android:layout_width="match_parent"
+                            android:layout_height="43dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:gravity="center"
+                            android:text="40%"
+                            android:textColor="#EF7E1E"
+                            android:textSize="24sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/TotalUserText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center_horizontal"
+                    android:text="TextView"
+                    android:textColor="#000000"
+                    android:textSize="7dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/box_rounded_bordered_white"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <LinearLayout
+                    android:id="@+id/FilterContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/box_rounded_white_border_black"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="19dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_filter" />
+
+                    <Button
+                        android:id="@+id/StartDateButton"
+                        android:layout_width="74dp"
+                        android:layout_height="27dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="#00FFFFFF"
+                        android:fontFamily="@font/roboto_bold"
+                        android:gravity="left|center_vertical"
+                        android:lineSpacingExtra="0sp"
+                        android:padding="0dp"
+                        android:paddingRight="10dp"
+                        android:text="Start Date"
+                        android:textColor="#000000"
+                        android:textSize="10sp"
+                        app:icon="@drawable/dropdown_arrow"
+                        app:iconGravity="end"
+                        app:iconPadding="10dp"
+                        app:iconSize="10dp"
+                        app:iconTint="#00A859" />
+
+                    <Button
+                        android:id="@+id/EndDateButton"
+                        android:layout_width="74dp"
+                        android:layout_height="27dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="#00FFFFFF"
+                        android:fontFamily="@font/roboto_bold"
+                        android:gravity="left|center_vertical"
+                        android:lineSpacingExtra="0sp"
+                        android:padding="0dp"
+                        android:text="End Date"
+                        android:textColor="#000000"
+                        android:textSize="10sp"
+                        app:icon="@drawable/dropdown_arrow"
+                        app:iconGravity="end"
+                        app:iconSize="10dp"
+                        app:iconTint="#00A859" />
+
+                    <Spinner
+                        android:id="@+id/DiscriminationTypeSpinner"
+                        android:layout_width="125dp"
+                        android:layout_height="31dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="#00FFFFFF"
+                        android:gravity="center|left|center_vertical"
+                        android:padding="0dp"
+                        android:popupBackground="@drawable/box_rounded_white" />
+
+                </LinearLayout>
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/lineChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="20dp">
+
+                </com.github.mikephil.charting.charts.LineChart>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
