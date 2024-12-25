@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, new fragment_manage_request()) //
+                    .add(R.id.fragment_container, new ManageRequestPage()) //
                     .commit();
         }
     }
