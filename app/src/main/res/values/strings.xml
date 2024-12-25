@@ -45,4 +45,11 @@
         <item>Putrajaya</item>
         <item>Labuan</item>
     </string-array>
+
+    <string-array name="DiscriminationTypes">
+        <item>Discrimination Types</item>
+        <item>Mental</item>
+        <item>Gender</item>
+        <item>Race</item>
+    </string-array>
 </resources>
