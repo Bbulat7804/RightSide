@@ -32,7 +32,6 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -244,16 +243,16 @@ public class fragment_data_insights extends Fragment {
     private void initializeDiscriminationTypeDropDown(View view) {
         Spinner discrimininationDropDown = view.findViewById(R.id.DiscriminationTypeSpinner);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.DiscriminationTypes,R.layout.spinner_layout);
-        adapter.setDropDownViewResource(R.layout.spinner_layout);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.DiscriminationTypes,R.layout.layout_spinner);
+        adapter.setDropDownViewResource(R.layout.layout_spinner);
         discrimininationDropDown.setAdapter(adapter);
     }
 
     public void initializeStateDropDown(View view){
         Spinner stateDropDown = view.findViewById(R.id.StateDropDown);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.States,R.layout.spinner_layout);
-        adapter.setDropDownViewResource(R.layout.spinner_layout);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.States,R.layout.layout_spinner);
+        adapter.setDropDownViewResource(R.layout.layout_spinner);
         stateDropDown.setAdapter(adapter);
     }
 
