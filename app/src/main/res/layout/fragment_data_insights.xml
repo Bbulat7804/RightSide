@@ -65,7 +65,6 @@
                     android:layout_height="136dp">
 
                 </com.github.mikephil.charting.charts.BarChart>
-
             </LinearLayout>
 
             <LinearLayout

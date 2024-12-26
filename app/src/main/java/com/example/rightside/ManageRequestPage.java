@@ -2,11 +2,16 @@ package com.example.rightside;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,7 +65,16 @@ public class ManageRequestPage extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_manage_request, container, false);
+    }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Spinner spinnerReasonConsultation = view.findViewById(R.id.spinnerUpdates);
+        ArrayAdapter<CharSequence> reasonConsultationAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.RequestUpdate, R.layout.spinner_layout);
+        spinnerReasonConsultation.setAdapter(reasonConsultationAdapter);
 
     }
+
+
 }

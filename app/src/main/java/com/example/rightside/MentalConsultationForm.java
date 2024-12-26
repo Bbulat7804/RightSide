@@ -1,20 +1,23 @@
-
 package com.example.rightside;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link fragment_legal_consultation_form#newInstance} factory method to
+ * Use the {@link MentalConsultationForm#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_legal_consultation_form extends Fragment {
+public class MentalConsultationForm extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,7 +28,7 @@ public class fragment_legal_consultation_form extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public fragment_legal_consultation_form() {
+    public MentalConsultationForm() {
         // Required empty public constructor
     }
 
@@ -35,11 +38,11 @@ public class fragment_legal_consultation_form extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment_legal_consultation_form.
+     * @return A new instance of fragment fragment_mental_consultation_form.
      */
     // TODO: Rename and change types and number of parameters
-    public static fragment_legal_consultation_form newInstance(String param1, String param2) {
-        fragment_legal_consultation_form fragment = new fragment_legal_consultation_form();
+    public static MentalConsultationForm newInstance(String param1, String param2) {
+        MentalConsultationForm fragment = new MentalConsultationForm();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -60,6 +63,20 @@ public class fragment_legal_consultation_form extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_legal_consultation_form2, container, false);
+        return inflater.inflate(R.layout.fragment_mental_consultation_form, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        Spinner spinnerReasonConsultation = view.findViewById(R.id.MentalConsultationReasonSpinner);
+        ArrayAdapter<CharSequence> reasonConsultationAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.MentalConsultationReason, R.layout.spinner_layout);
+        spinnerReasonConsultation.setAdapter(reasonConsultationAdapter);
+
+        Spinner spinnerDesiredOutcome = view.findViewById(R.id.MentalDesiredOutcomeSpinner);
+        ArrayAdapter<CharSequence> desiredOutcomeAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.MentalDesiredOutcome, R.layout.spinner_layout);
+        spinnerDesiredOutcome.setAdapter(desiredOutcomeAdapter);
+
     }
 }

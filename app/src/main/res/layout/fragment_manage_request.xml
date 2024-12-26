@@ -93,27 +93,23 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="vertical">
 
-                <include layout="@layout/fragment_card_manage_request" />
+                <include
+                    android:id="@+id/card1"
+                    layout="@layout/card_manage_request" />
 
-                <include layout="@layout/fragment_card_manage_request" />
+                <include
+                    android:id="@+id/card2"
+                    layout="@layout/card_manage_request" />
 
-                <include layout="@layout/fragment_card_manage_request" />
+                <include
+                    android:id="@+id/card3"
+                    layout="@layout/card_manage_request" />
 
-                <include layout="@layout/fragment_card_manage_request" />
+                <include
+                    android:id="@+id/card4"
+                    layout="@layout/card_manage_request" />
 
-                <include layout="@layout/fragment_card_manage_request" />
 
-                <include layout="@layout/fragment_card_manage_request" />
-
-                <include layout="@layout/fragment_card_manage_request" />
-
-                <include layout="@layout/fragment_card_manage_request" />
-
-                <include layout="@layout/fragment_card_manage_request" />
-
-                <include layout="@layout/fragment_card_manage_request" />
-
-                <include layout="@layout/fragment_card_manage_request" />
             </LinearLayout>
         </ScrollView>
 
