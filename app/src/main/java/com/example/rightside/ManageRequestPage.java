@@ -2,11 +2,17 @@ package com.example.rightside;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -62,12 +68,44 @@ public class ManageRequestPage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        for(int i=0 ; i<10 ; i++){
-            requests.add(new Request("Clarifying Legal Rights","Information and Guidance","Completed"));
+        return inflater.inflate(R.layout.fragment_manage_request, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        LinearLayout cardContainer = view.findViewById(R.id.ManageRequestCardContainer);
+
+        for (int i = 0; i < 20; i++) {
+            requests.add(new Request("Nazifah Comel", "Information and Guidance", "Completed"));
         }
 
+        for(int i=0 ; i<requests.size() ; i++){
+            addCard(cardContainer,requests.get(i));
+        }
+    }
 
-        return inflater.inflate(R.layout.fragment_manage_request, container, false);
+    private void addCard(LinearLayout container, Request request){
+        View card = LayoutInflater.from(getActivity()).inflate(R.layout.card_manage_request,container,false);
+
+        TextView cardTitle = card.findViewById(R.id.ManageRequestTitle);
+        TextView cardDesiredOutcome = card.findViewById(R.id.ManageRequestDesiredOutcome);
+        TextView cardUpdateStates = card.findViewById(R.id.ManageRequestStatusUpdate);
+
+        cardTitle.setText(request.title);
+        cardDesiredOutcome.setText(request.desiredOutcome);
+        cardUpdateStates.setText(request.status);
+
+        Spinner spinner = card.findViewById(R.id.ManageRequestSpinner);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.DiscriminationTypes,R.layout.layout_spinner);
+        adapter.setDropDownViewResource(R.layout.layout_spinner);
+        spinner.setAdapter(adapter);
+
+
+
+        container.addView(card);
     }
 
 
