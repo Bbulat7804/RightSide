@@ -71,11 +71,11 @@ public class MentalConsultationForm extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Spinner spinnerReasonConsultation = view.findViewById(R.id.MentalConsultationReasonSpinner);
-        ArrayAdapter<CharSequence> reasonConsultationAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.MentalConsultationReason, R.layout.spinner_layout);
+        ArrayAdapter<CharSequence> reasonConsultationAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.MentalConsultationReason, R.layout.layout_spinner);
         spinnerReasonConsultation.setAdapter(reasonConsultationAdapter);
 
         Spinner spinnerDesiredOutcome = view.findViewById(R.id.MentalDesiredOutcomeSpinner);
-        ArrayAdapter<CharSequence> desiredOutcomeAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.MentalDesiredOutcome, R.layout.spinner_layout);
+        ArrayAdapter<CharSequence> desiredOutcomeAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.MentalDesiredOutcome, R.layout.layout_spinner);
         spinnerDesiredOutcome.setAdapter(desiredOutcomeAdapter);
 
     }

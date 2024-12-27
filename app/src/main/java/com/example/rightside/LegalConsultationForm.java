@@ -73,11 +73,11 @@ public class LegalConsultationForm extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Spinner spinnerReasonConsultation = view.findViewById(R.id.LegalConsultationReasonSpinner);
-        ArrayAdapter<CharSequence> reasonConsultationAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.LegalConsultationReason, R.layout.spinner_layout);
+        ArrayAdapter<CharSequence> reasonConsultationAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.LegalConsultationReason, R.layout.layout_spinner);
         spinnerReasonConsultation.setAdapter(reasonConsultationAdapter);
 
         Spinner spinnerDesiredOutcome = view.findViewById(R.id.LegalDesiredOutcomeSpinner);
-        ArrayAdapter<CharSequence> desiredOutcomeAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.LegalDesiredOutcome, R.layout.spinner_layout);
+        ArrayAdapter<CharSequence> desiredOutcomeAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.LegalDesiredOutcome, R.layout.layout_spinner);
         spinnerDesiredOutcome.setAdapter(desiredOutcomeAdapter);
 
     }

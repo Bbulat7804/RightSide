@@ -76,11 +76,11 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <include layout="@layout/card_request" />
+                <include layout="@layout/card_view_request" />
 
-                <include layout="@layout/card_request" />
+                <include layout="@layout/card_view_request" />
 
-                <include layout="@layout/card_request" />
+                <include layout="@layout/card_view_request" />
 
 
             </LinearLayout>

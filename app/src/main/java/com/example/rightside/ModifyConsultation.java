@@ -2,23 +2,18 @@ package com.example.rightside;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ManageRequestPage#newInstance} factory method to
+ * Use the {@link ModifyConsultation#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ManageRequestPage extends Fragment {
+public class ModifyConsultation extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,7 +24,7 @@ public class ManageRequestPage extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ManageRequestPage() {
+    public ModifyConsultation() {
         // Required empty public constructor
     }
 
@@ -39,11 +34,11 @@ public class ManageRequestPage extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment_manage_request.
+     * @return A new instance of fragment fragment_modify_consultation.
      */
     // TODO: Rename and change types and number of parameters
-    public static ManageRequestPage newInstance(String param1, String param2) {
-        ManageRequestPage fragment = new ManageRequestPage();
+    public static ModifyConsultation newInstance(String param1, String param2) {
+        ModifyConsultation fragment = new ModifyConsultation();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -60,26 +55,10 @@ public class ManageRequestPage extends Fragment {
         }
     }
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_manage_request, container, false);
+        return inflater.inflate(R.layout.fragment_modify_legal_consultation, container, false);
     }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        Spinner spinnerReasonConsultation = view.findViewById(R.id.spinnerUpdates);
-        View cardView = view.findViewById(R.id.ManageRequestCard); // assuming you have a card view with ID "card_view"
-        Spinner spinner = new Spinner(getActivity());
-        spinner.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, new String[] {"Status", "Ongoing", "Completed", "Rejected"}));
-        ArrayAdapter<CharSequence> reasonConsultationAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.RequestUpdate, R.layout.layout_spinner);
-        spinnerReasonConsultation.setAdapter(reasonConsultationAdapter);
-
-    }
-
-
 }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="800dp"
     android:background="@color/darkBlue"
-    tools:context=".ViewRequest">
+    tools:context=".ViewRequestPage">
 
     <ScrollView
         android:layout_width="match_parent"
