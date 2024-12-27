@@ -9,7 +9,7 @@
     android:foregroundTint="@color/white"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".fragment_data_insights">
+    tools:context=".DataInsightsPage">
 
     <ScrollView
         android:layout_width="match_parent"

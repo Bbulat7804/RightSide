@@ -35,7 +35,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/requests"
+                android:id="@+id/ViewRequestTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/short_summary_of_the_article_max_3_lines_pastu_nanti_keluar_tambah_card_programmically"

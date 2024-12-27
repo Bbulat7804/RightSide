@@ -14,7 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class activity_login_page extends AppCompatActivity {
+public class LoginPage extends AppCompatActivity {
     boolean hide = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

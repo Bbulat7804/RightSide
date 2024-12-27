@@ -38,10 +38,10 @@ import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link fragment_data_insights#newInstance} factory method to
+ * Use the {@link DataInsightsPage#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_data_insights extends Fragment {
+public class DataInsightsPage extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -52,7 +52,7 @@ public class fragment_data_insights extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public fragment_data_insights() {
+    public DataInsightsPage() {
         // Required empty public constructor
     }
 
@@ -65,8 +65,8 @@ public class fragment_data_insights extends Fragment {
      * @return A new instance of fragment fragment_data_insights.
      */
     // TODO: Rename and change types and number of parameters
-    public static fragment_data_insights newInstance(String param1, String param2) {
-        fragment_data_insights fragment = new fragment_data_insights();
+    public static DataInsightsPage newInstance(String param1, String param2) {
+        DataInsightsPage fragment = new DataInsightsPage();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

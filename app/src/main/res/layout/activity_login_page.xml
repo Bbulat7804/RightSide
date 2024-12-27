@@ -8,7 +8,7 @@
     android:background="@color/darkBlue"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".activity_login_page">
+    tools:context=".LoginPage">
 
     <LinearLayout
         android:layout_width="wrap_content"

@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
@@ -23,7 +22,7 @@ public class ManageRequestPage extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private static final ArrayList<Request> requests = null;
+    private static final ArrayList<Request> requests = new ArrayList<>();
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -67,10 +66,9 @@ public class ManageRequestPage extends Fragment {
             requests.add(new Request("Clarifying Legal Rights","Information and Guidance","Completed"));
         }
 
-        return inflater.inflate(R.layout.fragment_display_request, container, false);
+
+        return inflater.inflate(R.layout.fragment_manage_request, container, false);
     }
 
-    private void addCard(LinearLayout Container, Request request){
 
-    }
 }

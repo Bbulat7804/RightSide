@@ -16,21 +16,22 @@ import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ViewRequestPage#newInstance} factory method to
+ * Use the {@link DisplayRequestPage#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ViewRequestPage extends Fragment {
+public class DisplayRequestPage extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private static final ArrayList<Request> requests = new ArrayList<>();
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    public ViewRequestPage() {
+    public DisplayRequestPage() {
         // Required empty public constructor
     }
 
@@ -40,11 +41,11 @@ public class ViewRequestPage extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment_legal_consultation_form.
+     * @return A new instance of fragment fragment_display_request.
      */
     // TODO: Rename and change types and number of parameters
-    public static ViewRequestPage newInstance(String param1, String param2) {
-        ViewRequestPage fragment = new ViewRequestPage();
+    public static DisplayRequestPage newInstance(String param1, String param2) {
+        DisplayRequestPage fragment = new DisplayRequestPage();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -64,10 +65,36 @@ public class ViewRequestPage extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_view_request, container, false);
+        return inflater.inflate(R.layout.fragment_display_request, container, false);
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
+        LinearLayout cardContainer = view.findViewById(R.id.ViewRequestCardContainer);
+        System.out.println(view);
+        for (int i = 0; i < 20; i++) {
+            requests.add(new Request("Nazifah Comel", "Information and Guidance", "Completed"));
+        }
+
+        for(int i=0 ; i<requests.size() ; i++){
+            addCard(cardContainer,requests.get(i));
+        }
+    }
+
+    private void addCard(LinearLayout container, Request request){
+        View card = LayoutInflater.from(getActivity()).inflate(R.layout.card_view_request,container,false);
+
+        TextView cardTitle = card.findViewById(R.id.ViewRequestTitle);
+        TextView cardDesiredOutcome = card.findViewById(R.id.ViewRequestDesiredOutcome);
+        TextView cardUpdateStates = card.findViewById(R.id.ViewRequestStatusUpdate);
+
+        cardTitle.setText(request.title);
+        cardDesiredOutcome.setText(request.desiredOutcome);
+        cardUpdateStates.setText(request.status);
+
+        container.addView(card);
+    }
 }
