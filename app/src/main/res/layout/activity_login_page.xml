@@ -67,7 +67,7 @@
             android:textColor="#84000000" />
 
         <EditText
-            android:id="@+id/LoginEmailInput"
+            android:id="@+id/SignUpEmailInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#00FFFFFF"
@@ -199,7 +199,7 @@
             android:textSize="12sp" />
 
         <Button
-            android:id="@+id/GoToSignUpButton"
+            android:id="@+id/GoToLoginButton"
             android:layout_width="28dp"
             android:layout_height="33dp"
             android:layout_weight="1"

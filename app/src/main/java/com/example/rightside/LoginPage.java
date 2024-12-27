@@ -27,7 +27,7 @@ public class LoginPage extends AppCompatActivity {
             return insets;
         });
 
-        EditText emailInput = findViewById(R.id.LoginEmailInput);
+        EditText emailInput = findViewById(R.id.SignUpEmailInput);
         EditText passwordInput = findViewById(R.id.LoginPasswordInput);
         ImageButton HideButton = findViewById(R.id.HideButton);
         Button loginButton = findViewById(R.id.LoginButton);
