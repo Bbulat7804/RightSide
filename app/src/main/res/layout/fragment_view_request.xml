@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="800dp"
+    android:background="@color/darkBlue"
+    tools:context=".ViewRequestPage">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp">
+
+            <TextView
+                android:id="@+id/TVpreferredConsultationType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="View Request"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="18dp"
+                android:foregroundGravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:paddingStart="50dp"
+                android:paddingEnd="50dp">
+
+                <Button
+                    android:id="@+id/buttonChat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="30dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/blue"
+                    android:fontFamily="@font/roboto_condensed_regular"
+                    android:text="Chat"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/buttonRequest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/green"
+                    android:fontFamily="@font/roboto_condensed_regular"
+                    android:text="Request"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/roboto_condensed_bold"
+                android:text="Consultation Reason"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/TVconsultationReason"
+                android:layout_width="248dp"
+                android:layout_height="39dp"
+                android:background="@drawable/box_rounded_bordered_white"
+                android:ems="10"
+                android:inputType="text"
+                android:paddingStart="10dp" />
+
+            <TextView
+                android:id="@+id/TVconsultationReason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/roboto_condensed_bold"
+                android:text="Consultation Outcome"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/TVconsultationOutcome"
+                android:layout_width="264dp"
+                android:layout_height="39dp"
+                android:background="@drawable/box_rounded_bordered_white"
+                android:ems="10"
+                android:inputType="text"
+                android:paddingStart="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/TVconsultationReason"
+                    android:layout_width="128dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_condensed_bold"
+                    android:text="Preferred Consultation Type"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/TVconsultationOutcome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_condensed_bold"
+                    android:text="Urgency"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="18dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/TVpreferredConsultationType"
+                    android:layout_width="306dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto"
+                    android:inputType="text"
+                    android:text="In-Person"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/TVurgency"
+                    android:layout_width="223dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto"
+                    android:inputType="text"
+                    android:text="Urgent"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/roboto_condensed_bold"
+                android:text="Preferred Date and Time"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
+
+            <LinearLayout
+                android:layout_width="227dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="18dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ETpreferredDateLegal"
+                    android:layout_width="143dp"
+                    android:layout_height="39dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/box_rounded_bordered_white"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:inputType="text"
+                    android:text="19/12/2024"
+                    android:textAlignment="gravity" />
+
+                <TextView
+                    android:id="@+id/ETpreferredTimeLegal"
+                    android:layout_width="148dp"
+                    android:layout_height="39dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/box_rounded_bordered_white"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:inputType="text"
+                    android:text="17:00"
+                    android:textAlignment="center" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/roboto_condensed_bold"
+                android:text="Describe More"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/TVdescribeRequest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="18dp"
+                android:background="@drawable/box_rounded_bordered_white"
+                android:fontFamily="@font/roboto"
+                android:padding="10dp"
+                android:text="I've been working at my company for two years and recently found out that my male colleague is being paid more for the same role. I'm not sure if this qualifies as gender discrimination, and I want to know what my rights are regarding equal pay. How should I approach my employer about this, and what legal steps can I take if they don’t respond?"
+                android:textColor="@color/design_default_color_on_secondary"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_condensed_bold"
+                android:text="Attachments"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
+
+            <ListView
+                android:id="@+id/attachments"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:background="@color/white"
+                android:padding="5dp" />
+
+            <TextView
+                android:id="@+id/emptyAttachments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:text="No file found"
+                android:textColor="@color/white"
+                android:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/editButton"
+                android:layout_width="51dp"
+                android:layout_height="60dp"
+                android:layout_gravity="bottom|right"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:background="#00FFFFFF"
+                android:foregroundGravity="left|bottom|right"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_edit" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

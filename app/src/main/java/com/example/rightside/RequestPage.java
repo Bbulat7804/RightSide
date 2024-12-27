@@ -14,10 +14,10 @@ import android.widget.Spinner;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link card_manage_request#newInstance} factory method to
+ * Use the {@link RequestPage#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class card_manage_request extends Fragment {
+public class RequestPage extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,7 +28,7 @@ public class card_manage_request extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public card_manage_request() {
+    public RequestPage() {
         // Required empty public constructor
     }
 
@@ -38,11 +38,11 @@ public class card_manage_request extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment card_manage_request.
+     * @return A new instance of fragment fragment_display_requests.
      */
     // TODO: Rename and change types and number of parameters
-    public static card_manage_request newInstance(String param1, String param2) {
-        card_manage_request fragment = new card_manage_request();
+    public static RequestPage newInstance(String param1, String param2) {
+        RequestPage fragment = new RequestPage();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -63,8 +63,7 @@ public class card_manage_request extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.card_manage_request, container, false);
+        return inflater.inflate(R.layout.fragment_display_request, container, false);
     }
-
 
 }

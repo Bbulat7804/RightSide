@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="800dp"
     android:background="@color/darkBlue"
-    tools:context=".LegalConsultationForm">
+    tools:context=".MentalConsultationForm" >
 
     <ScrollView
         android:layout_width="match_parent"
@@ -18,18 +18,18 @@
             android:padding="24dp">
 
             <TextView
-                android:id="@+id/titleLegalConsultationForm"
+                android:id="@+id/titleMentalConsultationForm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_bold"
-                android:text="Legal Consultation Form"
+                android:text="Mental Consultation Form"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="30dp" />
 
             <Spinner
-                android:id="@+id/LegalConsultationReasonSpinner"
-                android:layout_width="246dp"
+                android:id="@+id/MentalConsultationReasonSpinner"
+                android:layout_width="316dp"
                 android:layout_height="39dp"
                 android:layout_marginTop="28dp"
                 android:layout_marginBottom="18dp"
@@ -37,8 +37,8 @@
                 android:popupBackground="@drawable/box_rounded_bordered_white" />
 
             <Spinner
-                android:id="@+id/LegalDesiredOutcomeSpinner"
-                android:layout_width="354dp"
+                android:id="@+id/MentalDesiredOutcomeSpinner"
+                android:layout_width="321dp"
                 android:layout_height="39dp"
                 android:background="@drawable/box_rounded_bordered_white"
                 android:popupBackground="@drawable/box_rounded_bordered_white" />
@@ -51,7 +51,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/TVconsultationReason"
+                    android:id="@+id/TVconsultationReasonMental"
                     android:layout_width="128dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -61,7 +61,7 @@
                     android:textSize="16dp" />
 
                 <TextView
-                    android:id="@+id/TVconsultationOutcome"
+                    android:id="@+id/TVconsultationOutcomeMental"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -78,60 +78,74 @@
                 android:orientation="horizontal">
 
                 <RadioGroup
-                    android:id="@+id/RadioGroupPreferredConsultation"
+                    android:id="@+id/RadioGroupPreferredConsultationMental"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/darkBlue">
 
                     <RadioButton
-                        android:id="@+id/buttonInPersonLegal"
+                        android:id="@+id/buttonInPersonMental"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
+                        android:buttonTint="@color/white"
                         android:fontFamily="@font/roboto"
+                        android:shadowColor="@color/white"
                         android:text="In-Person"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:textColorLink="@color/white" />
 
                     <RadioButton
-                        android:id="@+id/buttonPhoneCallLegal"
+                        android:id="@+id/buttonPhoneCallMental"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
+                        android:buttonTint="@color/white"
                         android:fontFamily="@font/roboto"
+                        android:shadowColor="@color/white"
                         android:text="Phone Call "
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:textColorLink="@color/white" />
 
                     <RadioButton
-                        android:id="@+id/buttonVideoCallLegal"
+                        android:id="@+id/buttonVideoCallMental"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
+                        android:buttonTint="@color/white"
                         android:fontFamily="@font/roboto"
+                        android:shadowColor="@color/white"
                         android:text="Video Call"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:textColorLink="@color/white" />
 
                     <RadioButton
-                        android:id="@+id/buttonTextChatLegal"
+                        android:id="@+id/buttonTextChatMental"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
+                        android:buttonTint="@color/white"
+                        android:shadowColor="@color/white"
                         android:text="Text Chat"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:textColorLink="@color/white" />
                 </RadioGroup>
 
                 <RadioGroup
-                    android:id="@+id/RadioGroupUrgency"
+                    android:id="@+id/RadioGroupUrgencyMental"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="125dp">
 
                     <RadioButton
-                        android:id="@+id/buttonUrgentLegal"
+                        android:id="@+id/buttonUrgentMental"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
+                        android:shadowColor="@color/white"
                         android:text="Urgent"
                         android:textColor="@color/white" />
 
                     <RadioButton
-                        android:id="@+id/buttonNonUrgentLegal"
+                        android:id="@+id/buttonNonUrgentMental"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
+                        android:shadowColor="@color/white"
                         android:text="Non-urgent"
                         android:textColor="@color/white" />
 
@@ -157,7 +171,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/ETpreferredDateLegal"
+                    android:id="@+id/ETpreferredDateMental"
                     android:layout_width="143dp"
                     android:layout_height="39dp"
                     android:layout_marginEnd="10dp"
@@ -170,7 +184,7 @@
                     android:textAlignment="gravity" />
 
                 <TextView
-                    android:id="@+id/ETpreferredTimeLegal"
+                    android:id="@+id/ETpreferredTimeMental"
                     android:layout_width="148dp"
                     android:layout_height="39dp"
                     android:layout_weight="1"
@@ -193,9 +207,9 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/editTextDescribeLegal"
+                android:id="@+id/editTextDescribeMental"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="125dp"
                 android:background="@drawable/box_rounded_bordered_white"
                 android:ems="10"
                 android:gravity="left"
@@ -216,7 +230,7 @@
                 android:textSize="16sp" />
 
             <ImageButton
-                android:id="@+id/addAttachmentButtonLegal"
+                android:id="@+id/addAttachmentButtonMental"
                 android:layout_width="73dp"
                 android:layout_height="68dp"
                 android:backgroundTint="#00FFFFFF"
@@ -224,7 +238,7 @@
                 android:src="@drawable/add_attachment" />
 
             <Button
-                android:id="@+id/buttonSubmitLegalForm"
+                android:id="@+id/buttonSubmitMentalForm"
                 android:layout_width="wrap_content"
                 android:layout_height="45dp"
                 android:layout_gravity="center_horizontal|center_vertical"
