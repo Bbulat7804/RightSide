@@ -99,11 +99,11 @@ public class ManageRequestPage extends Fragment {
 
         Spinner spinner = card.findViewById(R.id.ManageRequestSpinner);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.DiscriminationTypes,R.layout.layout_spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.RequestUpdate,R.layout.layout_spinner);
         adapter.setDropDownViewResource(R.layout.layout_spinner);
         spinner.setAdapter(adapter);
 
-
+    
 
         container.addView(card);
     }
