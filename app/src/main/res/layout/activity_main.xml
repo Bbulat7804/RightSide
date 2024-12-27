@@ -18,7 +18,9 @@
         android:layout_height="wrap_content"
         android:background="@color/darkBlue"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme" />
+        android:paddingRight="10dp"
+        android:theme="?attr/actionBarTheme"
+        app:menu="@menu/menu_mailbox" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container"
@@ -26,5 +28,9 @@
         android:layout_height="wrap_content">
 
     </androidx.fragment.app.FragmentContainerView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>
