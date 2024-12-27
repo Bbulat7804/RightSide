@@ -75,7 +75,7 @@ public class DisplayRequestPage extends Fragment {
 
         LinearLayout cardContainer = view.findViewById(R.id.ViewRequestCardContainer);
         for (int i = 0; i < 20; i++) {
-            requests.add(new Request("Nazifah Comel", "Information and Guidance", "Completed"));
+            requests.add(new Request("Tajuk", "Information and Guidance", "Completed"));
         }
 
         for(int i=0 ; i<requests.size() ; i++){
