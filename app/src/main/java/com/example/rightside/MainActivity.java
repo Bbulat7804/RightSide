@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, new HomePage()) //
+                    .add(R.id.fragment_container, new FAQPage()) //
                     .commit();
         }
 
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.up_button_color);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.color_up_button);
     }
 
     @Override
