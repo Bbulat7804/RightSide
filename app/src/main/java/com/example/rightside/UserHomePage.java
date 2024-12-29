@@ -74,11 +74,20 @@ public class UserHomePage extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         LinearLayout eventImageContainer = view.findViewById(R.id.EventImageContainer);
         LinearLayout articleImageContainer = view.findViewById(R.id.ArticleImageContainer);
+
+        //Declare Buttons
         LinearLayout liveDataButton = view.findViewById(R.id.LiveDataButton);
         LinearLayout eventsButton = view.findViewById(R.id.UserEventsButton);
         LinearLayout manageRequestButton = view.findViewById(R.id.ManageRequestButton);
         LinearLayout articlesButton = view.findViewById(R.id.ArticlesButton);
         LinearLayout userConsultationButton = view.findViewById(R.id.UserConsultationButton);
+        LinearLayout userSupportGroupButton = view.findViewById(R.id.UserSupportGroupsButton);
+        LinearLayout userReportButton = view.findViewById(R.id.UserReportButton);
+        LinearLayout stressManagementButton = view.findViewById(R.id.StressManagementButton);
+        LinearLayout eventCalendarButton = view.findViewById(R.id.EventCalendarButton);
+        LinearLayout reportHistoryButton = view.findViewById(R.id.ReportHistoryButton);
+        // add quiz button
+        LinearLayout documentTemplateButton = view.findViewById(R.id.DocumentTemplateButton);
         TextView mentalConsultationButton = view.findViewById(R.id.MentalConsultationButton);
         TextView legalConsultationButton = view.findViewById(R.id.LegalConsultationButton);
 
@@ -129,6 +138,13 @@ public class UserHomePage extends Fragment {
             @Override
             public void onClick(View v) {
                 goToPage(mentalConsultationForm,getParentFragmentManager());
+            }
+        });
+
+        documentTemplateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(legalDocTemplate,getParentFragmentManager());
             }
         });
 

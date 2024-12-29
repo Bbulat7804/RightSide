@@ -1,5 +1,7 @@
 package com.example.rightside;
 
+import static com.example.rightside.Manager.*;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -78,7 +81,7 @@ public class ManageRequestPage extends Fragment {
         LinearLayout cardContainer = view.findViewById(R.id.ManageRequestCardContainer);
 
         for (int i = 0; i < 20; i++) {
-            requests.add(new Request("Tajuk", "Information and Guidance", "Completed"));
+            requests.add(new Request("Tajuk", "Information and Guidance", "Completed", 1000));
         }
 
         for(int i=0 ; i<requests.size() ; i++){
@@ -92,10 +95,14 @@ public class ManageRequestPage extends Fragment {
         TextView cardTitle = card.findViewById(R.id.ManageRequestTitle);
         TextView cardDesiredOutcome = card.findViewById(R.id.ManageRequestDesiredOutcome);
         TextView cardUpdateStates = card.findViewById(R.id.ManageRequestStatusUpdate);
+        TextView id = card.findViewById(R.id.adminRequestId);
 
         cardTitle.setText(request.title);
         cardDesiredOutcome.setText(request.desiredOutcome);
         cardUpdateStates.setText(request.status);
+        id.setText(request.id + "");
+
+        initializeCardButton(card.findViewById(R.id.ManageRequestTitle),request.id);
 
         Spinner spinner = card.findViewById(R.id.ManageRequestSpinner);
 
@@ -106,6 +113,17 @@ public class ManageRequestPage extends Fragment {
     
 
         container.addView(card);
+    }
+
+    private void initializeCardButton(Button button, int id){
+        System.out.println(button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(viewRequestAdminPage,getParentFragmentManager());
+            }
+        });
+
     }
 
 

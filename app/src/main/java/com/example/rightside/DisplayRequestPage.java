@@ -1,5 +1,7 @@
 package com.example.rightside;
 
+import static com.example.rightside.Manager.*;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -75,7 +78,7 @@ public class DisplayRequestPage extends Fragment {
 
         LinearLayout cardContainer = view.findViewById(R.id.ViewRequestCardContainer);
         for (int i = 0; i < 20; i++) {
-            requests.add(new Request("Tajuk", "Information and Guidance", "Completed"));
+            requests.add(new Request("Tajuk", "Information and Guidance", "Completed",1000));
         }
 
         for(int i=0 ; i<requests.size() ; i++){
@@ -89,11 +92,25 @@ public class DisplayRequestPage extends Fragment {
         TextView cardTitle = card.findViewById(R.id.ButtonViewRequest);
         TextView cardDesiredOutcome = card.findViewById(R.id.ViewRequestDesiredOutcome);
         TextView cardUpdateStates = card.findViewById(R.id.ViewRequestStatusUpdate);
+        TextView id = card.findViewById(R.id.userRequestId);
 
         cardTitle.setText(request.title);
         cardDesiredOutcome.setText(request.desiredOutcome);
         cardUpdateStates.setText(request.status);
+        id.setText(request.id + "");
 
+        initializeCardButton(card.findViewById(R.id.ButtonViewRequest),request.id);
         container.addView(card);
+    }
+
+    private void initializeCardButton(Button button, int id){
+        System.out.println(button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(viewRequestPage,getParentFragmentManager());
+            }
+        });
+
     }
 }

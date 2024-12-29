@@ -26,11 +26,17 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/adminRequestId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1000"
+                android:textColor="#505050" />
+
             <Button
                 android:id="@+id/ManageRequestTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 android:background="#00FFFFFF"
                 android:ellipsize="end"
                 android:fontFamily="@font/roboto_bold"

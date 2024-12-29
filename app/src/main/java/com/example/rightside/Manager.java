@@ -19,8 +19,11 @@ public class Manager {
     public static Fragment legalConsultationForm = new LegalConsultationForm();
     public static Fragment mentalConsultationForm = new MentalConsultationForm();
     public static Fragment articlePage = new DiscoverPage();
-    
-
+    public static Fragment legalDocTemplate = new LegalDocTemplate();
+    public static Fragment adminRequestPage = new ManageRequestPage();
+    public static Fragment manageLegalDocTemplate = new ManageLegalDocTemplate();
+    public static Fragment viewRequestPage = new ViewRequestPage();
+    public static Fragment viewRequestAdminPage = new ViewRequestAdminPage();
     public static String userType;
     public static LinkedList<Fragment> stack = new LinkedList();
     public static void goToPage(Fragment fragment, FragmentManager fm){

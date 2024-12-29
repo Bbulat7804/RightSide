@@ -1,5 +1,7 @@
 package com.example.rightside;
 
+import static com.example.rightside.Manager.*;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -71,6 +73,55 @@ public class AdminHomePage extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         LinearLayout eventImageContainer = view.findViewById(R.id.EventImageContainer);
         LinearLayout articleImageContainer = view.findViewById(R.id.ArticleImageContainer);
+
+        LinearLayout reportButton = view.findViewById(R.id.UserReportButton);
+        LinearLayout manageRequestButton = view.findViewById(R.id.AdminManageRequestButton);
+        LinearLayout supportGroupsButton = view.findViewById(R.id.AdminSupportGroupsButton);
+        LinearLayout eventsButton = view.findViewById(R.id.AdminEventsButton);
+        LinearLayout eventCalendarButton = view.findViewById(R.id.EventCalendarButton);
+        LinearLayout documentTemplateButton = view.findViewById(R.id.DocumentTemplateButton);
+        LinearLayout liveDataButton = view.findViewById(R.id.LiveDataButton);
+        //add Quiz Button
+        LinearLayout reportHistoryButton = view.findViewById(R.id.ReportHistoryButton);
+        LinearLayout stressManagementButton = view.findViewById(R.id.StressManagementButton);
+        LinearLayout uploadArticleButton = view.findViewById(R.id.UploadArticlesButton);
+        LinearLayout articleButton = view.findViewById(R.id.ArticlesButton);
+
+        manageRequestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(adminRequestPage,getParentFragmentManager());
+            }
+        });
+
+        eventsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(eventsPage,getParentFragmentManager());
+            }
+        });
+
+        documentTemplateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(manageLegalDocTemplate,getParentFragmentManager());
+            }
+        });
+
+        liveDataButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(dataInsigtsPage,getParentFragmentManager());
+            }
+        });
+
+        articleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(articlePage,getParentFragmentManager());
+            }
+        });
+
         for(int i=0; i<10 ; i++){
             addImage(eventImageContainer,R.drawable.sample_event_image);
         }
