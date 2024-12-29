@@ -29,7 +29,7 @@
 
             <Spinner
                 android:id="@+id/MentalConsultationReasonSpinner"
-                android:layout_width="316dp"
+                android:layout_width="305dp"
                 android:layout_height="39dp"
                 android:layout_marginTop="28dp"
                 android:layout_marginBottom="18dp"
@@ -38,7 +38,7 @@
 
             <Spinner
                 android:id="@+id/MentalDesiredOutcomeSpinner"
-                android:layout_width="321dp"
+                android:layout_width="354dp"
                 android:layout_height="39dp"
                 android:background="@drawable/box_rounded_bordered_white"
                 android:popupBackground="@drawable/box_rounded_bordered_white" />
