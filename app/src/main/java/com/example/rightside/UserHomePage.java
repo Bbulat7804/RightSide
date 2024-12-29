@@ -9,31 +9,26 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
-
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ManageRequestPage#newInstance} factory method to
+ * Use the {@link UserHomePage#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ManageRequestPage extends Fragment {
+public class UserHomePage extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private static final ArrayList<Request> requests = new ArrayList<>();
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    public ManageRequestPage() {
+    public UserHomePage() {
         // Required empty public constructor
     }
 
@@ -43,11 +38,11 @@ public class ManageRequestPage extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment_manage_request.
+     * @return A new instance of fragment fragment_home.
      */
     // TODO: Rename and change types and number of parameters
-    public static ManageRequestPage newInstance(String param1, String param2) {
-        ManageRequestPage fragment = new ManageRequestPage();
+    public static UserHomePage newInstance(String param1, String param2) {
+        UserHomePage fragment = new UserHomePage();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -68,44 +63,33 @@ public class ManageRequestPage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_manage_request, container, false);
+        return inflater.inflate(R.layout.fragment_user_home, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        LinearLayout cardContainer = view.findViewById(R.id.ManageRequestCardContainer);
-
-        for (int i = 0; i < 20; i++) {
-            requests.add(new Request("Tajuk", "Information and Guidance", "Completed"));
+        LinearLayout eventImageContainer = view.findViewById(R.id.EventImageContainer);
+        LinearLayout articleImageContainer = view.findViewById(R.id.ArticleImageContainer);
+        for(int i=0; i<10 ; i++){
+            addImage(eventImageContainer,R.drawable.sample_event_image);
         }
-
-        for(int i=0 ; i<requests.size() ; i++){
-            addCard(cardContainer,requests.get(i));
+        for(int i=0; i<10 ; i++){
+            addImage(articleImageContainer,R.drawable.sample_article_image);
         }
     }
 
-    private void addCard(LinearLayout container, Request request){
-        View card = LayoutInflater.from(getActivity()).inflate(R.layout.card_manage_request,container,false);
+    public void addImage(LinearLayout container, int imageResource){
+        ImageView imageView = new ImageView(container.getContext());
+        imageView.setImageResource(imageResource);
 
-        TextView cardTitle = card.findViewById(R.id.ManageRequestTitle);
-        TextView cardDesiredOutcome = card.findViewById(R.id.ManageRequestDesiredOutcome);
-        TextView cardUpdateStates = card.findViewById(R.id.ManageRequestStatusUpdate);
+        // Set layout parameters for proper sizing
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(1000, LinearLayout.LayoutParams.MATCH_PARENT);
 
-        cardTitle.setText(request.title);
-        cardDesiredOutcome.setText(request.desiredOutcome);
-        cardUpdateStates.setText(request.status);
+        params.setMargins(20, 0, 0, 10); // Optional: Add spacing between images
+        imageView.setLayoutParams(params);
 
-        Spinner spinner = card.findViewById(R.id.ManageRequestSpinner);
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.RequestUpdate,R.layout.layout_spinner);
-        adapter.setDropDownViewResource(R.layout.layout_spinner);
-        spinner.setAdapter(adapter);
-
-    
-
-        container.addView(card);
+        container.addView(imageView);
     }
 
 

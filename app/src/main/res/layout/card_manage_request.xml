@@ -85,11 +85,12 @@
                 <Spinner
                     android:id="@+id/ManageRequestSpinner"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="match_parent"
                     android:layout_gravity="bottom"
                     android:layout_marginStart="110dp"
                     android:layout_weight="1"
-                    android:background="@drawable/box_rounded_bordered_white" />
+                    android:background="@drawable/box_rounded_bordered_white"
+                    android:popupBackground="@drawable/box_rounded_bordered_white" />
             </LinearLayout>
 
         </LinearLayout>

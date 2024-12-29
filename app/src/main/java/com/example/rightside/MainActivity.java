@@ -3,6 +3,8 @@ package com.example.rightside;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -25,9 +27,34 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        LinearLayout homeButton = findViewById(R.id.HomeButton);
+        LinearLayout profileButton = findViewById(R.id.ProfileButton);
+        LinearLayout helpButton = findViewById(R.id.HelpButton);
+
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("home");
+            }
+        });
+
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("profile");
+            }
+        });
+
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("help");
+            }
+        });
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, new LegalDocTemplate()) //
+                    .add(R.id.fragment_container, new FAQPage()) //
                     .commit();
         }
 
@@ -36,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.up_button_color);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.color_up_button);
     }
 
     @Override

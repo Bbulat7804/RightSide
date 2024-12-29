@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkBlue"
+    tools:context=".FAQPage">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- FAQ Item 1 -->
+        <TextView
+            android:id="@+id/textView27"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="FAQs"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/faqQuestion1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/box_rounded_white"
+            android:fontFamily="@font/roboto_bold"
+            android:paddingLeft="25dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="What is this app about?"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/faqAnswer1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/box_rounded_blue"
+            android:fontFamily="@font/roboto_bold"
+            android:paddingLeft="25dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="This app is a platform to report and address discrimination incidents, as well as to provide resources that educate the public about equality and human rights."
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <!-- FAQ Item 2 -->
+        <TextView
+            android:id="@+id/faqQuestion2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/box_rounded_white"
+            android:fontFamily="@font/roboto_bold"
+            android:paddingLeft="25dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="How can I report a discrimination incident?"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/faqAnswer2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/box_rounded_blue"
+            android:fontFamily="@font/roboto_bold"
+            android:paddingLeft="25dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="You can use the report module within the app. Fill in the details of the incident, such as the location, time, type of discrimination, and any evidence (if available), and then submit the report."
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <!-- FAQ Item 3 -->
+        <TextView
+            android:id="@+id/faqQuestion3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/box_rounded_white"
+            android:fontFamily="@font/roboto_bold"
+            android:paddingLeft="25dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="Who will receive my report?"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/faqAnswer3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/box_rounded_blue"
+            android:fontFamily="@font/roboto_bold"
+            android:paddingLeft="25dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="Your report will be sent to the relevant authorities or organizations responsible for investigating and taking action."
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <!-- FAQ Item 4 -->
+        <TextView
+            android:id="@+id/faqQuestion4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/box_rounded_white"
+            android:fontFamily="@font/roboto_bold"
+            android:paddingLeft="25dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="Is my information kept confidential?"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/faqAnswer4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/box_rounded_blue"
+            android:fontFamily="@font/roboto_bold"
+            android:paddingLeft="25dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="Yes, we ensure that all your information is kept confidential and will only be used for investigation purposes."
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <!-- FAQ Item 5 -->
+        <TextView
+            android:id="@+id/faqQuestion5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/box_rounded_white"
+            android:fontFamily="@font/roboto_bold"
+            android:paddingLeft="25dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="Can I track the status of my report?"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/faqAnswer5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/box_rounded_blue"
+            android:fontFamily="@font/roboto_bold"
+            android:paddingLeft="25dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="Yes, you can track the status of your report through the 'Report Status' section in the app."
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <!-- FAQ Item 6 -->
+        <TextView
+            android:id="@+id/faqQuestion6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/box_rounded_white"
+            android:fontFamily="@font/roboto_bold"
+            android:paddingLeft="25dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="How does this app help prevent discrimination?"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/faqAnswer6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/box_rounded_blue"
+            android:fontFamily="@font/roboto_bold"
+            android:paddingLeft="25dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="This app is not only for reporting incidents but also provides educational resources such as articles, videos, and courses to raise awareness about human rights and equality."
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <!-- FAQ Item 7 -->
+        <TextView
+            android:id="@+id/faqQuestion7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/box_rounded_white"
+            android:fontFamily="@font/roboto_bold"
+            android:paddingLeft="25dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="Is this app free?"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/faqAnswer7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/box_rounded_blue"
+            android:fontFamily="@font/roboto_bold"
+            android:paddingLeft="25dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="Yes, the app can be downloaded and used for free."
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <!-- FAQ Item 8 -->
+        <TextView
+            android:id="@+id/faqQuestion8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/box_rounded_white"
+            android:fontFamily="@font/roboto_bold"
+            android:paddingLeft="25dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="Who can use this app?"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/faqAnswer8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/box_rounded_blue"
+            android:fontFamily="@font/roboto_bold"
+            android:paddingLeft="25dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="This app is open to anyone who wants to report discrimination or learn more about rights and equality."
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <!-- FAQ Item 9 -->
+        <TextView
+            android:id="@+id/faqQuestion9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/box_rounded_white"
+            android:fontFamily="@font/roboto_bold"
+            android:paddingLeft="25dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="Does this app support multiple languages?"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/faqAnswer9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/box_rounded_blue"
+            android:fontFamily="@font/roboto_bold"
+            android:paddingLeft="25dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="Yes, the app supports multiple languages to ensure broader accessibility."
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <!-- FAQ Item 10 -->
+        <TextView
+            android:id="@+id/faqQuestion10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/box_rounded_white"
+            android:fontFamily="@font/roboto_bold"
+            android:paddingLeft="25dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="How can I provide feedback about the app?"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/faqAnswer10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/box_rounded_blue"
+            android:fontFamily="@font/roboto_bold"
+            android:paddingLeft="25dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="You can provide feedback or suggestions through the 'Contact Us' section within the app."
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+</ScrollView>

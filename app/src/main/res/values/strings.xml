@@ -109,9 +109,10 @@
     </string-array>
 
     <string-array name="RequestUpdate">
-        <item>Status</item>
+        <item>Pending</item>
         <item>Ongoing</item>
         <item>Completed</item>
         <item>Rejected</item>
     </string-array>
+
 </resources>

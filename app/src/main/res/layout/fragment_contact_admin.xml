@@ -91,7 +91,7 @@
                     android:layout_weight="1"
                     android:backgroundTint="#00FFFFFF"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/send_button" />
+                    android:src="@drawable/icon_send_button" />
 
             </LinearLayout>
         </ScrollView>
