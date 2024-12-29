@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="800dp"
     android:background="@color/darkBlue"
-    tools:context=".ModifyConsultation" >
+    tools:context=".ModifyLegalConsultation" >
 
     <ScrollView
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
 
             <Spinner
                 android:id="@+id/LegalConsultationReasonSpinner"
-                android:layout_width="246dp"
+                android:layout_width="305dp"
                 android:layout_height="39dp"
                 android:layout_marginTop="28dp"
                 android:layout_marginBottom="18dp"
@@ -223,20 +223,30 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/add_attachment" />
 
-            <Button
-                android:id="@+id/buttonSubmitLegalForm"
-                android:layout_width="wrap_content"
-                android:layout_height="45dp"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:backgroundTint="@color/blue"
-                android:text="SUBMIT" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/buttonCancelRequestLegal"
+                    android:layout_width="10dp"
+                    android:layout_height="45dp"
+                    android:layout_marginEnd="130dp"
+                    android:layout_weight="1"
+                    android:text="Cancel Request" />
+
+                <Button
+                    android:id="@+id/buttonSubmitLegalForm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:backgroundTint="@color/blue"
+                    android:text="SUBMIT" />
+
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" />
 
 </FrameLayout>

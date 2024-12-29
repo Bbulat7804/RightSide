@@ -19,7 +19,7 @@
             android:paddingEnd="24dp">
 
             <TextView
-                android:id="@+id/TVpreferredConsultationType"
+                android:id="@+id/TVViewRequestConsultationType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_bold"
@@ -73,8 +73,8 @@
                 android:textSize="16dp" />
 
             <TextView
-                android:id="@+id/TVconsultationReason"
-                android:layout_width="248dp"
+                android:id="@+id/TVViewRequestconsultationReason"
+                android:layout_width="305dp"
                 android:layout_height="39dp"
                 android:background="@drawable/box_rounded_bordered_white"
                 android:ems="10"
@@ -82,7 +82,7 @@
                 android:paddingStart="10dp" />
 
             <TextView
-                android:id="@+id/TVconsultationReason"
+                android:id="@+id/TVViewRequestConsultationReason"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
@@ -93,8 +93,8 @@
                 android:textSize="16dp" />
 
             <TextView
-                android:id="@+id/TVconsultationOutcome"
-                android:layout_width="264dp"
+                android:id="@+id/TVViewRequestconsultationOutcome"
+                android:layout_width="354dp"
                 android:layout_height="39dp"
                 android:background="@drawable/box_rounded_bordered_white"
                 android:ems="10"
@@ -137,7 +137,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/TVpreferredConsultationType"
+                    android:id="@+id/TVViewConsultationType"
                     android:layout_width="306dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
@@ -236,10 +236,9 @@
             <ListView
                 android:id="@+id/attachments"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="@color/white"
-                android:padding="5dp" />
+                android:background="@color/white" />
 
             <TextView
                 android:id="@+id/emptyAttachments"
