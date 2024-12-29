@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#00FFFFFF"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".UserMainActivity">
 
 
     <!-- Testing -->
@@ -17,9 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/darkBlue"
+        android:background="@drawable/background_toolbar_admin"
         android:minHeight="?attr/actionBarSize"
-        android:paddingRight="10dp"
         android:theme="?attr/actionBarTheme"
         app:menu="@menu/menu_mailbox" />
 

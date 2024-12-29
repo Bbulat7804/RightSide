@@ -1,5 +1,7 @@
 package com.example.rightside;
 
+import static com.example.rightside.Manager.*;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,6 +74,64 @@ public class UserHomePage extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         LinearLayout eventImageContainer = view.findViewById(R.id.EventImageContainer);
         LinearLayout articleImageContainer = view.findViewById(R.id.ArticleImageContainer);
+        LinearLayout liveDataButton = view.findViewById(R.id.LiveDataButton);
+        LinearLayout eventsButton = view.findViewById(R.id.UserEventsButton);
+        LinearLayout manageRequestButton = view.findViewById(R.id.ManageRequestButton);
+        LinearLayout articlesButton = view.findViewById(R.id.ArticlesButton);
+        LinearLayout userConsultationButton = view.findViewById(R.id.UserConsultationButton);
+        TextView mentalConsultationButton = view.findViewById(R.id.MentalConsultationButton);
+        TextView legalConsultationButton = view.findViewById(R.id.LegalConsultationButton);
+
+        liveDataButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(dataInsigtsPage,getParentFragmentManager());
+            }
+        });
+
+        eventsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(eventsPage,getParentFragmentManager());
+            }
+        });
+
+        manageRequestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(userRequestPage,getParentFragmentManager());
+            }
+        });
+
+        articlesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(articlePage,getParentFragmentManager());
+            }
+        });
+
+        userConsultationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                legalConsultationButton.setVisibility(legalConsultationButton.getVisibility()==View.GONE ? View.VISIBLE : View.GONE);
+                mentalConsultationButton.setVisibility(mentalConsultationButton.getVisibility()==View.GONE ? View.VISIBLE : View.GONE);
+            }
+        });
+
+        legalConsultationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(legalConsultationForm,getParentFragmentManager());
+            }
+        });
+
+        mentalConsultationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(mentalConsultationForm,getParentFragmentManager());
+            }
+        });
+
         for(int i=0; i<10 ; i++){
             addImage(eventImageContainer,R.drawable.sample_event_image);
         }

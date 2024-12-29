@@ -1,5 +1,8 @@
 package com.example.rightside;
 
+import static com.example.rightside.Manager.*;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,13 +17,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
+public class UserMainActivity extends AppCompatActivity {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_user);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -30,33 +35,33 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout homeButton = findViewById(R.id.HomeButton);
         LinearLayout profileButton = findViewById(R.id.ProfileButton);
         LinearLayout helpButton = findViewById(R.id.HelpButton);
+        if(savedInstanceState == null) {
+            goToPage(userHomePage, getSupportFragmentManager());
+        }
 
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("home");
+                stack.clear();
+                goToPage(userHomePage,getSupportFragmentManager());
             }
         });
 
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("profile");
+                goToPage(userProfilePage,getSupportFragmentManager());
             }
         });
 
         helpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("help");
+                goToPage(faqPage,getSupportFragmentManager());
             }
         });
 
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, new FAQPage()) //
-                    .commit();
-        }
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -68,7 +73,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp(){
-        onBackPressed();
+        if(stack.isEmpty()) {
+            Intent intent = new Intent(UserMainActivity.this, LoginPage.class);
+            startActivity(intent);
+        }
+        else
+            stack.removeFirst();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,stack.getFirst()).commit();
         return true;
     }
 
@@ -88,4 +99,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }

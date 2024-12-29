@@ -2,18 +2,22 @@ package com.example.rightside;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link fragment_admin_home#newInstance} factory method to
+ * Use the {@link AdminProfilePage#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_admin_home extends Fragment {
+public class AdminProfilePage extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +28,7 @@ public class fragment_admin_home extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public fragment_admin_home() {
+    public AdminProfilePage() {
         // Required empty public constructor
     }
 
@@ -34,11 +38,11 @@ public class fragment_admin_home extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment_admin_home.
+     * @return A new instance of fragment fragment_admin_profile.
      */
     // TODO: Rename and change types and number of parameters
-    public static fragment_admin_home newInstance(String param1, String param2) {
-        fragment_admin_home fragment = new fragment_admin_home();
+    public static AdminProfilePage newInstance(String param1, String param2) {
+        AdminProfilePage fragment = new AdminProfilePage();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -59,6 +63,28 @@ public class fragment_admin_home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_admin_home, container, false);
+        return inflater.inflate(R.layout.fragment_admin_profile, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        LinearLayout eventImageContainer = view.findViewById(R.id.JoinedEventImageContainer);
+        for(int i=0; i<10 ; i++){
+            addImage(eventImageContainer,R.drawable.sample_event_image);
+        }
+    }
+
+    public void addImage(LinearLayout container, int imageResource){
+        ImageView imageView = new ImageView(container.getContext());
+        imageView.setImageResource(imageResource);
+
+        // Set layout parameters for proper sizing
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(1000, LinearLayout.LayoutParams.MATCH_PARENT);
+
+        params.setMargins(20, 0, 0, 10); // Optional: Add spacing between images
+        imageView.setLayoutParams(params);
+
+        container.addView(imageView);
     }
 }

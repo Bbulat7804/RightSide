@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkBlue"
+    android:id="@+id/userHome"
     tools:context=".UserHomePage">
 
     <LinearLayout
@@ -34,18 +35,20 @@
             android:textColor="#FFFFFF"
             android:textSize="16sp" />
 
-        <FrameLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="542dp"
             android:layout_marginTop="20dp">
 
             <LinearLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="495dp"
-                android:layout_marginTop="30dp"
                 android:background="@drawable/box_rounded_bordered_white"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:layout_editor_absoluteX="16dp">
 
                 <TextView
                     android:id="@+id/textView20"
@@ -53,7 +56,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
                     android:fontFamily="@font/roboto_bold"
-                    android:text="Events Near You" />
+                    android:text="Events Near You"
+                    android:textColor="#000000" />
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
@@ -73,7 +77,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/roboto_bold"
-                    android:text="Article" />
+                    android:text="Article"
+                    android:textColor="#000000" />
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
@@ -93,7 +98,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/roboto_bold"
-                    android:text="Events" />
+                    android:text="Events"
+                    android:textColor="#000000" />
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
@@ -176,7 +182,7 @@
                             android:orientation="vertical">
 
                             <LinearLayout
-                                android:id="@+id/LiveButton"
+                                android:id="@+id/LiveDataButton"
                                 android:layout_width="50dp"
                                 android:layout_height="match_parent"
                                 android:layout_marginBottom="5dp"
@@ -349,15 +355,19 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linearLayout2"
                 android:layout_width="351dp"
                 android:layout_height="65dp"
-                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
                 android:background="@drawable/box_rounded_blue"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal"
                 android:paddingLeft="25dp"
                 android:paddingTop="10dp"
-                android:paddingRight="25dp">
+                android:paddingRight="25dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
                     android:id="@+id/UserReportButton"
@@ -462,8 +472,43 @@
                         android:textColor="@color/white"
                         android:textSize="7sp" />
                 </LinearLayout>
+
             </LinearLayout>
-        </FrameLayout>
+
+            <TextView
+                android:id="@+id/MentalConsultationButton"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="70dp"
+                android:background="@drawable/box_rounded_blue"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Mental Consultation"
+                android:textColor="@color/white"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+            <TextView
+                android:id="@+id/LegalConsultationButton"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/box_rounded_blue"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Legal Consultation"
+                android:textColor="@color/white"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/MentalConsultationButton"
+                app:layout_constraintStart_toStartOf="@+id/MentalConsultationButton"
+                app:layout_constraintTop_toBottomOf="@+id/MentalConsultationButton" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 </ScrollView>

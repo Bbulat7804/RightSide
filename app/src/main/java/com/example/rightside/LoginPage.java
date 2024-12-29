@@ -1,5 +1,8 @@
 package com.example.rightside;
 
+import static com.example.rightside.Manager.*;
+
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.InputType;
@@ -7,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +32,7 @@ public class LoginPage extends AppCompatActivity {
             return insets;
         });
 
+        RadioGroup loginOptionGroup = findViewById(R.id.LoginOptionGroup);
         EditText emailInput = findViewById(R.id.SignUpEmailInput);
         EditText passwordInput = findViewById(R.id.LoginPasswordInput);
         ImageButton HideButton = findViewById(R.id.HideButton);
@@ -36,7 +42,8 @@ public class LoginPage extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //add login function
+                int selectedId = loginOptionGroup.getCheckedRadioButtonId();
+                login(selectedId);
             }
         });
 
@@ -54,5 +61,22 @@ public class LoginPage extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void login(int selectedId){
+
+        if(selectedId==-1)
+            return;
+        RadioButton selectedButton = findViewById(selectedId);
+        if(selectedButton.getText().toString().equalsIgnoreCase(USER)){
+            userType = USER;
+            Intent intent = new Intent(LoginPage.this, UserMainActivity.class);
+            startActivity(intent);
+        }
+        else{
+            userType = ADMIN;
+            Intent intent = new Intent(LoginPage.this, AdminMainActivity.class);
+            startActivity(intent);
+        }
     }
 }
