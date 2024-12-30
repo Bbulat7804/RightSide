@@ -133,9 +133,9 @@
                     android:orientation="horizontal">
 
                     <!--nanti tambah sini-->
-                    <include layout="@layout/card_volunteer_page" />
-                    <include layout="@layout/card_volunteer_page" />
-                    <include layout="@layout/card_volunteer_page" />
+                    <include layout="@layout/card_events_page" />
+                    <include layout="@layout/card_events_page" />
+                    <include layout="@layout/card_events_page" />
                 </LinearLayout>
 
             </HorizontalScrollView>

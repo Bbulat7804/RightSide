@@ -11,30 +11,27 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.ImageButton;
 
-import java.util.ArrayList;
+import java.sql.SQLOutput;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link DisplayRequestPage#newInstance} factory method to
+ * Use the {@link ArticleDiscoverAdminPage#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DisplayRequestPage extends Fragment {
+public class ArticleDiscoverAdminPage extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private static final ArrayList<Request> requests = new ArrayList<>();
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    public DisplayRequestPage() {
+    public ArticleDiscoverAdminPage() {
         // Required empty public constructor
     }
 
@@ -44,11 +41,11 @@ public class DisplayRequestPage extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment_display_request.
+     * @return A new instance of fragment fragment_article_discover_admin.
      */
     // TODO: Rename and change types and number of parameters
-    public static DisplayRequestPage newInstance(String param1, String param2) {
-        DisplayRequestPage fragment = new DisplayRequestPage();
+    public static ArticleDiscoverAdminPage newInstance(String param1, String param2) {
+        ArticleDiscoverAdminPage fragment = new ArticleDiscoverAdminPage();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -69,47 +66,18 @@ public class DisplayRequestPage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_display_request, container, false);
+        return inflater.inflate(R.layout.fragment_article_discover_admin, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        LinearLayout cardContainer = view.findViewById(R.id.ViewRequestCardContainer);
-        for (int i = 0; i < 20; i++) {
-            requests.add(new Request("Tajuk", "Information and Guidance", "Completed",1000));
-        }
-
-        for(int i=0 ; i<requests.size() ; i++){
-            addCard(cardContainer,requests.get(i));
-        }
-    }
-
-    private void addCard(LinearLayout container, Request request){
-        View card = LayoutInflater.from(getActivity()).inflate(R.layout.card_view_request,container,false);
-
-        TextView cardTitle = card.findViewById(R.id.ButtonViewRequest);
-        TextView cardDesiredOutcome = card.findViewById(R.id.ViewRequestDesiredOutcome);
-        TextView cardUpdateStates = card.findViewById(R.id.ViewRequestStatusUpdate);
-        TextView id = card.findViewById(R.id.userRequestId);
-
-        cardTitle.setText(request.title);
-        cardDesiredOutcome.setText(request.desiredOutcome);
-        cardUpdateStates.setText(request.status);
-        id.setText(request.id + "");
-
-        initializeCardButton(card.findViewById(R.id.ButtonViewRequest),request.id);
-        container.addView(card);
-    }
-
-    private void initializeCardButton(Button button, int id){
-        button.setOnClickListener(new View.OnClickListener() {
+        ImageButton uploadButton = view.findViewById(R.id.UploadButton);
+        uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToPage(viewRequestPage,getParentFragmentManager());
+                goToPage(uploadArticlePage,getParentFragmentManager());
             }
         });
-
     }
 }

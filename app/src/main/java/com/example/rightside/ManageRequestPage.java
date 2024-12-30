@@ -116,7 +116,6 @@ public class ManageRequestPage extends Fragment {
     }
 
     private void initializeCardButton(Button button, int id){
-        System.out.println(button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

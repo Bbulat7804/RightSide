@@ -18,17 +18,28 @@ public class Manager {
     public static Fragment userRequestPage = new DisplayRequestPage();
     public static Fragment legalConsultationForm = new LegalConsultationForm();
     public static Fragment mentalConsultationForm = new MentalConsultationForm();
-    public static Fragment articlePage = new DiscoverPage();
+    public static Fragment articlePage = new ArticleDiscoverPage();
+    public static Fragment articleAdminPage = new ArticleDiscoverAdminPage();
+    public static Fragment uploadArticlePage = new UploadArticlePage();
     public static Fragment legalDocTemplate = new LegalDocTemplate();
     public static Fragment adminRequestPage = new ManageRequestPage();
     public static Fragment manageLegalDocTemplate = new ManageLegalDocTemplate();
     public static Fragment viewRequestPage = new ViewRequestPage();
     public static Fragment viewRequestAdminPage = new ViewRequestAdminPage();
+    public static Fragment contactAdminPage = new ContactAdminPage();
+    public static Fragment contactUserPage = new ContactUserPage();
+    public static Fragment modifyLegalConsultationPage = new ModifyLegalConsultation();
+    public static Fragment modifyMentalConsultationPage = new ModifyMentalConsultation();
     public static String userType;
     public static LinkedList<Fragment> stack = new LinkedList();
     public static void goToPage(Fragment fragment, FragmentManager fm){
         int containerId = R.id.fragment_container;
         fm.beginTransaction().replace(containerId,fragment).commit();
         stack.addFirst(fragment);
+    }
+
+    public static void goToSiblingPage(Fragment fragment, FragmentManager fm){
+        int containerId = R.id.fragment_container;
+        fm.beginTransaction().replace(containerId,fragment).commit();
     }
 }

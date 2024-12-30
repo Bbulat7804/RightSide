@@ -118,7 +118,7 @@ public class AdminHomePage extends Fragment {
         articleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToPage(articlePage,getParentFragmentManager());
+                goToPage(articleAdminPage,getParentFragmentManager());
             }
         });
 
