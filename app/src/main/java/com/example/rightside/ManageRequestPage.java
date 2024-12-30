@@ -110,8 +110,6 @@ public class ManageRequestPage extends Fragment {
         adapter.setDropDownViewResource(R.layout.layout_spinner);
         spinner.setAdapter(adapter);
 
-    
-
         container.addView(card);
     }
 

@@ -206,7 +206,7 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:id="@+id/ContactAdminButton"
+                                android:id="@+id/QuizButton"
                                 android:layout_width="50dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -217,7 +217,7 @@
                                     android:layout_width="25dp"
                                     android:layout_height="25dp"
                                     android:layout_weight="1"
-                                    android:src="@drawable/icon_contact_admin" />
+                                    android:src="@drawable/icon_quiz" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -225,7 +225,7 @@
                                     android:layout_weight="1"
                                     android:fontFamily="@font/roboto_bold"
                                     android:gravity="center_horizontal"
-                                    android:text="Contact Admin"
+                                    android:text="Quiz"
                                     android:textColor="@color/green"
                                     android:textSize="7sp" />
                             </LinearLayout>

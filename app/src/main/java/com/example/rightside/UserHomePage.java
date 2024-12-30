@@ -26,7 +26,6 @@ public class UserHomePage extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -75,6 +74,10 @@ public class UserHomePage extends Fragment {
         LinearLayout eventImageContainer = view.findViewById(R.id.EventImageContainer);
         LinearLayout articleImageContainer = view.findViewById(R.id.ArticleImageContainer);
 
+        //Declare data display view
+        TextView nameTV = view.findViewById(R.id.HomeNameTV);
+        nameTV.setText("Name");
+
         //Declare Buttons
         LinearLayout liveDataButton = view.findViewById(R.id.LiveDataButton);
         LinearLayout eventsButton = view.findViewById(R.id.UserEventsButton);
@@ -86,7 +89,7 @@ public class UserHomePage extends Fragment {
         LinearLayout stressManagementButton = view.findViewById(R.id.StressManagementButton);
         LinearLayout eventCalendarButton = view.findViewById(R.id.EventCalendarButton);
         LinearLayout reportHistoryButton = view.findViewById(R.id.ReportHistoryButton);
-        // add quiz button
+        LinearLayout quizButton = view.findViewById(R.id.QuizButton);
         LinearLayout documentTemplateButton = view.findViewById(R.id.DocumentTemplateButton);
         TextView mentalConsultationButton = view.findViewById(R.id.MentalConsultationButton);
         TextView legalConsultationButton = view.findViewById(R.id.LegalConsultationButton);

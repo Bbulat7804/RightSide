@@ -31,6 +31,8 @@ public class Manager {
     public static Fragment modifyLegalConsultationPage = new ModifyLegalConsultation();
     public static Fragment modifyMentalConsultationPage = new ModifyMentalConsultation();
     public static String userType;
+
+    public static String name;
     public static LinkedList<Fragment> stack = new LinkedList();
     public static void goToPage(Fragment fragment, FragmentManager fm){
         int containerId = R.id.fragment_container;

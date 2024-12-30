@@ -43,7 +43,7 @@ public class LoginPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int selectedId = loginOptionGroup.getCheckedRadioButtonId();
-                login(selectedId);
+                login(selectedId, emailInput.getText().toString(), passwordInput.getText().toString());
             }
         });
 
@@ -63,20 +63,32 @@ public class LoginPage extends AppCompatActivity {
         });
     }
 
-    private void login(int selectedId){
-
+    private void login(int selectedId, String email, String password){
         if(selectedId==-1)
             return;
+        //Check login type user/admin
         RadioButton selectedButton = findViewById(selectedId);
-        if(selectedButton.getText().toString().equalsIgnoreCase(USER)){
-            userType = USER;
+        Manager.userType = selectedButton.getText().toString().toUpperCase();
+
+        //if password or email is wrong return false
+        if(!validateLoginData(email,password))
+            return;
+
+        //loadUserData();
+
+        //change page based on login type
+        if(userType.equalsIgnoreCase(USER)){
             Intent intent = new Intent(LoginPage.this, UserMainActivity.class);
             startActivity(intent);
         }
         else{
-            userType = ADMIN;
             Intent intent = new Intent(LoginPage.this, AdminMainActivity.class);
             startActivity(intent);
         }
     }
+
+    private boolean validateLoginData(String email, String password){
+        return true;
+    }
+
 }

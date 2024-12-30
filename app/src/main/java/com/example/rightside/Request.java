@@ -5,6 +5,7 @@ public class Request {
     String desiredOutcome;
     String status;
     int id;
+
     public Request(String title, String desiredOutcome, String status, int id) {
         this.title = title;
         this.desiredOutcome = desiredOutcome;

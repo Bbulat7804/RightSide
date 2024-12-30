@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,6 +75,11 @@ public class AdminHomePage extends Fragment {
         LinearLayout eventImageContainer = view.findViewById(R.id.EventImageContainer);
         LinearLayout articleImageContainer = view.findViewById(R.id.ArticleImageContainer);
 
+        //Declara data display view
+        TextView nameTV = view.findViewById(R.id.HomeNameTV);
+        nameTV.setText("Name");
+
+        //Declare Buttons
         LinearLayout reportButton = view.findViewById(R.id.UserReportButton);
         LinearLayout manageRequestButton = view.findViewById(R.id.AdminManageRequestButton);
         LinearLayout supportGroupsButton = view.findViewById(R.id.AdminSupportGroupsButton);
@@ -81,7 +87,7 @@ public class AdminHomePage extends Fragment {
         LinearLayout eventCalendarButton = view.findViewById(R.id.EventCalendarButton);
         LinearLayout documentTemplateButton = view.findViewById(R.id.DocumentTemplateButton);
         LinearLayout liveDataButton = view.findViewById(R.id.LiveDataButton);
-        //add Quiz Button
+        LinearLayout quizButton = view.findViewById(R.id.QuizButton);
         LinearLayout reportHistoryButton = view.findViewById(R.id.ReportHistoryButton);
         LinearLayout stressManagementButton = view.findViewById(R.id.StressManagementButton);
         LinearLayout uploadArticleButton = view.findViewById(R.id.UploadArticlesButton);

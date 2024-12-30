@@ -2,11 +2,18 @@ package com.example.rightside;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +66,32 @@ public class EventsPage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_volunteer_page, container, false);
+        return inflater.inflate(R.layout.fragment_events_page, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        LinearLayout eventCardContainer = view.findViewById(R.id.EventCardContainer);
+
+        for(int i=0 ; i<10 ; i++){
+            addEventCard(eventCardContainer,new Event("Title","Organizer","Description"));
+        }
+    }
+
+    public void addEventCard(LinearLayout container, Event event){
+        View card = LayoutInflater.from(getActivity()).inflate(R.layout.card_events_page,container,false);
+
+        TextView eventTitle = card.findViewById(R.id.EventTitle);
+        TextView eventOrganizer = card.findViewById(R.id.EventOrganizer);
+        TextView eventDescription = card.findViewById(R.id.EventDescription);
+        ImageView eventImage = card.findViewById(R.id.EventImage);
+
+        eventTitle.setText(event.title);
+        eventOrganizer.setText(event.organizer);
+        eventDescription.setText(event.description);
+        eventImage.setImageResource(R.mipmap.ic_rightside);
+
+        container.addView(card);
     }
 }

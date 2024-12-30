@@ -1,9 +1,6 @@
 package com.example.rightside;
 
-import static com.example.rightside.Manager.contactAdminPage;
-import static com.example.rightside.Manager.goToPage;
 import static com.example.rightside.Manager.goToSiblingPage;
-import static com.example.rightside.Manager.viewRequestAdminPage;
 import static com.example.rightside.Manager.viewRequestPage;
 
 import android.os.Bundle;
@@ -16,6 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,6 +76,17 @@ public class ContactAdminPage extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Button requestButton = view.findViewById(R.id.buttonRequest);
+        ImageButton sendTextButton = view.findViewById(R.id.SendTextButton);
+        EditText chatInput = view.findViewById(R.id.ChatInput);
+        LinearLayout chatContainer = view.findViewById(R.id.ChatLinearLayout);
+
+        sendTextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendText(chatContainer,chatInput.getText().toString().trim(),chatInput);
+                receiveText(chatContainer,"testing",chatInput);
+            }
+        });
 
         requestButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,5 +94,29 @@ public class ContactAdminPage extends Fragment {
                 goToSiblingPage(viewRequestPage,getParentFragmentManager());
             }
         });
+    }
+
+    private void sendText(LinearLayout chatContainer, String text, EditText chatInput) {
+        if(text.equals(""))
+            return;
+        View chat = LayoutInflater.from(getActivity()).inflate(R.layout.layout_chat_bubble_send,chatContainer,false);
+
+        TextView chatText = chat.findViewById(R.id.ChatText);
+        chatText.setText(text);
+        chatInput.setText("");
+
+        chatContainer.addView(chat);
+    }
+
+    private void receiveText(LinearLayout chatContainer, String text, EditText chatInput) {
+        if(text.equals(""))
+            return;
+        View chat = LayoutInflater.from(getActivity()).inflate(R.layout.layout_chat_bubble_receive,chatContainer,false);
+
+        TextView chatText = chat.findViewById(R.id.ChatText);
+        chatText.setText(text);
+        chatInput.setText("");
+
+        chatContainer.addView(chat);
     }
 }
