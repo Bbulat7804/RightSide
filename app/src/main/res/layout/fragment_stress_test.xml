@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#001A3E"
+    tools:context=".fragment_stress_test">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/boxView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="-40dp"
+                    android:src="@drawable/box" />
+
+                <TextView
+                    android:id="@+id/testStress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|top"
+                    android:layout_marginTop="5dp"
+                    android:text="Test Your Stress"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="28sp" />
+
+                <TextView
+                    android:id="@+id/descTest"
+                    android:layout_width="match_parent"
+                    android:layout_height="209dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="-15dp"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="Knowing your current level of stress is the first step in taking control"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="33.4sp"
+                    android:textStyle="bold" />
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/instr_TV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|top"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="Simply answer the following 10 questions"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18.7sp" />
+
+                <TextView
+                    android:id="@+id/q1c_TV2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|top"
+                    android:layout_marginTop="50dp"
+                    android:layout_weight="1"
+                    android:text="In the LAST MONTH, how often have you:"
+                    android:textAlignment="textStart"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16.7sp" />
+
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="173dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/q1_TV"
+                        android:layout_width="214dp"
+                        android:layout_height="74dp"
+                        android:layout_gravity="start"
+                        android:layout_marginTop="250dp"
+                        android:text="Been upset because of something that happened unexpectedly?"
+                        android:textAlignment="textStart"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16.7sp" />
+
+                    <RadioGroup
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|top"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="0dp">
+
+                        <RadioButton
+                            android:id="@+id/radioButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="-10dp"
+                            android:text="Never"
+                            android:textColor="@color/white" />
+
+                        <RadioButton
+                            android:id="@+id/radioButton2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="-20dp"
+                            android:text="Almost never"
+                            android:textColor="@color/white" />
+
+                        <RadioButton
+                            android:id="@+id/radioButton3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="-20dp"
+                            android:text="Sometimes"
+                            android:textColor="@color/white" />
+
+                        <RadioButton
+                            android:id="@+id/radioButton4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="-20dp"
+                            android:text="Fairly Often"
+                            android:textColor="@color/white" />
+
+                        <RadioButton
+                            android:id="@+id/radioButton5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="-20dp"
+                            android:text="Often"
+                            android:textColor="@color/white" />
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="173dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/q1_TV"
+                        android:layout_width="214dp"
+                        android:layout_height="74dp"
+                        android:layout_gravity="start"
+                        android:layout_marginTop="250dp"
+                        android:text="Been upset because of something that happened unexpectedly?"
+                        android:textAlignment="textStart"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16.7sp" />
+
+                    <RadioGroup
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|top"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="0dp">
+
+                        <RadioButton
+                            android:id="@+id/radioButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="-10dp"
+                            android:text="Never"
+                            android:textColor="@color/white" />
+
+                        <RadioButton
+                            android:id="@+id/radioButton2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="-20dp"
+                            android:text="Almost never"
+                            android:textColor="@color/white" />
+
+                        <RadioButton
+                            android:id="@+id/radioButton3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="-20dp"
+                            android:text="Sometimes"
+                            android:textColor="@color/white" />
+
+                        <RadioButton
+                            android:id="@+id/radioButton4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="-20dp"
+                            android:text="Fairly Often"
+                            android:textColor="@color/white" />
+
+                        <RadioButton
+                            android:id="@+id/radioButton5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="-20dp"
+                            android:text="Often"
+                            android:textColor="@color/white" />
+                    </RadioGroup>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>
