@@ -36,7 +36,7 @@ public class UserMainActivity extends AppCompatActivity {
         LinearLayout profileButton = findViewById(R.id.ProfileButton);
         LinearLayout helpButton = findViewById(R.id.HelpButton);
         if(savedInstanceState == null) {
-            goToPage(userHomePage, getSupportFragmentManager());
+            goToPage(eventsPage, getSupportFragmentManager());
         }
 
         homeButton.setOnClickListener(new View.OnClickListener() {
@@ -77,9 +77,10 @@ public class UserMainActivity extends AppCompatActivity {
             Intent intent = new Intent(UserMainActivity.this, LoginPage.class);
             startActivity(intent);
         }
-        else
+        else {
             stack.removeFirst();
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,stack.getFirst()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, stack.getFirst()).commit();
+        }
         return true;
     }
 

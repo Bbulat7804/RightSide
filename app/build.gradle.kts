@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -45,6 +46,20 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("androidx.navigation:navigation-fragment:2.7.0")
     implementation("androidx.navigation:navigation-ui:2.7.0")
+    implementation (libs.glide)
+    annotationProcessor (libs.compiler)
 
-    implementation("com.github.PhilJay:MPAndroidChart:3.1.0")
+
+    implementation(libs.mpandroidchart)
+
+    // Import the BoM for the Firebase platform
+    implementation(platform(libs.firebase.bom))
+
+    // Declare the dependency for the Cloud Firestore library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation(libs.firebase.firestore)
+
+    // Add the dependencies for any other desired Firebase products
+    // dependency for the Cloud Storage library:
+    implementation(libs.firebase.storage)
 }
