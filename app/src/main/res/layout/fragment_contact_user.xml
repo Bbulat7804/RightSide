@@ -91,7 +91,6 @@
                 android:layout_marginStart="15dp"
                 android:layout_weight="7"
                 android:background="@drawable/box_rounded_bordered_white"
-                android:ems="10"
                 android:hint="Ask something"
                 android:inputType="text"
                 android:paddingStart="18dp"

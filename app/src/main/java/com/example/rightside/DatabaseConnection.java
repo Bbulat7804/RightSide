@@ -30,12 +30,10 @@ import java.util.Map;
 public class DatabaseConnection {
     private final FirebaseFirestore db;
     private final FirebaseStorage storage;
-
     public DatabaseConnection() {
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
     }
-
 
     // =================== Firestore Methods ===================
 
@@ -101,7 +99,4 @@ public class DatabaseConnection {
                 })
                 .addOnFailureListener(e -> Log.e("Firebase", "Failed to load image", e));
     }
-
-
-
 }

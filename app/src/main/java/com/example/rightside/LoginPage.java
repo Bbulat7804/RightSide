@@ -19,8 +19,16 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
 public class LoginPage extends AppCompatActivity {
     boolean hide = true;
+    private String email;
+    private String password;
+    private int selectedId;
+    private boolean valid = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +50,11 @@ public class LoginPage extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int selectedId = loginOptionGroup.getCheckedRadioButtonId();
-                login(selectedId, emailInput.getText().toString(), passwordInput.getText().toString());
+                selectedId = loginOptionGroup.getCheckedRadioButtonId();
+                email = emailInput.getText().toString();
+                password = passwordInput.getText().toString();
+                RadioButton selectedButton = findViewById(selectedId);
+                validateLoginData(selectedButton.getText().toString().toUpperCase());
             }
         });
 
@@ -63,18 +74,10 @@ public class LoginPage extends AppCompatActivity {
         });
     }
 
-    private void login(int selectedId, String email, String password){
-        if(selectedId==-1)
-            return;
+    private void login(int userId, String loginType){
+
         //Check login type user/admin
-        RadioButton selectedButton = findViewById(selectedId);
-        Manager.userType = selectedButton.getText().toString().toUpperCase();
-
-        //if password or email is wrong return false
-        if(!validateLoginData(email,password))
-            return;
-
-        //loadUserData();
+        Manager.userType = loginType;
 
         //change page based on login type
         if(userType.equalsIgnoreCase(USER)){
@@ -87,8 +90,29 @@ public class LoginPage extends AppCompatActivity {
         }
     }
 
-    private boolean validateLoginData(String email, String password){
-        return true;
+    private void validateLoginData(String loginType){
+        if(loginType==null)
+            return;
+        db.getCollection(USERLIBRARY).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot snapshot = task.getResult();
+                if (snapshot != null) {
+                    for (QueryDocumentSnapshot document : snapshot) {
+                        if(password.equals(document.getString("password")) && email.equals(document.getString("email"))) {
+                            System.out.println("baru nak cek");
+                            if(loginType.equals(Manager.ADMIN) && document.getString("adminId").equals(""))
+                                break;
+                            System.out.println("login");
+                            login(Integer.parseInt(document.getId()),loginType);
+                        }
+                    }
+                } else {
+                    System.out.println("No documents found in the collection.");
+                }
+            } else {
+                System.err.println("Error fetching documents: " + task.getException());
+            }
+        });
     }
 
 }

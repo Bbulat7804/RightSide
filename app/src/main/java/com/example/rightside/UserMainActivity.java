@@ -43,7 +43,7 @@ public class UserMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 stack.clear();
-                goToPage(groupChatPage,getSupportFragmentManager());
+                goToPage(userHomePage,getSupportFragmentManager());
             }
         });
 

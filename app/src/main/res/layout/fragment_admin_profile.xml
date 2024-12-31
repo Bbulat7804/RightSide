@@ -243,14 +243,20 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/imageView12"
+            <androidx.cardview.widget.CardView
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/round_white_border_blue"
-                android:padding="4dp"
-                android:src="@drawable/sample_profile_image" />
+                android:background="@drawable/box_rounded_bordered_white"
+                app:cardCornerRadius="100dp">
+
+                <ImageView
+                    android:id="@+id/imageView12"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@mipmap/ic_rightside" />
+            </androidx.cardview.widget.CardView>
         </FrameLayout>
     </LinearLayout>
 </ScrollView>
