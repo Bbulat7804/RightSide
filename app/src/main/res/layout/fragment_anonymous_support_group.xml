@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,10 +18,11 @@
             android:id="@+id/titleAnonymousSupportGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
             android:text="Anonymous Support Group"
             android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textSize="40sp" />
+            android:textSize="30sp" />
 
         <EditText
             android:id="@+id/searchBar2"
@@ -41,7 +43,7 @@
             android:layout_height="wrap_content"
             android:text="Suggestion"
             android:textColor="@color/white"
-            android:textSize="24sp" />
+            android:textSize="20sp" />
 
         <LinearLayout
             android:id="@+id/SupportGroupCardContainer"
@@ -53,8 +55,14 @@
             android:id="@+id/textView37"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Your Groups"
+            android:text="Groups"
             android:textColor="@color/white"
             android:textSize="24sp" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            app:barrierDirection="bottom" />
     </LinearLayout>
 </FrameLayout>

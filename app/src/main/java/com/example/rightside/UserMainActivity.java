@@ -35,8 +35,10 @@ public class UserMainActivity extends AppCompatActivity {
         LinearLayout homeButton = findViewById(R.id.HomeButton);
         LinearLayout profileButton = findViewById(R.id.ProfileButton);
         LinearLayout helpButton = findViewById(R.id.HelpButton);
+
+        //First page after login
         if(savedInstanceState == null) {
-            goToPage(eventsPage, getSupportFragmentManager());
+            goToPage(anonymousSupportGroupPage, getSupportFragmentManager());
         }
 
         homeButton.setOnClickListener(new View.OnClickListener() {
