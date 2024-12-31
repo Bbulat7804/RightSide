@@ -32,6 +32,7 @@ public class Manager {
     public static Fragment modifyMentalConsultationPage = new ModifyMentalConsultation();
     public static Fragment anonymousSupportGroupPage = new AnonymousSupportGroupPage();
     public static String userType;
+    public static Fragment stressTestPage = new fragment_stress_test();
 
     public static String name;
     public static LinkedList<Fragment> stack = new LinkedList();

@@ -25,6 +25,7 @@
                     android:id="@+id/boxView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="-40dp"
                     android:src="@drawable/box" />
 
                 <TextView
@@ -32,7 +33,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|top"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="5dp"
                     android:text="Test Your Stress"
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
@@ -41,9 +42,9 @@
                 <TextView
                     android:id="@+id/descTest"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="209dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="-15dp"
                     android:gravity="center"
                     android:padding="8dp"
                     android:text="Knowing your current level of stress is the first step in taking control"
@@ -84,13 +85,13 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="173dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/q1_TV"
                         android:layout_width="214dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="74dp"
                         android:layout_gravity="start"
                         android:layout_marginTop="250dp"
                         android:text="Been upset because of something that happened unexpectedly?"
@@ -142,7 +143,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="48dp"
                             android:layout_gravity="center|top"
-                            android:layout_marginStart="-30dp"
+                            android:layout_marginStart="-32dp"
                             android:layout_marginTop="-20dp"
                             android:text="Fairly Often"
                             android:textColor="#FFFFFF"
@@ -153,7 +154,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="48dp"
                             android:layout_gravity="center|top"
-                            android:layout_marginStart="0dp"
+                            android:layout_marginStart="-55dp"
                             android:layout_marginTop="-20dp"
                             android:text="Often"
                             android:textColor="#FFFFFF"
@@ -162,28 +163,102 @@
                     </RadioGroup>
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/q2c_TV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|start"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginTop="-35dp"
-                    android:text="In the LAST MONTH, how often have you:"
-                    android:textAlignment="textStart"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16.7sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/q2_TV"
-                    android:layout_width="214dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layout_marginTop="280dp"
-                    android:text="Felt that you were unable to control important things in your life?"
-                    android:textAlignment="textEnd"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16.7sp" />
+                    <TextView
+                        android:id="@+id/q2c_TV2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|start"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginTop="0dp"
+                        android:text="In the LAST MONTH, how often have you:"
+                        android:textAlignment="textStart"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16.7sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/q2_TV"
+                            android:layout_width="214dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginTop="280dp"
+                            android:text="Felt that you were unable to control important things in your life?"
+                            android:textAlignment="textEnd"
+                            android:textColor="#FFFFFF"
+                            android:textSize="16.7sp" />
+
+                        <RadioGroup
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center|top"
+                            android:layout_marginTop="0dp">
+
+                            <RadioButton
+                                android:id="@+id/never_q2"
+                                android:layout_width="88dp"
+                                android:layout_height="48dp"
+                                android:layout_gravity="center|top"
+                                android:layout_marginStart="-42dp"
+                                android:layout_marginTop="-10dp"
+                                android:buttonTint="#FFFFFF"
+                                android:text="Never"
+                                android:textAlignment="textStart"
+                                android:textColor="#FFFFFF"
+                                android:textSize="16.7sp" />
+
+                            <RadioButton
+                                android:id="@+id/almostnever_TV2"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="-18dp"
+                                android:layout_marginTop="-20dp"
+                                android:text="Almost Never"
+                                android:textColor="#FFFFFF"
+                                android:textSize="16.7sp" />
+
+                            <RadioButton
+                                android:id="@+id/sometimes_TV2"
+                                android:layout_width="wrap_content"
+                                android:layout_gravity="center|top"
+                                android:layout_marginStart="-25dp"
+                                android:layout_marginTop="-20dp"
+                                android:text="Sometimes"
+                                android:textColor="#FFFFFF"
+                                android:textSize="16.7sp" />
+
+                            <RadioButton
+                                android:id="@+id/fairlyoften_TV2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="48dp"
+                                android:layout_gravity="center|top"
+                                android:layout_marginStart="-25dp"
+                                android:layout_marginTop="-20dp"
+                                android:text="Fairly Often"
+                                android:textColor="#FFFFFF"
+                                android:textSize="16.7sp" />
+
+                            <RadioButton
+                                android:id="@+id/often_TV2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="48dp"
+                                android:layout_gravity="center|top"
+                                android:layout_marginStart="54dp"
+                                android:layout_marginTop="-20dp"
+                                android:text="Often"
+                                android:textColor="#FFFFFF"
+                                android:textSize="16.7sp" />
+
+                        </RadioGroup>
+                    </LinearLayout>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/q3c_TV"
@@ -231,68 +306,6 @@
                     android:textAlignment="textEnd"
                     android:textColor="#FFFFFF"
                     android:textSize="16.7sp" />
-
-                <RadioGroup
-                    android:layout_width="349dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|top"
-                    android:layout_marginTop="179dp">
-
-                    <RadioButton
-                        android:id="@+id/never_q2"
-                        android:layout_width="88dp"
-                        android:layout_height="48dp"
-                        android:layout_gravity="center|top"
-                        android:layout_marginStart="60dp"
-                        android:layout_marginTop="90dp"
-                        android:buttonTint="#FFFFFF"
-                        android:text="Never"
-                        android:textAlignment="textStart"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16.7sp" />
-
-                    <RadioButton
-                        android:id="@+id/almostnever_TV2"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="84dp"
-                        android:layout_marginTop="-20dp"
-                        android:text="Almost Never"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16.7sp" />
-
-                    <RadioButton
-                        android:id="@+id/sometimes_TV2"
-                        android:layout_width="wrap_content"
-                        android:layout_gravity="center|top"
-                        android:layout_marginStart="76dp"
-                        android:layout_marginTop="-20dp"
-                        android:text="Sometimes"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16.7sp" />
-
-                    <RadioButton
-                        android:id="@+id/fairlyoften_TV2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="48dp"
-                        android:layout_gravity="center|top"
-                        android:layout_marginStart="76dp"
-                        android:layout_marginTop="-20dp"
-                        android:text="Fairly Often"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16.7sp" />
-
-                    <RadioButton
-                        android:id="@+id/often_TV2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="48dp"
-                        android:layout_gravity="center|top"
-                        android:layout_marginStart="54dp"
-                        android:layout_marginTop="-20dp"
-                        android:text="Often"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16.7sp" />
-
-                </RadioGroup>
 
                 <RadioGroup
                     android:layout_width="349dp"
