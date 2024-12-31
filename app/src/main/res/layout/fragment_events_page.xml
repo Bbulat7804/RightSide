@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkBlue"
-    tools:context=".VolunteerPage">
+    tools:context=".EventsPage">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -14,35 +14,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <!-- top navigation -->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageButton
-                    android:id="@+id/backButton"
-                    android:layout_alignParentStart="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/icon_arrow_left_blue"
-                    android:background="@android:color/transparent"
-                    android:padding="8dp"
-                    android:layout_margin="16dp">
-                </ImageButton>
-
-                <ImageButton
-                    android:id="@+id/mailButton"
-                    android:layout_alignParentEnd="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/icon_envelope_blue"
-                    android:background="@android:color/transparent"
-                    android:padding="8dp"
-                    android:layout_margin="16dp">
-                </ImageButton>
-
-            </RelativeLayout>
 
             <RelativeLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
@@ -112,6 +83,7 @@
                     android:textSize="30sp" />
 
                 <Button
+                    android:id="@+id/tryTambahButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -128,15 +100,10 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
+                    android:id="@+id/EventCardContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <!--nanti tambah sini-->
-                    <include layout="@layout/card_volunteer_page" />
-                    <include layout="@layout/card_volunteer_page" />
-                    <include layout="@layout/card_volunteer_page" />
-                </LinearLayout>
+                    android:orientation="horizontal"/>
 
             </HorizontalScrollView>
 

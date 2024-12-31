@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link DiscoverPage#newInstance} factory method to
+ * Use the {@link ArticleDiscoverPage#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DiscoverPage extends Fragment {
+public class ArticleDiscoverPage extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +24,7 @@ public class DiscoverPage extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public DiscoverPage() {
+    public ArticleDiscoverPage() {
         // Required empty public constructor
     }
 
@@ -37,8 +37,8 @@ public class DiscoverPage extends Fragment {
      * @return A new instance of fragment CourseInfo.
      */
     // TODO: Rename and change types and number of parameters
-    public static DiscoverPage newInstance(String param1, String param2) {
-        DiscoverPage fragment = new DiscoverPage();
+    public static ArticleDiscoverPage newInstance(String param1, String param2) {
+        ArticleDiscoverPage fragment = new ArticleDiscoverPage();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

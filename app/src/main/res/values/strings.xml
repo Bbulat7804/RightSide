@@ -20,8 +20,99 @@
     <string name="x_lessons">x lessons</string>
     <string name="x_x_5_0">x.x/5.0</string>
     <string name="course_title_max_4_line">COURSE TITLE max 4 line</string>
-    <string name="see_more"><u>see more</u></string>
+    <string name="see_more"><u>try tambah card</u></string>
     <string name="volunteer_event_title">Volunteer Event Title</string>
     <string name="org_name">org name</string>
     <string name="volunteer_event_description_max_3_lines">volunteer event description max 3 lines</string>
+
+    <!--Data Insights Page String-->
+    <string-array name="States">
+        <item>State</item>
+        <item>Johor</item>
+        <item>Kedah</item>
+        <item>Kelantan</item>
+        <item>Melaka</item>
+        <item>Negeri Sembilan</item>
+        <item>Pahang</item>
+        <item>Perak</item>
+        <item>Perlis</item>
+        <item>Penang</item>
+        <item>Sabah</item>
+        <item>Sarawak</item>
+        <item>Selangor</item>
+        <item>Terengganu</item>
+        <item>Kuala Lumpur</item>
+        <item>Putrajaya</item>
+        <item>Labuan</item>
+    </string-array>
+
+    <string-array name="DiscriminationTypes">
+        <item>Discrimination Types</item>
+        <item>Mental</item>
+        <item>Gender</item>
+        <item>Race</item>
+    </string-array>
+
+    <string-array name="LegalConsultationReason">
+        <item>Reason For Consultation</item>
+        <item>Experiencing Workplace Issues</item>
+        <item>Facing Harassment or Bullying</item>
+        <item>Dealing with Discrimination</item>
+        <item>Need for Legal Guidance</item>
+        <item>Challenging Unfair Decisions</item>
+        <item>Document Preparation Assistance</item>
+        <item>Seeking Compensation or Justice</item>
+        <item>Safety and Protection Concerns</item>
+        <item>Navigating Institutional Procedures</item>
+        <item>Clarifying Legal Rights</item>
+        <item>Others</item>
+    </string-array>
+
+    <string-array name="LegalDesiredOutcome">
+        <item>Desired Outcome</item>
+        <item>Information and Guidance</item>
+        <item>Drafting Complaints and Documentation</item>
+        <item>Mediation and Negotiation</item>
+        <item>Reporting or Filing Complaints</item>
+        <item>Advocacy and Representation</item>
+        <item>Legal Escalation</item>
+        <item>Referral to Other Services</item>
+        <item>Preventive Measures</item>
+        <item>Resolution and Closure</item>
+    </string-array>
+
+    <string-array name="MentalConsultationReason">
+        <item>Reason for consultation</item>
+        <item>Workplace Discrimination</item>
+        <item>Bullying or Harassment</item>
+        <item>Unfair Treatment in Education</item>
+        <item>Discrimination Based on Appearance or Disability</item>
+        <item>Gender or Sexual Orientation Discrimination</item>
+        <item>Racial or Ethnic Discrimination</item>
+        <item>Age Discrimination</item>
+        <item>Economic or Social Inequality</item>
+        <item>Legal Concerns Related to Discrimination</item>
+    </string-array>
+
+    <string-array name="MentalDesiredOutcome">
+        <item>Desired Outcome</item>
+        <item>Trauma Counseling</item>
+        <item>Self-Esteem and Confidence Building</item>
+        <item>Stress and Anxiety Management</item>
+        <item>Burnout Support</item>
+        <item>Grief Counseling</item>
+        <item>Conflict Resolution and Mediation Guidance</item>
+        <item>Advocacy and Empowerment Coaching</item>
+        <item>Support for Marginalized Communities</item>
+        <item>Crisis Counseling</item>
+        <item>Post-Resolution Support</item>
+    </string-array>
+
+    <string-array name="RequestUpdate">
+        <item>Pending</item>
+        <item>Ongoing</item>
+        <item>Completed</item>
+        <item>Rejected</item>
+    </string-array>
+
 </resources>

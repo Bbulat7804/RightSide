@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="800dp"
+    android:background="@color/darkBlue"
+    tools:context=".LegalConsultationForm">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <TextView
+                android:id="@+id/titleLegalConsultationForm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Legal Consultation Form"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="30dp" />
+
+            <Spinner
+                android:id="@+id/LegalConsultationReasonSpinner"
+                android:layout_width="305dp"
+                android:layout_height="39dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginBottom="18dp"
+                android:background="@drawable/box_rounded_bordered_white"
+                android:popupBackground="@drawable/box_rounded_bordered_white" />
+
+            <Spinner
+                android:id="@+id/LegalDesiredOutcomeSpinner"
+                android:layout_width="354dp"
+                android:layout_height="39dp"
+                android:background="@drawable/box_rounded_bordered_white"
+                android:popupBackground="@drawable/box_rounded_bordered_white" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/TVconsultationReason"
+                    android:layout_width="128dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_condensed_bold"
+                    android:text="Preferred Consultation Type"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/TVconsultationOutcome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_condensed_bold"
+                    android:text="Urgency"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-10dp"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:id="@+id/RadioGroupPreferredConsultation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/darkBlue">
+
+                    <RadioButton
+                        android:id="@+id/buttonInPersonLegal"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="In-Person"
+                        android:textColor="@color/white" />
+
+                    <RadioButton
+                        android:id="@+id/buttonPhoneCallLegal"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="Phone Call "
+                        android:textColor="@color/white" />
+
+                    <RadioButton
+                        android:id="@+id/buttonVideoCallLegal"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="Video Call"
+                        android:textColor="@color/white" />
+
+                    <RadioButton
+                        android:id="@+id/buttonTextChatLegal"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:text="Text Chat"
+                        android:textColor="@color/white" />
+                </RadioGroup>
+
+                <RadioGroup
+                    android:id="@+id/RadioGroupUrgency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="125dp">
+
+                    <RadioButton
+                        android:id="@+id/buttonUrgentLegal"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:text="Urgent"
+                        android:textColor="@color/white" />
+
+                    <RadioButton
+                        android:id="@+id/buttonNonUrgentLegal"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:text="Non-urgent"
+                        android:textColor="@color/white" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/roboto_condensed_bold"
+                android:text="Preferred Date and Time"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
+
+            <LinearLayout
+                android:layout_width="227dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="18dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ETpreferredDateLegal"
+                    android:layout_width="143dp"
+                    android:layout_height="39dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/box_rounded_bordered_white"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:inputType="text"
+                    android:text="19/12/2024"
+                    android:textAlignment="gravity" />
+
+                <TextView
+                    android:id="@+id/ETpreferredTimeLegal"
+                    android:layout_width="148dp"
+                    android:layout_height="39dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/box_rounded_bordered_white"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:inputType="text"
+                    android:text="17:00"
+                    android:textAlignment="center" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/roboto_condensed_bold"
+                android:text="Describe More"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/editTextDescribeLegal"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@drawable/box_rounded_bordered_white"
+                android:ems="10"
+                android:gravity="left"
+                android:hint="Tell us what is the incident about in details...."
+                android:inputType="text"
+                android:padding="10dp"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/roboto_condensed_bold"
+                android:text="Add any attachments"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <ImageButton
+                android:id="@+id/addAttachmentButtonLegal"
+                android:layout_width="73dp"
+                android:layout_height="68dp"
+                android:backgroundTint="#00FFFFFF"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_add_attachment" />
+
+            <Button
+                android:id="@+id/buttonSubmitLegalForm"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:backgroundTint="@color/blue"
+                android:text="SUBMIT" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>
