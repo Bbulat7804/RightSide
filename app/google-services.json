@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "552278771459",
+    "project_id": "rightside-445801",
+    "storage_bucket": "rightside-445801.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:552278771459:android:b9a1ce888e454e114ccb36",
+        "android_client_info": {
+          "package_name": "com.example.rightside"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDofoiTehERQaQgWDCsKlfbLexPK2jJEJg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
