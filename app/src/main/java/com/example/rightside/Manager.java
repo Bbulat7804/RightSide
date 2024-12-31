@@ -31,6 +31,7 @@ public class Manager {
     public static Fragment modifyLegalConsultationPage = new ModifyLegalConsultation();
     public static Fragment modifyMentalConsultationPage = new ModifyMentalConsultation();
     public static String userType;
+    public static Fragment stressTestPage = new fragment_stress_test();
 
     public static String name;
     public static LinkedList<Fragment> stack = new LinkedList();
