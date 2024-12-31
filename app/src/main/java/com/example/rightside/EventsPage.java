@@ -1,17 +1,23 @@
 package com.example.rightside;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -72,26 +78,63 @@ public class EventsPage extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        DatabaseConnection db = new DatabaseConnection();
         LinearLayout eventCardContainer = view.findViewById(R.id.EventCardContainer);
+        Button tryTambahButton = view.findViewById(R.id.tryTambahButton);
 
-        for(int i=0 ; i<10 ; i++){
-            addEventCard(eventCardContainer,new Event("Title","Organizer","Description"));
-        }
+        tryTambahButton.setOnClickListener(v -> {
+            addEventCard(eventCardContainer, db);
+        });
     }
 
-    public void addEventCard(LinearLayout container, Event event){
-        View card = LayoutInflater.from(getActivity()).inflate(R.layout.card_events_page,container,false);
+    private void addEventCard(LinearLayout cardContainer, DatabaseConnection db) {
 
-        TextView eventTitle = card.findViewById(R.id.EventTitle);
-        TextView eventOrganizer = card.findViewById(R.id.EventOrganizer);
-        TextView eventDescription = card.findViewById(R.id.EventDescription);
-        ImageView eventImage = card.findViewById(R.id.EventImage);
+        // Create a new card
+        LayoutInflater inflater = LayoutInflater.from(cardContainer.getContext());
+        View cardView = inflater.inflate(R.layout.card_events_page, cardContainer, false);
 
-        eventTitle.setText(event.title);
-        eventOrganizer.setText(event.organizer);
-        eventDescription.setText(event.description);
-        eventImage.setImageResource(R.mipmap.ic_rightside);
+        // Find views in the card
+        ImageView imageView = cardView.findViewById(R.id.EventImage);
+        TextView titleTextView = cardView.findViewById(R.id.EventTitle);
+        TextView orgNameTextView = cardView.findViewById(R.id.EventOrganizer);
+        TextView descriptionTextView = cardView.findViewById(R.id.EventDescription);
 
-        container.addView(card);
+        // ganti text dgn data dari cloudfirebase
+        db.getDocument("Volunteering Library","vZaeyFAAJAeV3zYGfcpQ")
+                .addOnSuccessListener(document -> {
+                    if (document.exists()) {
+                        //amik data from firebase
+                        titleTextView.setText(document.getString("title"));
+                        orgNameTextView.setText(document.getString("author"));
+                        descriptionTextView.setText(document.getString("content"));
+
+                        // Get the context of the card view
+                        Context cardContext = cardView.getContext();
+                        //dapatkan gambar dari storage
+                        db.loadImageFromStorage(cardContext, document.getString("media_bucket_path"), imageView);
+                        Toast.makeText(cardContext, "Card Added!!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(requireContext(), "tak jumpa data", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(e -> Log.e("Firestore", "Error getting document", e));
+
+        // Add the card to the HorizontalScrollView
+        cardContainer.addView(cardView);
+        animateCard(cardView);
+    }
+
+    private void animateCard(View cardView) {
+
+        // Create animations
+        AlphaAnimation fadeIn = new AlphaAnimation(0f, cardView.getAlpha());
+        fadeIn.setDuration(300);
+
+        TranslateAnimation slideIn = new TranslateAnimation(0, 0, -100, cardView.getY());
+        slideIn.setDuration(300);
+
+        // Start animations together
+        cardView.startAnimation(fadeIn);
+        cardView.startAnimation(slideIn);
     }
 }
