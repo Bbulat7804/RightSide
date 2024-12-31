@@ -43,7 +43,7 @@ public class UserMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 stack.clear();
-                goToPage(userHomePage,getSupportFragmentManager());
+                goToPage(groupChatPage,getSupportFragmentManager());
             }
         });
 
@@ -72,14 +72,29 @@ public class UserMainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        if(false)
+            super.onBackPressed();
+        if(stack.isEmpty()) {
+            Intent intent = new Intent(UserMainActivity.this, LoginPage.class);
+            startActivity(intent);
+        }
+        else {
+            stack.removeFirst();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, stack.getFirst()).commit();
+        }
+    }
+
+    @Override
     public boolean onSupportNavigateUp(){
         if(stack.isEmpty()) {
             Intent intent = new Intent(UserMainActivity.this, LoginPage.class);
             startActivity(intent);
         }
-        else
+        else {
             stack.removeFirst();
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,stack.getFirst()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, stack.getFirst()).commit();
+        }
         return true;
     }
 

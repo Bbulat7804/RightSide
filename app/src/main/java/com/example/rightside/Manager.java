@@ -30,6 +30,7 @@ public class Manager {
     public static Fragment contactUserPage = new ContactUserPage();
     public static Fragment modifyLegalConsultationPage = new ModifyLegalConsultation();
     public static Fragment modifyMentalConsultationPage = new ModifyMentalConsultation();
+    public static Fragment groupChatPage = new GroupChatPage();
     public static String userType;
 
     public static String name;

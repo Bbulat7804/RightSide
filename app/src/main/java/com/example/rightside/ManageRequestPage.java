@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,7 +92,6 @@ public class ManageRequestPage extends Fragment {
 
     private void addCard(LinearLayout container, Request request){
         View card = LayoutInflater.from(getActivity()).inflate(R.layout.card_manage_request,container,false);
-
         TextView cardTitle = card.findViewById(R.id.ManageRequestTitle);
         TextView cardDesiredOutcome = card.findViewById(R.id.ManageRequestDesiredOutcome);
         TextView cardUpdateStates = card.findViewById(R.id.ManageRequestStatusUpdate);
