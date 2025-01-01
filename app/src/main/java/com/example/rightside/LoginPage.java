@@ -163,11 +163,13 @@ public class LoginPage extends AppCompatActivity {
     }
     // fetch request data from firebase
     public void fetchRequest () {
+        requests.clear();
         db.getCollection("Requests").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 QuerySnapshot snapshot = task.getResult();
                 if (snapshot != null) {
                     for (QueryDocumentSnapshot document : snapshot) {
+                        latestRequestIndex = Integer.parseInt(document.getId());
                         if (currentUser.userId == Integer.parseInt(document.getString("user_id"))){
                             int adminId =Integer.parseInt(document.getString("admin_id"));
                             String date = document.getString("date");
@@ -195,11 +197,13 @@ public class LoginPage extends AppCompatActivity {
     }
 
     private void fetchArticle (){
+        articles.clear();
         db.getCollection("Articles").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 QuerySnapshot snapshot = task.getResult();
                 if (snapshot != null) {
                     for (QueryDocumentSnapshot document : snapshot) {
+                        latestArticleIndex = Integer.parseInt(document.getId());
                         articles.add(new Article(Integer.parseInt(document.getId()),document.getString("article_url"), document.getString("caption"), document.getString("image_url"), document.getString("author"), document.getString("date")));
                     }
                 } else {

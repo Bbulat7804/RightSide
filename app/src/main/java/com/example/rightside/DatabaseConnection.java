@@ -2,6 +2,8 @@ package com.example.rightside;
 
 import static android.content.ContentValues.TAG;
 
+import static com.example.rightside.Manager.USERLIBRARY;
+import static com.example.rightside.Manager.db;
 import static java.security.AccessController.getContext;
 
 import android.content.Context;
@@ -45,8 +47,9 @@ public class DatabaseConnection {
     }
 
     //method utk add document ke collection
-    public Task<DocumentReference> addDocument(String collectionName, Map<String, String> data) {
-        return getCollection(collectionName).add(data);
+    public void addDocument(String collectionName, Map<String, String> data, String id) {
+        DocumentReference doc = getCollection(collectionName).document(id);
+        doc.set(data);
     }
 
     //method utk get document dari collection

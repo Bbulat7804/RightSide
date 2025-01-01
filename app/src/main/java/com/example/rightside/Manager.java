@@ -3,6 +3,9 @@ package com.example.rightside;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -42,7 +45,8 @@ public class Manager {
     public static DatabaseConnection db = new DatabaseConnection();
     public static LinkedList<Fragment> stack = new LinkedList();
     public static ArrayList<Article> articles = new ArrayList<>();
-
+    public static int latestRequestIndex = 0;
+    public static int latestArticleIndex = 0;
     public static ArrayList<Request> requests = new ArrayList<>();
     public static void goToPage(Fragment fragment, FragmentManager fm){
         int containerId = R.id.fragment_container;
