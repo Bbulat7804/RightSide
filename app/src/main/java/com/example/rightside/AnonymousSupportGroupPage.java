@@ -70,22 +70,38 @@ public class AnonymousSupportGroupPage extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        LinearLayout container = view.findViewById(R.id.SupportGroupCardContainer);
+        LinearLayout suggestionGroupContainer = view.findViewById(R.id.SuggestionSupportGroupCardContainer);
+        LinearLayout joinedGroupContainer = view.findViewById(R.id.SupportGroupsJoinedContainer);
 
         for (int i=0; i<3; i++) {
-            addCard(container,new SupportGroup("SafeSpace"));
+            addSuggestionGroupCard(suggestionGroupContainer,new SupportGroup("SafeSpace"));
+            addJoinedGroupCard(joinedGroupContainer, new SupportGroup("CareConnect"));
         }
     }
 
-    public void addCard (LinearLayout container, SupportGroup group){
-        View card = LayoutInflater.from(getActivity()).inflate(R.layout.card_suggestion_support_group, container, false);
+    public void addSuggestionGroupCard (LinearLayout container, SupportGroup group){
+        View suggestionCard = LayoutInflater.from(getActivity()).inflate(R.layout.card_suggestion_support_group, container, false);
 
-        TextView grpName = card.findViewById(R.id.GroupName);
-        ImageView grpIcon = card.findViewById(R.id.GroupIcon);
+        TextView grpName = suggestionCard.findViewById(R.id.GroupName);
+        ImageView grpIcon = suggestionCard.findViewById(R.id.GroupIcon);
 
         grpName.setText(group.name);
         grpIcon.setImageResource(R.mipmap.ic_rightside_foreground);
 
-        container.addView(card);
+        container.addView(suggestionCard);
     }
+
+    public void addJoinedGroupCard (LinearLayout container, SupportGroup group) {
+        View groupCard = LayoutInflater.from(getActivity()).inflate(R.layout.card_support_group, container, false);
+
+        TextView grpName = groupCard.findViewById(R.id.JoinedGroupName);
+        ImageView grpIcon = groupCard.findViewById(R.id.GroupJoinedIcon);
+        TextView grpDescription = groupCard.findViewById(R.id.JoinedGroupDescription);
+
+        container.addView(groupCard);
+    }
+
+
+
+
 }

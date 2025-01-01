@@ -46,7 +46,7 @@
             android:textSize="20sp" />
 
         <LinearLayout
-            android:id="@+id/SupportGroupCardContainer"
+            android:id="@+id/SuggestionSupportGroupCardContainer"
             android:layout_width="match_parent"
             android:layout_height="260dp"
             android:orientation="horizontal"></LinearLayout>
@@ -59,10 +59,12 @@
             android:textColor="@color/white"
             android:textSize="24sp" />
 
-        <androidx.constraintlayout.widget.Barrier
+        <LinearLayout
+            android:id="@+id/SupportGroupsJoinedContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible"
-            app:barrierDirection="bottom" />
+            android:orientation="vertical"></LinearLayout>
+
+
     </LinearLayout>
 </FrameLayout>

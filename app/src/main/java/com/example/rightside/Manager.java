@@ -3,6 +3,7 @@ package com.example.rightside;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Manager {
@@ -32,10 +33,12 @@ public class Manager {
     public static Fragment modifyLegalConsultationPage = new ModifyLegalConsultation();
     public static Fragment modifyMentalConsultationPage = new ModifyMentalConsultation();
     public static Fragment groupChatPage = new GroupChatPage();
+    public static Fragment stressTestPage = new StressTestPage();
     public static String userType;
     public static User currentUser;
     public static DatabaseConnection db = new DatabaseConnection();
     public static LinkedList<Fragment> stack = new LinkedList();
+    public static ArrayList<Request> requests = new ArrayList<>();
     public static void goToPage(Fragment fragment, FragmentManager fm){
         int containerId = R.id.fragment_container;
         fm.beginTransaction().replace(containerId,fragment).commit();

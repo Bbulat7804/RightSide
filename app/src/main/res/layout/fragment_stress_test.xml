@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#001A3E"
-    tools:context=".fragment_stress_test">
+    tools:context=".StressTestPage">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -85,12 +85,6 @@
                     android:textColor="#FFFFFF"
                     android:textSize="16.7sp" />
 
-                <View
-                    android:id="@+id/divider"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="?android:attr/listDivider" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="173dp"
@@ -156,6 +150,12 @@
                             android:textColor="@color/white" />
                     </RadioGroup>
                 </LinearLayout>
+
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/lightGray" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
