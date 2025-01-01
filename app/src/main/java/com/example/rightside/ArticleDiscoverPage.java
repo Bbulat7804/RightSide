@@ -2,6 +2,10 @@ package com.example.rightside;
 
 import static com.example.rightside.Manager.*;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,9 +15,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -86,6 +94,16 @@ public class ArticleDiscoverPage extends Fragment {
         articleCaption.setText(article.caption);
         articleAuthorDate.setText(article.author + " | " + article.date);
         articleImage.setImageResource(R.mipmap.ic_rightside_round);
+        card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(article.url));
+                startActivity(intent);
+            }
+        });
         container.addView(card);
     }
+
+
 }

@@ -1,12 +1,26 @@
 package com.example.rightside;
 
+import static com.example.rightside.Manager.*;
+
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
+import java.util.Calendar;
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,6 +33,13 @@ public class UploadArticlePage extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    DatePickerDialog datePickerDialog;
+    TextView dateButton;
+    ImageButton uploadButton;
+    EditText captionInput;
+    EditText urlInput;
+    EditText authorInput;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -60,5 +81,123 @@ public class UploadArticlePage extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_upload_article, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        DatePickerDialog datePickerDialog;
+        dateButton = view.findViewById(R.id.DateButton);
+        uploadButton = view.findViewById(R.id.UploadArticleButton);
+        captionInput = view.findViewById(R.id.CaptionTextInput);
+        urlInput = view.findViewById(R.id.URLTextInput);
+        authorInput = view.findViewById(R.id.AuthorNameInput);
+
+
+        uploadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Article article = new Article(++latestArticleIndex, urlInput.getText().toString().trim(), captionInput.getText().toString().trim(),"", authorInput.getText().toString().trim(), dateButton.getText().toString().trim());
+                articles.add(article);
+                uploadArticleToFirestore(article);
+                for(int i=0 ; i<2 ; i++){
+                    stack.removeFirst();
+                }
+                goToPage(articleAdminPage,getParentFragmentManager());
+            }
+        });
+
+        datePickerDialog = initializeDatePicker(dateButton);
+        dateButton.setText(getTodaysDate());
+        dateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDatePicker(datePickerDialog);
+            }
+        });
+    }
+
+    public DatePickerDialog initializeDatePicker(TextView dateButton){
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int day) {
+                month = month + 1;
+                String date = makeDateString(day ,month,year);
+                dateButton.setText(date);
+            }
+        };
+
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        int style = AlertDialog.THEME_HOLO_LIGHT;
+        return new DatePickerDialog(getActivity(),style,dateSetListener,year,month,day);
+    }
+
+    private String makeDateString(int day, int month, int year){
+        return getMonthFormat(month) + " " + day + " " + year;
+    }
+
+    private String getMonthFormat(int month) {
+        if(month == 1)
+            return "Jan";
+        else if (month == 2)
+            return "Feb";
+        else if (month == 3)
+            return "Mar";
+        else if (month == 4)
+            return "Apr";
+        else if (month == 5)
+            return "May";
+        else if (month == 6)
+            return "Jun";
+        else if (month == 7)
+            return "Jul";
+        else if (month == 8)
+            return "Aug";
+        else if (month == 9)
+            return "Sep";
+        else if (month == 10)
+            return "Oct";
+        else if (month == 11)
+            return "Nov";
+        else if (month == 12)
+            return "Dec";
+        else
+            return "Jan";
+    }
+
+    private String getTodaysDate() {
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        month = month+1;
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+
+        return makeDateString(day,month,year);
+    }
+    public void openDatePicker(DatePickerDialog datePickerDialog){
+        datePickerDialog.show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        captionInput.setText("");
+        urlInput.setText("");
+        authorInput.setText("");
+    }
+
+    public void uploadArticleToFirestore(Article article){
+        HashMap<String,String> data = new HashMap();
+        data.put("article_url", article.url);
+        data.put("author", article.author);
+        data.put("caption", article.caption);
+        data.put("date", article.date);
+        data.put("image_url",article.imageURL);
+
+        db.addDocument("Articles",data,Integer.toString(article.id));
     }
 }

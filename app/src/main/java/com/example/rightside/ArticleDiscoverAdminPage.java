@@ -2,6 +2,8 @@ package com.example.rightside;
 
 import static com.example.rightside.Manager.*;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.sql.SQLOutput;
 
@@ -73,11 +78,36 @@ public class ArticleDiscoverAdminPage extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ImageButton uploadButton = view.findViewById(R.id.UploadButton);
+        LinearLayout articleContainer = view.findViewById(R.id.ArticleContainer);
+        for(int i=0 ; i<articles.size() ; i++){
+            addArticleCard(articleContainer,articles.get(i));
+        }
+
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToPage(uploadArticlePage,getParentFragmentManager());
             }
         });
+    }
+
+    public void addArticleCard(LinearLayout container, Article article){
+        View card = LayoutInflater.from(getActivity()).inflate(R.layout.card_article_discover_page,container,false);
+        TextView articleCaption = card.findViewById(R.id.articleCaption);
+        TextView articleAuthorDate = card.findViewById(R.id.authorDates);
+        ImageView articleImage = card.findViewById(R.id.ArticleImage);
+
+        articleCaption.setText(article.caption);
+        articleAuthorDate.setText(article.author + " | " + article.date);
+        articleImage.setImageResource(R.mipmap.ic_rightside_round);
+        card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(article.url));
+                startActivity(intent);
+            }
+        });
+        container.addView(card);
     }
 }

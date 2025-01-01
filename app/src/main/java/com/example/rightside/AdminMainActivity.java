@@ -76,9 +76,27 @@ public class AdminMainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        if(false)
+            super.onBackPressed();
+        if(stack.size()==1) {
+            stack.removeFirst();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,blankPage).commit();
+            Intent intent = new Intent(AdminMainActivity.this, LoginPage.class);
+            startActivity(intent);
+        }
+        else {
+            stack.removeFirst();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, stack.getFirst()).commit();
+        }
+    }
+
+    @Override
     public boolean onSupportNavigateUp(){
 
-        if(stack.isEmpty()) {
+        if(stack.size()==1) {
+            stack.removeFirst();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,blankPage).commit();
             Intent intent = new Intent(AdminMainActivity.this, LoginPage.class);
             startActivity(intent);
         }

@@ -124,9 +124,7 @@ public class SignUpPage extends AppCompatActivity {
     }
 
     public void signUp(String userId, String name, String username, String phoneNo, String email, String password){
-        DocumentReference doc = db.getCollection(USERLIBRARY).document(userId);
         HashMap<String,String> userData = new HashMap();
-
         userData.put("admin_id","0");
         userData.put("email",email);
         userData.put("event_no","0");
@@ -139,7 +137,7 @@ public class SignUpPage extends AppCompatActivity {
         userData.put("stress_level","");
         userData.put("username",username);
         userData.put("support_group_no","0");
-        doc.set(userData);
+        db.addDocument("Users", userData, userId);
         Intent intent = new Intent(SignUpPage.this,LoginPage.class);
         startActivity(intent);
     }

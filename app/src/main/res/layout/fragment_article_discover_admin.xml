@@ -12,6 +12,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/ArticleContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -112,12 +113,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="323dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
                     android:layout_marginStart="24dp"
                     android:fontFamily="@font/roboto_bold"
                     android:text="@string/recommendations"
@@ -126,10 +127,10 @@
 
                 <ImageButton
                     android:id="@+id/UploadButton"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="end"
                     android:layout_marginRight="10dp"
-                    android:layout_weight="1"
                     android:backgroundTint="#00FFFFFF"
                     android:scaleType="fitCenter"
                     android:src="@drawable/icon_upload_button" />
@@ -137,9 +138,6 @@
             </LinearLayout>
 
             <!-- Article Cards, nanti programmically tambah -->
-            <include layout="@layout/card_article_discover_page" />
-
-            <include layout="@layout/card_article_discover_page" />
 
         </LinearLayout>
     </ScrollView>
