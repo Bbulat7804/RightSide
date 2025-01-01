@@ -35,6 +35,7 @@ public class Manager {
     public static Fragment groupChatPage = new GroupChatPage();
     public static Fragment stressTestPage = new StressTestPage();
     public static Fragment anonymousSupportGroupPage = new AnonymousSupportGroupPage();
+    public static Fragment blankPage = new BlankPage();
     public static String userType;
     public static User currentUser;
     public static Admin currentAdmin;

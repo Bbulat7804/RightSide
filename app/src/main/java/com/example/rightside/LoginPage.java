@@ -153,7 +153,6 @@ public class LoginPage extends AppCompatActivity {
     private void fetchAdminData(String loginType){
         db.getDocument("Admins",Integer.toString(currentUser.adminId)).addOnSuccessListener(document ->{
             if (document.exists()) {
-                System.out.println("sini");
                 int requestManaged = Integer.parseInt(document.getString("request_managed"));
                 currentAdmin = new Admin(currentUser.name, currentUser.userId, currentUser.username, currentUser.email, currentUser.reportNo, currentUser.stressLevel, currentUser.eventsNo, currentUser.phoneNo, currentUser.adminId, currentUser.password, currentUser.profilePhotoUrl, currentUser.supportGroupNo, requestManaged);
                 fetchArticle();
@@ -217,5 +216,12 @@ public class LoginPage extends AppCompatActivity {
         super.onResume();
         emailInput.setText("Afzan@gmail.com");
         passwordInput.setText("SayaAdmin");
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(false)
+            super.onBackPressed();
+        finishAffinity();
     }
 }
