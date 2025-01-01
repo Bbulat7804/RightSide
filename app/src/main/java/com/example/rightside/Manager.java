@@ -10,7 +10,6 @@ public class Manager {
     public static final String USER = "USER";
     public static final String ADMIN = "ADMIN";
     public static final String USERLIBRARY = "Users";
-    public static final String ARTICLELIBRARY = "Articles";
     public static Fragment userHomePage = new UserHomePage();
     public static Fragment adminHomePage = new AdminHomePage();
     public static Fragment userProfilePage = new UserProfilePage();
@@ -35,12 +34,11 @@ public class Manager {
     public static Fragment modifyMentalConsultationPage = new ModifyMentalConsultation();
     public static Fragment groupChatPage = new GroupChatPage();
     public static Fragment stressTestPage = new StressTestPage();
-    public static Fragment anonymousSupportGroupPage = new AnonymousSupportGroupPage();
     public static String userType;
     public static User currentUser;
     public static DatabaseConnection db = new DatabaseConnection();
     public static LinkedList<Fragment> stack = new LinkedList();
-    public static ArrayList<Article> articles = new ArrayList<>();
+    public static ArrayList<Request> requests = new ArrayList<>();
     public static void goToPage(Fragment fragment, FragmentManager fm){
         int containerId = R.id.fragment_container;
         fm.beginTransaction().replace(containerId,fragment).commit();

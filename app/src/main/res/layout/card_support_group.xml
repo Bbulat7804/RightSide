@@ -5,30 +5,66 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="10dp"
+    android:background="@color/darkBlue"
     android:orientation="vertical">
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="80dp"
+        android:background="@color/blue"
+        android:foregroundGravity="right" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/articleThumbnail"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="left"
-            android:background="@drawable/box_rounded_white"
-            android:clipToOutline="true"
-            android:foregroundGravity="left"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/ic_rightside" />
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="100dp">
 
-        <View
-            android:id="@+id/view2"
+            <ImageView
+                android:id="@+id/GroupJoinedIcon"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="left"
+                android:clipToOutline="true"
+                android:foregroundGravity="left"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_rightside" />
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:layout_marginLeft="20dp"
-            android:foregroundGravity="right" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/JoinedGroupName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_bold"
+                android:text="SupportSphere"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/JoinedGroupDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto"
+                android:text="PeacefulPath: It's okay to feel this way. You’re not alone in this journey."
+                android:textColor="@color/white" />
+        </LinearLayout>
 
     </LinearLayout>
 

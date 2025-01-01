@@ -144,6 +144,23 @@ public class LoginPage extends AppCompatActivity {
             }
         });
     }
+    // fetch request data from firebase
+    public void fetchRequest () {
+        db.getCollection(USERLIBRARY).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot snapshot = task.getResult();
+                if (snapshot != null) {
+                    for (QueryDocumentSnapshot document : snapshot) {
+
+                    }
+                } else {
+                    System.out.println("No documents found in the collection.");
+                }
+            } else {
+                System.err.println("Error fetching documents: " + task.getException());
+            }
+        });
+    }
 
     private void fetchArticle (){
 

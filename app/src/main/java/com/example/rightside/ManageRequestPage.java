@@ -82,7 +82,7 @@ public class ManageRequestPage extends Fragment {
         LinearLayout cardContainer = view.findViewById(R.id.ManageRequestCardContainer);
 
         for (int i = 0; i < 20; i++) {
-            requests.add(new Request("Tajuk", "Information and Guidance", "Completed", 1000));
+            requests.add(new Request("Tajuk", "Information and Guidance", "Phone-call","Urgent", "28/01/2025", "22:00", "DESC", "pending", 1, 2, 1, "mental"));
         }
 
         for(int i=0 ; i<requests.size() ; i++){
@@ -97,12 +97,12 @@ public class ManageRequestPage extends Fragment {
         TextView cardUpdateStates = card.findViewById(R.id.ManageRequestStatusUpdate);
         TextView id = card.findViewById(R.id.adminRequestId);
 
-        cardTitle.setText(request.title);
+        cardTitle.setText(request.reason);
         cardDesiredOutcome.setText(request.desiredOutcome);
         cardUpdateStates.setText(request.status);
-        id.setText(request.id + "");
+        id.setText(request.requestId + "");
 
-        initializeCardButton(card.findViewById(R.id.ManageRequestTitle),request.id);
+        initializeCardButton(card.findViewById(R.id.ManageRequestTitle),request.requestId);
 
         Spinner spinner = card.findViewById(R.id.ManageRequestSpinner);
 
