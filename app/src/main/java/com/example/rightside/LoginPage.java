@@ -111,9 +111,7 @@ public class LoginPage extends AppCompatActivity {
                         if(password.equals(document.getString("password")) && email.equals(document.getString("email"))) {
                             if(loginType.equals(Manager.ADMIN) && document.getString("admin_id").equals("0"))
                                 break;
-                            if(loginType.equals(Manager.USER))
-                                fetchUserData(document.getId(),loginType);
-                            else ;;
+                            fetchUserData(document.getId(),loginType);
                         }
                     }
                 } else {
@@ -140,7 +138,23 @@ public class LoginPage extends AppCompatActivity {
                 String supportGroupNo = document.getString("support_group_no");
 
                 Manager.currentUser = new User(name,Integer.parseInt(userId),username,email,Integer.parseInt(reportNo),stressLevel,Integer.parseInt(eventNo),phoneNo,Integer.parseInt(adminId),password,profilePhotoUrl,Integer.parseInt(supportGroupNo));
-                fetchRequest();
+                if(loginType.equals(USER)) {
+                    fetchArticle();
+                    login(loginType);
+                }
+                else{
+                    fetchAdminData(loginType);
+                }
+            }
+        });
+    }
+
+    private void fetchAdminData(String loginType){
+        db.getDocument("Admins",Integer.toString(currentUser.adminId)).addOnSuccessListener(document ->{
+            if (document.exists()) {
+                System.out.println("sini");
+                int requestManaged = Integer.parseInt(document.getString("request_managed"));
+                currentAdmin = new Admin(currentUser.name, currentUser.userId, currentUser.username, currentUser.email, currentUser.reportNo, currentUser.stressLevel, currentUser.eventsNo, currentUser.phoneNo, currentUser.adminId, currentUser.password, currentUser.profilePhotoUrl, currentUser.supportGroupNo, requestManaged);
                 fetchArticle();
                 login(loginType);
             }
@@ -148,27 +162,12 @@ public class LoginPage extends AppCompatActivity {
     }
     // fetch request data from firebase
     public void fetchRequest () {
-        db.getCollection("Requests").get().addOnCompleteListener(task -> {
+        db.getCollection(USERLIBRARY).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 QuerySnapshot snapshot = task.getResult();
                 if (snapshot != null) {
                     for (QueryDocumentSnapshot document : snapshot) {
-                        if (currentUser.userId == Integer.parseInt(document.getString("user_id"))){
-                            int adminId =Integer.parseInt(document.getString("admin_id"));
-                            String date = document.getString("date");
-                            String description = document.getString("description");
-                            String desiredOutcome = document.getString("desired_outcome");
-                            String method = document.getString("method");
-                            String reason = document.getString("reason");
-                            String status = document.getString("status");
-                            String time = document.getString("time");
-                            String type = document.getString("type");
-                            String urgency = document.getString("urgency");
-                            int userId = Integer.parseInt(document.getString("user_id"));
-                            int requestId = Integer.parseInt(document.getId());
 
-                            requests.add(new Request(reason, desiredOutcome, method, urgency, date, time, description, status, adminId, userId, requestId, type));
-                        }
                     }
                 } else {
                     System.out.println("No documents found in the collection.");

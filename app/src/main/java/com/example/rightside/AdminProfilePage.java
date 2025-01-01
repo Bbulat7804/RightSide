@@ -82,13 +82,13 @@ public class AdminProfilePage extends Fragment {
         TextView eventNoTV = view.findViewById(R.id.EventNoTV);
         TextView requestManagedNoTV = view.findViewById(R.id.RequestManagedNumber);
 
-        usernameTV.setText((currentUser.username + "'s Profile").toUpperCase());
-        nameTV.setText(currentUser.name);
-        emailTV.setText(currentUser.email);
-        reportNoTV.setText(currentUser.reportNo + "");
-        stressLevelTV.setText(currentUser.stressLevel);
-        eventNoTV.setText(currentUser.eventsNo + "");
-        requestManagedNoTV.setText(((Admin) currentUser).requestManaged + "");
+        usernameTV.setText((currentAdmin.username + "'s Profile").toUpperCase());
+        nameTV.setText(currentAdmin.name);
+        emailTV.setText(currentAdmin.email);
+        reportNoTV.setText(currentAdmin.reportNo + "");
+        stressLevelTV.setText(currentAdmin.stressLevel);
+        eventNoTV.setText(currentAdmin.eventsNo + "");
+        requestManagedNoTV.setText(currentAdmin.requestManaged + "");
 
         for(int i=0; i<10 ; i++){
             addImage(eventImageContainer,R.drawable.sample_event_image);

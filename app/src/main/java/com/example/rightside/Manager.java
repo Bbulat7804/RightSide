@@ -37,6 +37,7 @@ public class Manager {
     public static Fragment anonymousSupportGroupPage = new AnonymousSupportGroupPage();
     public static String userType;
     public static User currentUser;
+    public static Admin currentAdmin;
     public static DatabaseConnection db = new DatabaseConnection();
     public static LinkedList<Fragment> stack = new LinkedList();
     public static ArrayList<Article> articles = new ArrayList<>();
