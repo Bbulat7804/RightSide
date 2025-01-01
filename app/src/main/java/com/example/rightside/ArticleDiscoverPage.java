@@ -73,7 +73,6 @@ public class ArticleDiscoverPage extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         LinearLayout articleContainer = view.findViewById(R.id.ArticleContainer);
-        System.out.println(articles.get(0));
         for(int i=0 ; i<articles.size() ; i++){
             addArticleCard(articleContainer,articles.get(i));
         }

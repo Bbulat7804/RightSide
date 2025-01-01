@@ -77,7 +77,7 @@ public class DisplayRequestPage extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         LinearLayout cardContainer = view.findViewById(R.id.ViewRequestCardContainer);
-
+        System.out.println(requests.size());
         for(int i=0 ; i<requests.size() ; i++){
             addCard(cardContainer,requests.get(i));
         }

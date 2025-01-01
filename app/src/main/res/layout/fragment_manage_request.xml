@@ -38,8 +38,8 @@
             android:paddingLeft="10dp" />
 
         <LinearLayout
-            android:layout_width="342dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
@@ -47,10 +47,9 @@
 
             <Button
                 android:id="@+id/buttonAll"
-                android:layout_width="26dp"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginRight="10dp"
-                android:layout_weight="1"
                 android:backgroundTint="@color/green"
                 android:fontFamily="@font/roboto_condensed_regular"
                 android:text="All"
@@ -58,11 +57,10 @@
 
             <Button
                 android:id="@+id/buttonLegal"
-                android:layout_width="36dp"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_weight="1"
                 android:backgroundTint="@color/white"
                 android:fontFamily="@font/roboto_condensed_regular"
                 android:text="Legal"
@@ -71,11 +69,10 @@
 
             <Button
                 android:id="@+id/buttonMental"
-                android:layout_width="33dp"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_weight="1"
                 android:backgroundTint="@color/white"
                 android:fontFamily="@font/roboto_condensed_regular"
                 android:text="Mental"
