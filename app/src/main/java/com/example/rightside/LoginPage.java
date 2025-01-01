@@ -139,6 +139,7 @@ public class LoginPage extends AppCompatActivity {
 
                 Manager.currentUser = new User(name,Integer.parseInt(userId),username,email,Integer.parseInt(reportNo),stressLevel,Integer.parseInt(eventNo),phoneNo,Integer.parseInt(adminId),password,profilePhotoUrl,Integer.parseInt(supportGroupNo));
                 if(loginType.equals(USER)) {
+                    fetchRequest();
                     fetchArticle();
                     login(loginType);
                 }
@@ -156,18 +157,34 @@ public class LoginPage extends AppCompatActivity {
                 int requestManaged = Integer.parseInt(document.getString("request_managed"));
                 currentAdmin = new Admin(currentUser.name, currentUser.userId, currentUser.username, currentUser.email, currentUser.reportNo, currentUser.stressLevel, currentUser.eventsNo, currentUser.phoneNo, currentUser.adminId, currentUser.password, currentUser.profilePhotoUrl, currentUser.supportGroupNo, requestManaged);
                 fetchArticle();
+                fetchRequest();
                 login(loginType);
             }
         });
     }
     // fetch request data from firebase
     public void fetchRequest () {
-        db.getCollection(USERLIBRARY).get().addOnCompleteListener(task -> {
+        db.getCollection("Requests").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 QuerySnapshot snapshot = task.getResult();
                 if (snapshot != null) {
                     for (QueryDocumentSnapshot document : snapshot) {
+                        if (currentUser.userId == Integer.parseInt(document.getString("user_id"))){
+                            int adminId =Integer.parseInt(document.getString("admin_id"));
+                            String date = document.getString("date");
+                            String description = document.getString("description");
+                            String desiredOutcome = document.getString("desired_outcome");
+                            String method = document.getString("method");
+                            String reason = document.getString("reason");
+                            String status = document.getString("status");
+                            String time = document.getString("time");
+                            String type = document.getString("type");
+                            String urgency = document.getString("urgency");
+                            int userId = Integer.parseInt(document.getString("user_id"));
+                            int requestId = Integer.parseInt(document.getId());
 
+                            requests.add(new Request(reason, desiredOutcome, method, urgency, date, time, description, status, adminId, userId, requestId, type));
+                        }
                     }
                 } else {
                     System.out.println("No documents found in the collection.");
