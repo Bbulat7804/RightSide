@@ -28,7 +28,10 @@ public class LoginPage extends AppCompatActivity {
     private String email;
     private String password;
     private int selectedId;
-    private boolean valid = false;
+
+    EditText emailInput;
+    EditText passwordInput;
+    Typeface font;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,13 +42,13 @@ public class LoginPage extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        Button goToSignUpButton = findViewById(R.id.GoToSignUpButton);
         RadioGroup loginOptionGroup = findViewById(R.id.LoginOptionGroup);
-        EditText emailInput = findViewById(R.id.SignUpEmailInput);
-        EditText passwordInput = findViewById(R.id.LoginPasswordInput);
+        emailInput = findViewById(R.id.SignUpEmailInput);
+        passwordInput = findViewById(R.id.LoginPasswordInput);
         ImageButton HideButton = findViewById(R.id.HideButton);
         Button loginButton = findViewById(R.id.LoginButton);
-        Typeface font = passwordInput.getTypeface();
+        font = passwordInput.getTypeface();
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,10 +57,18 @@ public class LoginPage extends AppCompatActivity {
                 email = emailInput.getText().toString();
                 password = passwordInput.getText().toString();
                 RadioButton selectedButton = findViewById(selectedId);
-                validateLoginData(selectedButton.getText().toString().toUpperCase());
+                if(selectedButton!=null)
+                    validateLoginData(selectedButton.getText().toString().toUpperCase());
             }
         });
 
+        goToSignUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginPage.this,SignUpPage.class);
+                startActivity(intent);
+            }
+        });
 
         HideButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,11 +85,10 @@ public class LoginPage extends AppCompatActivity {
         });
     }
 
-    private void login(int userId, String loginType){
+    private void login(String loginType){
 
         //Check login type user/admin
         Manager.userType = loginType;
-
         //change page based on login type
         if(userType.equalsIgnoreCase(USER)){
             Intent intent = new Intent(LoginPage.this, UserMainActivity.class);
@@ -99,11 +109,11 @@ public class LoginPage extends AppCompatActivity {
                 if (snapshot != null) {
                     for (QueryDocumentSnapshot document : snapshot) {
                         if(password.equals(document.getString("password")) && email.equals(document.getString("email"))) {
-                            System.out.println("baru nak cek");
-                            if(loginType.equals(Manager.ADMIN) && document.getString("adminId").equals(""))
+                            if(loginType.equals(Manager.ADMIN) && document.getString("admin_id").equals("0"))
                                 break;
-                            System.out.println("login");
-                            login(Integer.parseInt(document.getId()),loginType);
+                            if(loginType.equals(Manager.USER))
+                                fetchUserData(document.getId(),loginType);
+                            else ;;
                         }
                     }
                 } else {
@@ -114,5 +124,32 @@ public class LoginPage extends AppCompatActivity {
             }
         });
     }
+    private void fetchUserData(String userId, String loginType){
+        db.getDocument(USERLIBRARY,userId).addOnSuccessListener(document ->{
+            if (document.exists()) {
+                String name = document.getString("name");
+                String username = document.getString("username");
+                String email = document.getString("email");
+                String reportNo = document.getString("report_no");
+                String stressLevel = document.getString("stress_level");
+                String eventNo = document.getString("event_no");
+                String phoneNo = document.getString("phone_no");
+                String adminId = document.getString("admin_id");
+                String password = document.getString("password");
+                String profilePhotoUrl = document.getString("profile_photo_url");
+                String supportGroupNo = document.getString("support_group_no");
 
+                Manager.currentUser = new User(name,Integer.parseInt(userId),username,email,Integer.parseInt(reportNo),stressLevel,Integer.parseInt(eventNo),phoneNo,Integer.parseInt(adminId),password,profilePhotoUrl,Integer.parseInt(supportGroupNo));
+                login(loginType);
+            }
+        });
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        emailInput.setText("Afzan@gmail.com");
+        passwordInput.setText("SayaAdmin");
+    }
 }

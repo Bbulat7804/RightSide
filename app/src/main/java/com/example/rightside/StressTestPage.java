@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link fragment_stress_test#newInstance} factory method to
+ * Use the {@link StressTestPage#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_stress_test extends Fragment {
+public class StressTestPage extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +24,7 @@ public class fragment_stress_test extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public fragment_stress_test() {
+    public StressTestPage() {
         // Required empty public constructor
     }
 
@@ -37,8 +37,8 @@ public class fragment_stress_test extends Fragment {
      * @return A new instance of fragment fragment_stress_test.
      */
     // TODO: Rename and change types and number of parameters
-    public static fragment_stress_test newInstance(String param1, String param2) {
-        fragment_stress_test fragment = new fragment_stress_test();
+    public static StressTestPage newInstance(String param1, String param2) {
+        StressTestPage fragment = new StressTestPage();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

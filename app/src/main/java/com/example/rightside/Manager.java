@@ -32,6 +32,8 @@ public class Manager {
     public static Fragment modifyLegalConsultationPage = new ModifyLegalConsultation();
     public static Fragment modifyMentalConsultationPage = new ModifyMentalConsultation();
     public static Fragment groupChatPage = new GroupChatPage();
+    public static Fragment stressTestPage = new StressTestPage();
+    public static Fragment anonymousSupportGroupPage = new AnonymousSupportGroupPage();
     public static String userType;
     public static User currentUser;
     public static DatabaseConnection db = new DatabaseConnection();
