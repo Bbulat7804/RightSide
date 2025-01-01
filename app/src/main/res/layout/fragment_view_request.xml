@@ -114,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_condensed_bold"
-                    android:text="Preferred Consultation Type"
+                    android:text="Preferred Consultation Method"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
 

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -33,6 +34,15 @@ public class ViewRequestPage extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    public static int requestId;
+    TextView reasonTV;
+    TextView outcomeTV;
+    TextView consultationMethodTV;
+    TextView urgencyTV;
+    TextView dateTV;
+    TextView timeTV;
+    TextView descriptionTV;
+    ListView attachmentList;
 
     public ViewRequestPage() {
         // Required empty public constructor
@@ -79,6 +89,14 @@ public class ViewRequestPage extends Fragment {
 
         Button contactAdminButton = view.findViewById(R.id.buttonChat);
         ImageButton editButton = view.findViewById(R.id.editButton);
+        reasonTV = view.findViewById(R.id.TVViewRequestconsultationReason);
+        outcomeTV = view.findViewById(R.id.TVViewRequestconsultationOutcome);
+        consultationMethodTV = view.findViewById(R.id.TVViewConsultationType);
+        urgencyTV = view.findViewById(R.id.TVurgency);
+        dateTV = view.findViewById(R.id.ETpreferredDateLegal);
+        timeTV = view.findViewById(R.id.ETpreferredTimeLegal);
+        descriptionTV = view.findViewById(R.id.TVdescribeRequest);
+        attachmentList = view.findViewById(R.id.attachments);
 
         contactAdminButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,5 +117,26 @@ public class ViewRequestPage extends Fragment {
                 System.out.println("not here");
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Request request = null;
+
+        for (int i=0; i<requests.size(); i++) {
+            if (requests.get(i).requestId == requestId) {
+                request = requests.get(i);
+            }
+        }
+        reasonTV.setText(request.reason);
+        outcomeTV.setText(request.desiredOutcome);
+        consultationMethodTV.setText(request.method);
+        urgencyTV.setText(request.urgency);
+        dateTV.setText(request.date);
+        timeTV.setText(request.time);
+        descriptionTV.setText(request.description);
+        //attachment tk buat lagi
+
     }
 }

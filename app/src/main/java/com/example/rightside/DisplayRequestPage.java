@@ -103,6 +103,7 @@ public class DisplayRequestPage extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ViewRequestPage.requestId = id;
                 goToPage(viewRequestPage,getParentFragmentManager());
             }
         });

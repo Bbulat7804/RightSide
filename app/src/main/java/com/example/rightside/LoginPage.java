@@ -139,7 +139,7 @@ public class LoginPage extends AppCompatActivity {
 
                 Manager.currentUser = new User(name,Integer.parseInt(userId),username,email,Integer.parseInt(reportNo),stressLevel,Integer.parseInt(eventNo),phoneNo,Integer.parseInt(adminId),password,profilePhotoUrl,Integer.parseInt(supportGroupNo));
                 if(loginType.equals(USER)) {
-                    fetchRequest();
+                    fetchRequest(currentUser.userId, "user_id");
                     fetchArticle();
                     login(loginType);
                 }
@@ -156,13 +156,13 @@ public class LoginPage extends AppCompatActivity {
                 int requestManaged = Integer.parseInt(document.getString("request_managed"));
                 currentAdmin = new Admin(currentUser.name, currentUser.userId, currentUser.username, currentUser.email, currentUser.reportNo, currentUser.stressLevel, currentUser.eventsNo, currentUser.phoneNo, currentUser.adminId, currentUser.password, currentUser.profilePhotoUrl, currentUser.supportGroupNo, requestManaged);
                 fetchArticle();
-                fetchRequest();
+                fetchRequest(currentAdmin.adminId, "admin_id");
                 login(loginType);
             }
         });
     }
     // fetch request data from firebase
-    public void fetchRequest () {
+    public void fetchRequest (int id, String idType) {
         requests.clear();
         db.getCollection("Requests").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -170,7 +170,10 @@ public class LoginPage extends AppCompatActivity {
                 if (snapshot != null) {
                     for (QueryDocumentSnapshot document : snapshot) {
                         latestRequestIndex = Integer.parseInt(document.getId());
-                        if (currentUser.userId == Integer.parseInt(document.getString("user_id"))){
+                        //kena cek whether user or admin because kalau user kita display request tapi admin tunjuk request yg dia manage
+                        if (id == Integer.parseInt(document.getString(idType))){ //jadikan variable sbb nak dua2 type of user (user and admin sbb kalau admin masuk and kita amik
+                            //as current user id, jadi mcm display request of the admin je but cannot manage the reqs
+                            //buat parameter sbb ada bnda nk ubah, jadikan variable
                             int adminId =Integer.parseInt(document.getString("admin_id"));
                             String date = document.getString("date");
                             String description = document.getString("description");
