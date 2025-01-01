@@ -19,7 +19,7 @@
 
 
         <ImageView
-            android:id="@+id/GroupJoinedIcon"
+            android:id="@+id/ArticleImage"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@drawable/box_rounded_white"

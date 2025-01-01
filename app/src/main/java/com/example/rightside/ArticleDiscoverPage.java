@@ -1,12 +1,19 @@
 package com.example.rightside;
 
+import static com.example.rightside.Manager.*;
+
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,5 +69,24 @@ public class ArticleDiscoverPage extends Fragment {
         return inflater.inflate(R.layout.fragment_discover_page, container, false);
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        LinearLayout articleContainer = view.findViewById(R.id.ArticleContainer);
+        System.out.println(articles.get(0));
+        for(int i=0 ; i<articles.size() ; i++){
+            addArticleCard(articleContainer,articles.get(i));
+        }
+    }
+    public void addArticleCard(LinearLayout container, Article article){
+        View card = LayoutInflater.from(getActivity()).inflate(R.layout.card_article_discover_page,container,false);
+        TextView articleCaption = card.findViewById(R.id.articleCaption);
+        TextView articleAuthorDate = card.findViewById(R.id.authorDates);
+        ImageView articleImage = card.findViewById(R.id.ArticleImage);
 
+        articleCaption.setText(article.caption);
+        articleAuthorDate.setText(article.author + " | " + article.date);
+        articleImage.setImageResource(R.mipmap.ic_rightside_round);
+        container.addView(card);
+    }
 }

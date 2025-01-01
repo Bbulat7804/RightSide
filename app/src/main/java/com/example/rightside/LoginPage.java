@@ -140,6 +140,7 @@ public class LoginPage extends AppCompatActivity {
                 String supportGroupNo = document.getString("support_group_no");
 
                 Manager.currentUser = new User(name,Integer.parseInt(userId),username,email,Integer.parseInt(reportNo),stressLevel,Integer.parseInt(eventNo),phoneNo,Integer.parseInt(adminId),password,profilePhotoUrl,Integer.parseInt(supportGroupNo));
+                fetchArticle();
                 login(loginType);
             }
         });
@@ -163,7 +164,20 @@ public class LoginPage extends AppCompatActivity {
     }
 
     private void fetchArticle (){
-
+        db.getCollection("Articles").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot snapshot = task.getResult();
+                if (snapshot != null) {
+                    for (QueryDocumentSnapshot document : snapshot) {
+                        articles.add(new Article(Integer.parseInt(document.getId()),document.getString("article_url"), document.getString("caption"), document.getString("image_url"), document.getString("author"), document.getString("date")));
+                    }
+                } else {
+                    System.out.println("No documents found in the collection.");
+                }
+            } else {
+                System.err.println("Error fetching documents: " + task.getException());
+            }
+        });
     }
 
     @Override
