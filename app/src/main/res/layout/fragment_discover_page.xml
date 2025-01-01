@@ -118,9 +118,6 @@
                 android:textSize="30sp" />
 
             <!-- Article Cards, nanti programmically tambah -->
-            <include layout="@layout/card_article_discover_page" />
-
-            <include layout="@layout/card_article_discover_page" />
 
         </LinearLayout>
     </ScrollView>

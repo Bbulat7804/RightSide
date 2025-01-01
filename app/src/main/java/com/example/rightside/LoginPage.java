@@ -145,6 +145,9 @@ public class LoginPage extends AppCompatActivity {
         });
     }
 
+    private void fetchArticle (){
+
+    }
 
     @Override
     protected void onResume() {

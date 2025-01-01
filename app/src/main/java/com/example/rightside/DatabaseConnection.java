@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -30,6 +31,7 @@ import java.util.Map;
 public class DatabaseConnection {
     private final FirebaseFirestore db;
     private final FirebaseStorage storage;
+
     public DatabaseConnection() {
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
@@ -41,7 +43,7 @@ public class DatabaseConnection {
     public CollectionReference getCollection(String collectionName) {
         return db.collection(collectionName);
     }
-    
+
     //method utk add document ke collection
     public Task<DocumentReference> addDocument(String collectionName, Map<String, String> data) {
         return getCollection(collectionName).add(data);
