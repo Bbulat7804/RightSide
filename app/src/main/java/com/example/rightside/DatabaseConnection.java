@@ -41,9 +41,9 @@ public class DatabaseConnection {
     public CollectionReference getCollection(String collectionName) {
         return db.collection(collectionName);
     }
-
+    
     //method utk add document ke collection
-    public Task<DocumentReference> addDocument(String collectionName, Map<String, Object> data) {
+    public Task<DocumentReference> addDocument(String collectionName, Map<String, String> data) {
         return getCollection(collectionName).add(data);
     }
 

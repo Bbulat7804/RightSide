@@ -1,5 +1,7 @@
 package com.example.rightside;
 
+import static com.example.rightside.Manager.currentUser;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,7 +72,26 @@ public class UserProfilePage extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         LinearLayout eventImageContainer = view.findViewById(R.id.JoinedEventImageContainer);
+        TextView usernameTV = view.findViewById(R.id.UsernameTV);
+        TextView nameTV = view.findViewById(R.id.NameTV);
+        TextView emailTV = view.findViewById(R.id.EmailTV);
+        TextView reportNoTV = view.findViewById(R.id.ReportNoTV);
+        TextView stressLevelTV = view.findViewById(R.id.StressLevelTV);
+        TextView eventNoTV = view.findViewById(R.id.EventNoTV);
+        TextView supportGroupNoTV = view.findViewById(R.id.SupportGroupNoTV);
+
+        System.out.println("sini ke");
+        usernameTV.setText((currentUser.username + "'s Profile").toUpperCase());
+        nameTV.setText(currentUser.name);
+        emailTV.setText(currentUser.email);
+        reportNoTV.setText(currentUser.reportNo + "");
+        stressLevelTV.setText(currentUser.stressLevel);
+        eventNoTV.setText(currentUser.eventsNo + "");
+        supportGroupNoTV.setText(currentUser.supportGroupNo + "");
+        System.out.println("tak");
+
         for(int i=0; i<10 ; i++){
             addImage(eventImageContainer,R.drawable.sample_event_image);
         }

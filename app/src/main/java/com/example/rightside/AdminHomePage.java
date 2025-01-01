@@ -77,7 +77,7 @@ public class AdminHomePage extends Fragment {
 
         //Declara data display view
         TextView nameTV = view.findViewById(R.id.HomeNameTV);
-        nameTV.setText("Name");
+        nameTV.setText(currentUser.name);
 
         //Declare Buttons
         LinearLayout reportButton = view.findViewById(R.id.UserReportButton);
