@@ -111,9 +111,7 @@ public class LoginPage extends AppCompatActivity {
                         if(password.equals(document.getString("password")) && email.equals(document.getString("email"))) {
                             if(loginType.equals(Manager.ADMIN) && document.getString("admin_id").equals("0"))
                                 break;
-                            if(loginType.equals(Manager.USER))
-                                fetchUserData(document.getId(),loginType);
-                            else ;;
+                            fetchUserData(document.getId(),loginType);
                         }
                     }
                 } else {
@@ -140,6 +138,23 @@ public class LoginPage extends AppCompatActivity {
                 String supportGroupNo = document.getString("support_group_no");
 
                 Manager.currentUser = new User(name,Integer.parseInt(userId),username,email,Integer.parseInt(reportNo),stressLevel,Integer.parseInt(eventNo),phoneNo,Integer.parseInt(adminId),password,profilePhotoUrl,Integer.parseInt(supportGroupNo));
+                if(loginType.equals(USER)) {
+                    fetchArticle();
+                    login(loginType);
+                }
+                else{
+                    fetchAdminData(loginType);
+                }
+            }
+        });
+    }
+
+    private void fetchAdminData(String loginType){
+        db.getDocument("Admins",Integer.toString(currentUser.adminId)).addOnSuccessListener(document ->{
+            if (document.exists()) {
+                System.out.println("sini");
+                int requestManaged = Integer.parseInt(document.getString("request_managed"));
+                currentAdmin = new Admin(currentUser.name, currentUser.userId, currentUser.username, currentUser.email, currentUser.reportNo, currentUser.stressLevel, currentUser.eventsNo, currentUser.phoneNo, currentUser.adminId, currentUser.password, currentUser.profilePhotoUrl, currentUser.supportGroupNo, requestManaged);
                 fetchArticle();
                 login(loginType);
             }
