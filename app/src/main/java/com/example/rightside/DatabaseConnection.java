@@ -9,6 +9,7 @@ import static java.security.AccessController.getContext;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -33,10 +34,11 @@ import java.util.Map;
 public class DatabaseConnection {
     private final FirebaseFirestore db;
     private final FirebaseStorage storage;
-
+    private final StorageReference storageReference;
     public DatabaseConnection() {
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
     }
 
     // =================== Firestore Methods ===================
@@ -103,5 +105,28 @@ public class DatabaseConnection {
                             .into(imageView);
                 })
                 .addOnFailureListener(e -> Log.e("Firebase", "Failed to load image", e));
+    }
+
+    public void uploadImageToFirebase(Uri imageUri, String path, ImageView imageView, Context context) {
+        StorageReference fileReference = storageReference.child(path);
+
+        fileReference.putFile(imageUri)
+                .addOnSuccessListener(taskSnapshot -> {
+                    // Get the download URL
+                    fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                        String downloadUrl = uri.toString();
+                        System.out.println("Upload successful: " + downloadUrl);
+                        loadImageFromStorage(context, path, imageView);
+                        // Save URL to Firestore if needed
+                    });
+                })
+                .addOnFailureListener(e -> {
+                    System.out.println("Upload failed: " + e.getMessage());
+                });
+    }
+
+    public void deleteImageFromFirebase(String path){
+        StorageReference sf = storageReference.child(path);
+        sf.delete();
     }
 }

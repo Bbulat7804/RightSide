@@ -93,7 +93,6 @@ public class ArticleDiscoverPage extends Fragment {
 
         articleCaption.setText(article.caption);
         articleAuthorDate.setText(article.author + " | " + article.date);
-        articleImage.setImageResource(R.mipmap.ic_rightside_round);
         card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,8 +101,14 @@ public class ArticleDiscoverPage extends Fragment {
                 startActivity(intent);
             }
         });
+        System.out.println("ArticlesIcon/"+article.id+".jpg");
+        db.loadImageFromStorage(card.getContext(), article.imageURL, articleImage);
         container.addView(card);
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        db.deleteImageFromFirebase("ArticlesIcon/" + (latestArticleIndex+1) + ".jpg");
+    }
 }

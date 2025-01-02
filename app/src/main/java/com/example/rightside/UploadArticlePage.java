@@ -1,9 +1,12 @@
 package com.example.rightside;
 
+import static android.app.Activity.RESULT_OK;
 import static com.example.rightside.Manager.*;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +20,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -40,6 +44,7 @@ public class UploadArticlePage extends Fragment {
     EditText captionInput;
     EditText urlInput;
     EditText authorInput;
+    ImageView imageUploadButton;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -93,12 +98,20 @@ public class UploadArticlePage extends Fragment {
         captionInput = view.findViewById(R.id.CaptionTextInput);
         urlInput = view.findViewById(R.id.URLTextInput);
         authorInput = view.findViewById(R.id.AuthorNameInput);
+        imageUploadButton = view.findViewById(R.id.ImageUploadButton);
 
+        imageUploadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFileChooser();
+            }
+        });
 
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Article article = new Article(++latestArticleIndex, urlInput.getText().toString().trim(), captionInput.getText().toString().trim(),"", authorInput.getText().toString().trim(), dateButton.getText().toString().trim());
+                Article article = new Article(latestArticleIndex+1, urlInput.getText().toString().trim(), captionInput.getText().toString().trim(),getIconPath(), authorInput.getText().toString().trim(), dateButton.getText().toString().trim());
+                latestArticleIndex++;
                 articles.add(article);
                 uploadArticleToFirestore(article);
                 for(int i=0 ; i<2 ; i++){
@@ -118,6 +131,26 @@ public class UploadArticlePage extends Fragment {
         });
     }
 
+    private void openFileChooser() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
+            Uri imageUri = data.getData();
+            if (imageUri != null) {
+                db.uploadImageToFirebase(imageUri,getIconPath(),imageUploadButton,getContext());  // Call the upload function
+            }
+        }
+    }
+
+    public String getIconPath(){
+        return "ArticlesIcon/" + Integer.toString(latestArticleIndex+1) + ".jpg";
+    }
     public DatePickerDialog initializeDatePicker(TextView dateButton){
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -168,7 +201,6 @@ public class UploadArticlePage extends Fragment {
         else
             return "Jan";
     }
-
     private String getTodaysDate() {
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
