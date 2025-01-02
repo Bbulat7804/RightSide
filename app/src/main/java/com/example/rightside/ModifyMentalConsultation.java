@@ -66,6 +66,7 @@ public class ModifyMentalConsultation extends Fragment {
     RadioButton urgent;
     RadioButton nonUrgent;
     Button submitButton;
+    String selectedText;
 
     public ModifyMentalConsultation() {
         // Required empty public constructor
@@ -114,6 +115,17 @@ public class ModifyMentalConsultation extends Fragment {
         descriptionTV = view.findViewById(R.id.editTextDescribeMental);
 
         preferredConsultation = view.findViewById(R.id.RadioGroupPreferredConsultation);
+        int checkedRadioButtonId = preferredConsultation.getCheckedRadioButtonId();
+            if (checkedRadioButtonId != -1) {
+                RadioButton checkedRadioButton = view.findViewById(checkedRadioButtonId);
+                selectedText = checkedRadioButton.getText().toString();
+            }
+
+        urgency = view.findViewById(R.id.RadioGroupUrgency);
+            int checkedRadioButton2 = urgency.getCheckedRadioButtonId();
+            if (checkedRadioButtonId != -1) {
+
+            }
         inPerson = view.findViewById(R.id.buttonInPersonMental);
         phoneCall = view.findViewById(R.id.buttonPhoneCallMental);
         videoCall = view.findViewById(R.id.buttonVideoCallMental);
@@ -250,6 +262,7 @@ public class ModifyMentalConsultation extends Fragment {
         String method = request.method;
         String urgency = request.urgency;
 
+
         SpinnerAdapter spinnerAdapter = spinnerReasonConsultation.getAdapter();
         for (int i = 0; i < spinnerAdapter.getCount(); i++) {
             if (spinnerAdapter.getItem(i).toString().equals(reason)) {
@@ -294,7 +307,7 @@ public class ModifyMentalConsultation extends Fragment {
                 request.desiredOutcome = spinnerDesiredOutcome.getSelectedItem().toString();
                 request.date = dateTV.getText().toString();
                 request.time = timeTV.getText().toString();
-
+                request.method = selectedText; //nnot sure
             }
         });
     }
