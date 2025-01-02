@@ -1,7 +1,12 @@
 package com.example.rightside;
 
+import static android.app.Activity.RESULT_OK;
+import static com.example.rightside.Manager.PICK_IMAGE_REQUEST;
 import static com.example.rightside.Manager.currentUser;
+import static com.example.rightside.Manager.db;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -31,6 +36,7 @@ public class UserProfilePage extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private ImageView profilePhoto;
     public UserProfilePage() {
         // Required empty public constructor
     }
@@ -81,7 +87,7 @@ public class UserProfilePage extends Fragment {
         TextView stressLevelTV = view.findViewById(R.id.StressLevelTV);
         TextView eventNoTV = view.findViewById(R.id.EventNoTV);
         TextView supportGroupNoTV = view.findViewById(R.id.SupportGroupNoTV);
-
+        profilePhoto = view.findViewById(R.id.ProfilePhoto);
         System.out.println("sini ke");
         usernameTV.setText((currentUser.username + "'s Profile").toUpperCase());
         nameTV.setText(currentUser.name);
@@ -91,10 +97,36 @@ public class UserProfilePage extends Fragment {
         eventNoTV.setText(currentUser.eventsNo + "");
         supportGroupNoTV.setText(currentUser.supportGroupNo + "");
         System.out.println("tak");
-
+        profilePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFileChooser();
+            }
+        });
         for(int i=0; i<10 ; i++){
             addImage(eventImageContainer,R.drawable.sample_event_image);
         }
+    }
+
+    private void openFileChooser() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
+            Uri imageUri = data.getData();
+            if (imageUri != null) {
+                db.uploadImageToFirebase(imageUri,getProfilePhotoPath(),profilePhoto,getContext());  // Call the upload function
+            }
+        }
+    }
+
+    public String getProfilePhotoPath(){
+        return "ProfilePhoto/" + currentUser.userId + ".png";
     }
 
     public void addImage(LinearLayout container, int imageResource){
@@ -108,5 +140,11 @@ public class UserProfilePage extends Fragment {
         imageView.setLayoutParams(params);
 
         container.addView(imageView);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        db.loadImageFromStorage(getActivity(), getProfilePhotoPath(),profilePhoto);
     }
 }

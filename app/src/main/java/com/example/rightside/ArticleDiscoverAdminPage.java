@@ -3,16 +3,19 @@ package com.example.rightside;
 import static com.example.rightside.Manager.*;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -79,6 +82,84 @@ public class ArticleDiscoverAdminPage extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ImageButton uploadButton = view.findViewById(R.id.UploadButton);
         LinearLayout articleContainer = view.findViewById(R.id.ArticleContainer);
+        Button[] buttons = new Button[4];
+
+        buttons[0] = view.findViewById(R.id.All);
+        buttons[1] = view.findViewById(R.id.Guides);
+        buttons[2] = view.findViewById(R.id.Rights);
+        buttons[3] = view.findViewById(R.id.Discrimination);
+        int green = ContextCompat.getColor(getContext(),R.color.green);
+        int white = ContextCompat.getColor(getContext(),R.color.white);
+        int black = Color.BLACK;
+
+        buttons[0].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                articleContainer.removeAllViews();
+                for(int i=0 ; i<4 ; i++){
+                    buttons[i].setBackgroundColor(white);
+                    buttons[i].setTextColor(black);
+                }
+                buttons[0].setBackgroundColor(green);
+                buttons[0].setTextColor(white);
+                for(int i=0 ; i<articles.size() ; i++){
+                    addArticleCard(articleContainer,articles.get(i));
+                }
+            }
+        });
+
+        buttons[1].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                articleContainer.removeAllViews();
+                for(int i=0 ; i<4 ; i++){
+                    buttons[i].setBackgroundColor(white);
+                    buttons[i].setTextColor(black);
+                }
+                buttons[1].setBackgroundColor(green);
+                buttons[1].setTextColor(white);
+                for(int i=0 ; i<articles.size() ; i++){
+                    if(articles.get(i).type.equals("Guides"))
+                        addArticleCard(articleContainer,articles.get(i));
+                }
+            }
+        });
+
+        buttons[2].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                articleContainer.removeAllViews();
+                for(int i=0 ; i<4 ; i++){
+                    buttons[i].setBackgroundColor(white);
+                    buttons[i].setTextColor(black);
+                }
+                buttons[2].setBackgroundColor(green);
+                buttons[2].setTextColor(white);
+                for(int i=0 ; i<articles.size() ; i++){
+                    if(articles.get(i).type.equals("Your Rights"))
+                        addArticleCard(articleContainer,articles.get(i));
+                }
+            }
+        });
+
+        buttons[3].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                articleContainer.removeAllViews();
+                for(int i=0 ; i<4 ; i++){
+                    buttons[i].setBackgroundColor(white);
+                    buttons[i].setTextColor(black);
+                }
+                buttons[3].setBackgroundColor(green);
+                buttons[3].setTextColor(white);
+                for(int i=0 ; i<articles.size() ; i++){
+                    if(articles.get(i).type.equals("Discrimination"))
+                        addArticleCard(articleContainer,articles.get(i));
+                }
+            }
+        });
+
+        articleContainer.removeAllViews();
         for(int i=0 ; i<articles.size() ; i++){
             addArticleCard(articleContainer,articles.get(i));
         }
@@ -106,7 +187,6 @@ public class ArticleDiscoverAdminPage extends Fragment {
                 startActivity(intent);
             }
         });
-        System.out.println("ArticlesIcon/"+article.id+".jpg");
         db.loadImageFromStorage(card.getContext(), article.imageURL, articleImage);
         container.addView(card);
     }
