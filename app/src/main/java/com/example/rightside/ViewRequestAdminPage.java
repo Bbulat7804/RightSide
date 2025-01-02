@@ -31,7 +31,7 @@ public class ViewRequestAdminPage extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    public static int requestId;
     public ViewRequestAdminPage() {
         // Required empty public constructor
     }
