@@ -230,6 +230,6 @@ public class UploadArticlePage extends Fragment {
         data.put("date", article.date);
         data.put("image_url",article.imageURL);
 
-        db.addDocument("Articles",data,Integer.toString(article.id));
+        db.addDocument("Articles", data, Integer.toString(article.id));
     }
 }
