@@ -19,6 +19,7 @@ public class Manager {
     public static Fragment adminProfilePage = new AdminProfilePage();
     public static Fragment faqPage = new FAQPage();
     public static Fragment eventsPage = new EventsPage();
+    public static Fragment uploadEventPage = new UploadEvent();
     public static Fragment dataInsigtsPage = new DataInsightsPage();
     public static Fragment userRequestPage = new DisplayRequestPage();
     public static Fragment legalConsultationForm = new LegalConsultationForm();

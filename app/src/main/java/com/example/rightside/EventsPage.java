@@ -81,14 +81,21 @@ public class EventsPage extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         LinearLayout eventCardContainer = view.findViewById(R.id.EventCardContainer);
-        Button tryTambahButton = view.findViewById(R.id.tryTambahButton);
+        ImageView uploadEventAdminButton = view.findViewById(R.id.uploadEventAdminButton);
 
-        tryTambahButton.setOnClickListener(v -> {
-            addEventCard(eventCardContainer, db);
+        if (userType.equals(USER))
+            uploadEventAdminButton.setVisibility(View.GONE);
+
+        uploadEventAdminButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(uploadEventPage, getParentFragmentManager());
+            }
         });
+
     }
 
-    private void addEventCard(LinearLayout cardContainer, DatabaseConnection db) {
+    /*private void addEventCard(LinearLayout cardContainer, DatabaseConnection db) {
 
         // Create a new card
         LayoutInflater inflater = LayoutInflater.from(cardContainer.getContext());
@@ -124,8 +131,8 @@ public class EventsPage extends Fragment {
         cardContainer.addView(cardView);
         animateCard(cardView);
     }
-
-    private void animateCard(View cardView) {
+*/
+    /*private void animateCard(View cardView) {
 
         // Create animations
         AlphaAnimation fadeIn = new AlphaAnimation(0f, cardView.getAlpha());
@@ -137,5 +144,6 @@ public class EventsPage extends Fragment {
         // Start animations together
         cardView.startAnimation(fadeIn);
         cardView.startAnimation(slideIn);
-    }
+    }*/
+
 }
