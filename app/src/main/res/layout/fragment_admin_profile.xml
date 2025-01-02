@@ -244,23 +244,24 @@
             </LinearLayout>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/ProfilePhotoButton"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center_horizontal"
-                android:background="#00FFFFFF"
+                android:background="#FFFFFF"
                 android:backgroundTint="#00FFFFFF"
                 app:cardBackgroundColor="#00FFFFFF"
                 app:cardCornerRadius="100dp">
 
                 <ImageView
-                    android:id="@+id/imageView12"
+                    android:id="@+id/ProfilePhoto"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
-                    android:background="#00FFFFFF"
-                    android:backgroundTint="#00FFFFFF"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/ic_rightside_round" />
+                    android:background="#FFFFFF"
+                    android:backgroundTint="#FFFFFF"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/sample_profile_image" />
             </androidx.cardview.widget.CardView>
         </FrameLayout>
     </LinearLayout>
