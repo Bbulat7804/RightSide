@@ -163,6 +163,7 @@ public class ContactAdminPage extends Fragment {
                                     continue;
                                 chatIndex++;
                                 if (document.getString("sender").equals(USER)) {
+                                    System.out.println("haa");
                                     sendText(document.getString("text"));
                                 } else {
                                     receiveText(document.getString("text"));
@@ -195,7 +196,6 @@ public class ContactAdminPage extends Fragment {
                     for(int i=0 ; i<textList.size() ; i++){
                         chatIndex++;
                         if (textList.get(i).getString("sender").equals(USER)) {
-                            System.out.println("sampai");
                             sendText(textList.get(i).getString("text"));
                         } else {
                             receiveText(textList.get(i).getString("text"));

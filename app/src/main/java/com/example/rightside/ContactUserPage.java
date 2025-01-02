@@ -101,6 +101,8 @@ public class ContactUserPage extends Fragment {
         sendTextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(chatInput.getText().toString().trim().equals(""))
+                    return;
                 uploadMessage(chatInput.getText().toString().trim());
             }
         });
@@ -208,13 +210,13 @@ public class ContactUserPage extends Fragment {
         HashMap <String,String> data = new HashMap<>();
         data.put("sender",ADMIN);
         data.put("text", text);
-        db.addDocument("ChatRoom" + ViewRequestAdminPage.requestId, data,Integer.toString(++chatIndex));
+        db.addDocument("ChatRoom" + ViewRequestAdminPage.requestId, data,Integer.toString(chatIndex+1));
     }
 
     @Override
     public void onStop() {
         super.onStop();
         if(registration!=null)
-            registration.remove();
+        registration.remove();
     }
 }
