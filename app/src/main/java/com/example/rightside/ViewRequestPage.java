@@ -136,7 +136,6 @@ public class ViewRequestPage extends Fragment {
         dateTV.setText(request.date);
         timeTV.setText(request.time);
         descriptionTV.setText(request.description);
-        //attachment tk buat lagi
 
     }
 }

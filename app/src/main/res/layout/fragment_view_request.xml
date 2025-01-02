@@ -227,22 +227,6 @@
                 android:textSize="14dp" />
 
             <TextView
-                android:id="@+id/textView9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_condensed_bold"
-                android:text="Attachments"
-                android:textColor="@color/white"
-                android:textSize="16dp" />
-
-            <ListView
-                android:id="@+id/attachments"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@color/white" />
-
-            <TextView
                 android:id="@+id/emptyAttachments"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
