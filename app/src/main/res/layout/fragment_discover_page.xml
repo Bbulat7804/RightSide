@@ -1,11 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkBlue"
+    android:orientation="vertical"
     tools:context=".ArticleDiscoverPage">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/discover"
+        android:textColor="@color/white"
+        android:textSize="40sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:fontFamily="@font/roboto"
+        android:text="@string/news_and_articles_from_all_around_the_world"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/box_rounded_bordered_white"
+        android:drawableStart="@drawable/icon_search_green"
+        android:fontFamily="@font/roboto"
+        android:padding="8dp"
+        android:textColor="@color/green" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp">
+
+        <LinearLayout
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/All"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/green"
+                android:fontFamily="@font/roboto_condensed_regular"
+                android:text="@string/all"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/Guides"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/roboto_condensed_regular"
+                android:text="@string/guides"
+                android:textColor="@color/darkBlue" />
+
+            <Button
+                android:id="@+id/Rights"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/roboto_condensed_regular"
+                android:text="@string/your_rights"
+                android:textColor="@color/darkBlue" />
+
+            <Button
+                android:id="@+id/Discrimination"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/roboto_condensed_regular"
+                android:text="@string/discriminations"
+                android:textColor="@color/darkBlue" />
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/recommendations"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -19,108 +119,15 @@
 
             <!-- top navigation -->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:fontFamily="@font/roboto_bold"
-                android:text="@string/discover"
-                android:textColor="@color/white"
-                android:textSize="40sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:fontFamily="@font/roboto"
-                android:text="@string/news_and_articles_from_all_around_the_world"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
-
             <!-- search bar -->
-            <EditText
-                android:id="@+id/searchBar"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="14dp"
-                android:layout_marginEnd="24dp"
-                android:layout_weight="1"
-                android:background="@drawable/box_rounded_bordered_white"
-                android:drawableStart="@drawable/icon_search_green"
-                android:fontFamily="@font/roboto"
-                android:padding="8dp"
-                android:textColor="@color/green" />
 
             <!--suggestions bawah search bar-->
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp">
-
-                <LinearLayout
-                    style="?android:attr/buttonBarStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <Button
-                        style="?android:attr/buttonBarButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:backgroundTint="@color/green"
-                        android:fontFamily="@font/roboto_condensed_regular"
-                        android:text="@string/all"
-                        android:textColor="@color/white" />
-
-                    <Button
-                        style="?android:attr/buttonBarButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:backgroundTint="@color/white"
-                        android:fontFamily="@font/roboto_condensed_regular"
-                        android:text="@string/guides"
-                        android:textColor="@color/darkBlue" />
-
-                    <Button
-                        style="?android:attr/buttonBarButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:backgroundTint="@color/white"
-                        android:fontFamily="@font/roboto_condensed_regular"
-                        android:text="@string/your_rights"
-                        android:textColor="@color/darkBlue" />
-
-                    <Button
-                        style="?android:attr/buttonBarButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/white"
-                        android:fontFamily="@font/roboto_condensed_regular"
-                        android:text="@string/discriminations"
-                        android:textColor="@color/darkBlue" />
-                </LinearLayout>
-
-            </HorizontalScrollView>
 
             <!-- recommendations-->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:fontFamily="@font/roboto_bold"
-                android:text="@string/recommendations"
-                android:textColor="@color/white"
-                android:textSize="30sp" />
 
             <!-- Article Cards, nanti programmically tambah -->
 
         </LinearLayout>
     </ScrollView>
-</FrameLayout>
+</LinearLayout>
 

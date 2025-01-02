@@ -207,7 +207,7 @@ public class LoginPage extends AppCompatActivity {
                 if (snapshot != null) {
                     for (QueryDocumentSnapshot document : snapshot) {
                         latestArticleIndex = Integer.parseInt(document.getId());
-                        articles.add(new Article(Integer.parseInt(document.getId()),document.getString("article_url"), document.getString("caption"), document.getString("image_url"), document.getString("author"), document.getString("date")));
+                        articles.add(new Article(Integer.parseInt(document.getId()),document.getString("article_url"), document.getString("caption"), document.getString("image_url"), document.getString("author"), document.getString("date"), document.getString("type")));
                     }
                 } else {
                     System.out.println("No documents found in the collection.");

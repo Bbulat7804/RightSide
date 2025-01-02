@@ -1,8 +1,11 @@
 package com.example.rightside;
 
 
+import static android.app.Activity.RESULT_OK;
 import static com.example.rightside.Manager.*;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -31,6 +34,7 @@ public class AdminProfilePage extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    ImageView profilePhoto;
 
     public AdminProfilePage() {
         // Required empty public constructor
@@ -81,6 +85,14 @@ public class AdminProfilePage extends Fragment {
         TextView stressLevelTV = view.findViewById(R.id.StressLevelTV);
         TextView eventNoTV = view.findViewById(R.id.EventNoTV);
         TextView requestManagedNoTV = view.findViewById(R.id.RequestManagedNumber);
+        profilePhoto = view.findViewById(R.id.ProfilePhoto);
+
+        profilePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFileChooser();
+            }
+        });
 
         usernameTV.setText((currentAdmin.username + "'s Profile").toUpperCase());
         nameTV.setText(currentAdmin.name);
@@ -95,6 +107,26 @@ public class AdminProfilePage extends Fragment {
         }
     }
 
+    private void openFileChooser() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
+            Uri imageUri = data.getData();
+            if (imageUri != null) {
+                db.uploadImageToFirebase(imageUri,getProfilePhotoPath(),profilePhoto,getContext());  // Call the upload function
+            }
+        }
+    }
+
+    public String getProfilePhotoPath(){
+        return "ProfilePhoto/" + currentUser.userId + ".png";
+    }
     public void addImage(LinearLayout container, int imageResource){
         ImageView imageView = new ImageView(container.getContext());
         imageView.setImageResource(imageResource);
@@ -106,5 +138,11 @@ public class AdminProfilePage extends Fragment {
         imageView.setLayoutParams(params);
 
         container.addView(imageView);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        db.loadImageFromStorage(getActivity(), getProfilePhotoPath(),profilePhoto);
     }
 }
