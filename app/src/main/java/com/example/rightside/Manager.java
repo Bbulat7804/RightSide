@@ -47,6 +47,8 @@ public class Manager {
     public static ArrayList<Article> articles = new ArrayList<>();
     public static int latestRequestIndex = 0;
     public static int latestArticleIndex = 0;
+    public static final int PICK_IMAGE_REQUEST = 1;
+
     public static ArrayList<Request> requests = new ArrayList<>();
     public static void goToPage(Fragment fragment, FragmentManager fm){
         int containerId = R.id.fragment_container;

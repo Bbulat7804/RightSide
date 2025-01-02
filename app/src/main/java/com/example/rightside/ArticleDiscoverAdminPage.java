@@ -90,7 +90,6 @@ public class ArticleDiscoverAdminPage extends Fragment {
             }
         });
     }
-
     public void addArticleCard(LinearLayout container, Article article){
         View card = LayoutInflater.from(getActivity()).inflate(R.layout.card_article_discover_page,container,false);
         TextView articleCaption = card.findViewById(R.id.articleCaption);
@@ -99,7 +98,6 @@ public class ArticleDiscoverAdminPage extends Fragment {
 
         articleCaption.setText(article.caption);
         articleAuthorDate.setText(article.author + " | " + article.date);
-        articleImage.setImageResource(R.mipmap.ic_rightside_round);
         card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,6 +106,14 @@ public class ArticleDiscoverAdminPage extends Fragment {
                 startActivity(intent);
             }
         });
+        System.out.println("ArticlesIcon/"+article.id+".jpg");
+        db.loadImageFromStorage(card.getContext(), article.imageURL, articleImage);
         container.addView(card);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        db.deleteImageFromFirebase("ArticlesIcon/" + (latestArticleIndex+1) + ".jpg");
     }
 }
