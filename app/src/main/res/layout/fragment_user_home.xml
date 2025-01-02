@@ -318,7 +318,7 @@
                                     android:layout_weight="1"
                                     android:fontFamily="@font/roboto_bold"
                                     android:gravity="center_horizontal"
-                                    android:text="Manage Request"
+                                    android:text="Requests"
                                     android:textColor="@color/green"
                                     android:textSize="7dp" />
                             </LinearLayout>

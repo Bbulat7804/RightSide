@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="800dp"
+    android:layout_height="match_parent"
     android:background="@color/darkBlue"
     tools:context=".ViewRequestPage">
 
@@ -242,7 +242,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="@color/white" />
+                android:background="@color/white">
+
+            </ListView>
 
             <TextView
                 android:id="@+id/emptyAttachments"
