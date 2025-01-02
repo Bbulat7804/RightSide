@@ -17,7 +17,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_weight="1"
             android:fontFamily="@font/roboto_bold"
             android:text="Contact User"
             android:textAllCaps="true"
@@ -25,7 +24,7 @@
             android:textSize="30sp" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="18dp"
@@ -40,9 +39,8 @@
             <Button
                 android:id="@+id/buttonChat"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:layout_marginEnd="30dp"
-                android:layout_weight="1"
                 android:backgroundTint="@color/green"
                 android:fontFamily="@font/roboto_condensed_regular"
                 android:text="Chat"
@@ -52,9 +50,8 @@
             <Button
                 android:id="@+id/buttonRequest"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:layout_marginStart="30dp"
-                android:layout_weight="1"
                 android:backgroundTint="@color/blue"
                 android:fontFamily="@font/roboto_condensed_regular"
                 android:text="Request"

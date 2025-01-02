@@ -80,10 +80,6 @@ public class ManageRequestPage extends Fragment {
 
         LinearLayout cardContainer = view.findViewById(R.id.ManageRequestCardContainer);
 
-        for (int i = 0; i < 20; i++) {
-            requests.add(new Request("Tajuk", "Information and Guidance", "Phone-call","Urgent", "28/01/2025", "22:00", "DESC", "pending", 1, 2, 1, "mental"));
-        }
-
         for(int i=0 ; i<requests.size() ; i++){
             addCard(cardContainer,requests.get(i));
         }
@@ -116,6 +112,7 @@ public class ManageRequestPage extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ViewRequestAdminPage.requestId = 1;
                 goToPage(viewRequestAdminPage,getParentFragmentManager());
             }
         });
