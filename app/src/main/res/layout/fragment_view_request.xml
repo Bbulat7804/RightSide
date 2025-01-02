@@ -76,7 +76,7 @@
 
             <TextView
                 android:id="@+id/TVViewRequestconsultationReason"
-                android:layout_width="305dp"
+                android:layout_width="354dp"
                 android:layout_height="39dp"
                 android:background="@drawable/box_rounded_bordered_white"
                 android:ems="10"
