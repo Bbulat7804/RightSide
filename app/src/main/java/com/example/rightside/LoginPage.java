@@ -23,6 +23,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+
 public class LoginPage extends AppCompatActivity {
     boolean hide = true;
     private String email;
@@ -141,6 +143,7 @@ public class LoginPage extends AppCompatActivity {
                 if(loginType.equals(USER)) {
                     fetchRequest(currentUser.userId, "user_id");
                     fetchArticle();
+                    fetchSupportGroup();
                     login(loginType);
                 }
                 else{
@@ -156,6 +159,7 @@ public class LoginPage extends AppCompatActivity {
                 int requestManaged = Integer.parseInt(document.getString("request_managed"));
                 currentAdmin = new Admin(currentUser.name, currentUser.userId, currentUser.username, currentUser.email, currentUser.reportNo, currentUser.stressLevel, currentUser.eventsNo, currentUser.phoneNo, currentUser.adminId, currentUser.password, currentUser.profilePhotoUrl, currentUser.supportGroupNo, requestManaged);
                 fetchArticle();
+                fetchSupportGroup();
                 fetchRequest(currentAdmin.adminId, "admin_id");
                 login(loginType);
             }
@@ -218,11 +222,35 @@ public class LoginPage extends AppCompatActivity {
         });
     }
 
+    private void fetchSupportGroup(){
+        supportGroups.clear();
+        db.getCollection("Support Groups").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot snapshot = task.getResult();
+                if (snapshot != null) {
+                    for (QueryDocumentSnapshot document : snapshot) {
+                        latestSupportGroupIndex++;
+                        ArrayList<String> temp = (ArrayList<String>) document.get("participants_id");
+                        ArrayList<Integer> participantsId = new ArrayList();
+                        for(int i=0 ; i<temp.size() ; i++){
+                            participantsId.add(Integer.parseInt(temp.get(i)));
+                        }
+                        supportGroups.add(new SupportGroup(document.getString("name"), document.getString("description"), Integer.parseInt(document.getId()), document.getString("icon_url"), participantsId));
+                    }
+                } else {
+                    System.out.println("No documents found in the collection.");
+                }
+            } else {
+                System.err.println("Error fetching documents: " + task.getException());
+            }
+        });
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
-        emailInput.setText("hazimnidzam@gmail.com");
-        passwordInput.setText("1234");
+        emailInput.setText("Afzan@gmail.com");
+        passwordInput.setText("SayaAdmin");
     }
 
     @Override

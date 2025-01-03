@@ -150,7 +150,6 @@ public class ContactAdminPage extends Fragment {
         registration = db.getCollection("ChatRoom" + ViewRequestPage.requestId).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                System.out.println("masuk");
                 for (DocumentChange documentChange : value.getDocumentChanges()) {
                     switch (documentChange.getType()) {
                         case ADDED:
@@ -163,7 +162,6 @@ public class ContactAdminPage extends Fragment {
                                     continue;
                                 chatIndex++;
                                 if (document.getString("sender").equals(USER)) {
-                                    System.out.println("haa");
                                     sendText(document.getString("text"));
                                 } else {
                                     receiveText(document.getString("text"));
@@ -208,7 +206,7 @@ public class ContactAdminPage extends Fragment {
     }
 
     public void uploadMessage(String text){
-        HashMap<String,String> data = new HashMap<>();
+        HashMap<String,Object> data = new HashMap<>();
         data.put("sender",USER);
         data.put("text", text);
         db.addDocument("ChatRoom" + ViewRequestPage.requestId, data,Integer.toString(chatIndex+1));

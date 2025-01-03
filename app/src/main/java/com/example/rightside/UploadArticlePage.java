@@ -231,7 +231,7 @@ public class UploadArticlePage extends Fragment {
     }
 
     public void uploadArticleToFirestore(Article article){
-        HashMap<String,String> data = new HashMap();
+        HashMap<String,Object> data = new HashMap();
         data.put("article_url", article.url);
         data.put("author", article.author);
         data.put("caption", article.caption);

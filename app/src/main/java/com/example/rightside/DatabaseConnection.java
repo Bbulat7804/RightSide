@@ -49,7 +49,7 @@ public class DatabaseConnection {
     }
 
     //method utk add document ke collection
-    public void addDocument(String collectionName, Map<String, String> data, String id) {
+    public void addDocument(String collectionName, Map<String, Object> data, String id) {
         DocumentReference doc = getCollection(collectionName).document(id);
         doc.set(data);
     }

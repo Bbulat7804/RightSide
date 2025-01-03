@@ -38,18 +38,24 @@ public class Manager {
     public static Fragment groupChatPage = new GroupChatPage();
     public static Fragment stressTestPage = new StressTestPage();
     public static Fragment anonymousSupportGroupPage = new AnonymousSupportGroupPage();
+    public static Fragment anonymousSupportGroupAdminPage = new AnonymousSupportGroupAdminPage();
+    public static Fragment createGroupPage = new CreateSupportGroupPage();
     public static Fragment blankPage = new BlankPage();
     public static String userType;
     public static User currentUser;
     public static Admin currentAdmin;
     public static DatabaseConnection db = new DatabaseConnection();
-    public static LinkedList<Fragment> stack = new LinkedList();
-    public static ArrayList<Article> articles = new ArrayList<>();
     public static int latestRequestIndex = 0;
     public static int latestArticleIndex = 0;
+    public static int latestSupportGroupIndex = 0;
     public static final int PICK_IMAGE_REQUEST = 1;
-
+    public static final int PICK_GROUP_ICON_REQUEST = 10;
     public static ArrayList<Request> requests = new ArrayList<>();
+    public static ArrayList<SupportGroup> supportGroups = new ArrayList<>();
+    public static ArrayList<Article> articles = new ArrayList<>();
+    public static LinkedList<Fragment> stack = new LinkedList();
+
+
     public static void goToPage(Fragment fragment, FragmentManager fm){
         int containerId = R.id.fragment_container;
         fm.beginTransaction().replace(containerId,fragment).commit();

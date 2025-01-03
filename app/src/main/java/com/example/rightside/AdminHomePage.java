@@ -93,6 +93,12 @@ public class AdminHomePage extends Fragment {
         LinearLayout uploadArticleButton = view.findViewById(R.id.UploadArticlesButton);
         LinearLayout articleButton = view.findViewById(R.id.ArticlesButton);
 
+        supportGroupsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(anonymousSupportGroupAdminPage,getParentFragmentManager());
+            }
+        });
         manageRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

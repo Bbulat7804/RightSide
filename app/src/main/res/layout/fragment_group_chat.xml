@@ -19,19 +19,28 @@
             android:orientation="horizontal"
             android:gravity="center_vertical">
 
-            <ImageView
-                android:id="@+id/GroupIcon"
+            <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:scaleType="fitCenter"
-                android:src="@mipmap/ic_rightside_foreground" />
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="#00FFFFFF"
+                app:cardBackgroundColor="#00FFFFFF"
+                app:cardCornerRadius="100dp">
+
+                <ImageView
+                    android:id="@+id/GroupIcon"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="#00FFFFFF"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/ic_rightside_foreground" />
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/GroupName"
-                android:layout_width="323dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:fontFamily="@font/roboto_bold"
                 android:text="TextView"
                 android:textAllCaps="true"
@@ -56,18 +65,18 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_gravity="bottom"
             android:background="#00FFFFFF"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
             <EditText
                 android:id="@+id/ChatInput"
-                android:layout_width="350dp"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_gravity="bottom"
                 android:layout_marginStart="15dp"
-                android:layout_marginBottom="11dp"
+                android:layout_weight="7"
                 android:background="@drawable/box_rounded_bordered_white"
                 android:ems="10"
                 android:hint="Ask something"
@@ -77,8 +86,8 @@
 
             <ImageButton
                 android:id="@+id/SendTextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="88dp"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:backgroundTint="#00FFFFFF"
                 android:scaleType="fitCenter"
