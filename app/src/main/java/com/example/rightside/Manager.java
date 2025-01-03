@@ -46,9 +46,12 @@ public class Manager {
     public static DatabaseConnection db = new DatabaseConnection();
     public static LinkedList<Fragment> stack = new LinkedList();
     public static ArrayList<Article> articles = new ArrayList<>();
+    public static ArrayList<Event> events = new ArrayList<>();
     public static int latestRequestIndex = 0;
     public static int latestArticleIndex = 0;
+    public static int latestEventIndex = 0;
     public static final int PICK_IMAGE_REQUEST = 1;
+    public static final int PICK_IMAGE_EVENT_REQUEST = 1;
 
     public static ArrayList<Request> requests = new ArrayList<>();
     public static void goToPage(Fragment fragment, FragmentManager fm){

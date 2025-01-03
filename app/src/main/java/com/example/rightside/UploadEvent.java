@@ -1,5 +1,20 @@
 package com.example.rightside;
 
+import static android.app.Activity.RESULT_OK;
+import static com.example.rightside.Manager.PICK_IMAGE_EVENT_REQUEST;
+import static com.example.rightside.Manager.PICK_IMAGE_REQUEST;
+import static com.example.rightside.Manager.db;
+import static com.example.rightside.Manager.events;
+import static com.example.rightside.Manager.eventsPage;
+import static com.example.rightside.Manager.goToPage;
+import static com.example.rightside.Manager.latestArticleIndex;
+import static com.example.rightside.Manager.latestEventIndex;
+import static com.example.rightside.Manager.stack;
+
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +24,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.Calendar;
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +44,14 @@ public class UploadEvent extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    ImageView uploadEventImageButton;
+    EditText uploadEventTitleTextInput;
+    EditText uploadEventDescTextInput;
+    EditText uploadEventURLTextInput;
+    EditText uploadEventAuthorNameInput;
+    TextView uploadEventDateButton;
+    ImageButton uploadEventButton;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -67,7 +98,70 @@ public class UploadEvent extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        uploadEventImageButton = view.findViewById(R.id.uploadEventImage);
+        uploadEventTitleTextInput = view.findViewById(R.id.uploadEventTitleTextInput);
+        uploadEventDescTextInput = view.findViewById(R.id.uploadEventDescTextInput);
+        uploadEventURLTextInput = view.findViewById(R.id.uploadEventURLTextInput);
+        uploadEventAuthorNameInput = view.findViewById(R.id.uploadEventAuthorNameInput);
+        uploadEventDateButton = view.findViewById(R.id.uploadEventDateButton);
+        uploadEventButton = view.findViewById(R.id.UploadEventButton);
 
+        uploadEventImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFileChooser();
+            }
+        });
+
+        DatePickerDialog datePickerDialog = initializeDatePicker(uploadEventDateButton);
+        uploadEventDateButton.setText(UploadArticlePage.getTodaysDate());
+        uploadEventDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UploadArticlePage.openDatePicker(datePickerDialog);
+            }
+        });
+
+        uploadEventButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Event event = new Event(latestEventIndex + 1,
+                        uploadEventURLTextInput.getText().toString().trim(),
+                        uploadEventTitleTextInput.getText().toString().trim(),
+                        uploadEventDescTextInput.getText().toString().trim(),
+                        getIconPath(),
+                        uploadEventAuthorNameInput.getText().toString().trim(),
+                        uploadEventDateButton.getText().toString().trim());
+                latestEventIndex++;
+                events.add(event);
+                uploadArticleToFirestore(event);
+                for (int i = 0; i < 2; i++) {
+                    stack.removeFirst();
+                }
+                goToPage(eventsPage, getParentFragmentManager());
+            }
+        });
+    }
+
+    private void openFileChooser() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, PICK_IMAGE_EVENT_REQUEST);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_EVENT_REQUEST && resultCode == RESULT_OK && data != null) {
+            Uri imageUri = data.getData();
+            if (imageUri != null) {
+                db.uploadImageToFirebase(imageUri,getIconPath(),uploadEventImageButton,getContext());  // Call the upload function
+            }
+        }
+    }
+
+    private String getIconPath() {
+        return "ArticlesIcon/" + Integer.toString(latestArticleIndex+1) + ".jpg";
 
     }
 
@@ -76,5 +170,40 @@ public class UploadEvent extends Fragment {
         super.onResume();
 
 
+    }
+
+    public DatePickerDialog initializeDatePicker(TextView UploadEventDateButton){
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int day) {
+                month = month + 1;
+                String date = makeDateString(day ,month,year);
+                UploadEventDateButton.setText(date);
+            }
+        };
+
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        int style = AlertDialog.THEME_HOLO_LIGHT;
+        return new DatePickerDialog(getActivity(),style,dateSetListener,year,month,day);
+    }
+
+    private String makeDateString(int day, int month, int year) {
+        return null;
+    }
+
+
+    public void uploadArticleToFirestore(Event event){
+        HashMap<String,String> data = new HashMap();
+        data.put("event_url", event.url);
+        data.put("title", event.title);
+        data.put("description", event.description);
+        data.put("date", event.date);
+        data.put("image_url",event.imageURL);
+        data.put("organizer",event.organizer);
+
+        db.addDocument("Articles", data, Integer.toString(event.id));
     }
 }
