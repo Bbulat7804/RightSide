@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.firebase.firestore.DocumentChange;
@@ -54,6 +55,7 @@ public class ContactAdminPage extends Fragment {
     ListenerRegistration registration;
     public boolean first;
     ArrayList<DocumentSnapshot> textList= new ArrayList();
+    ScrollView chatScroll;
 
     public ContactAdminPage() {
         // Required empty public constructor
@@ -100,6 +102,8 @@ public class ContactAdminPage extends Fragment {
         ImageButton sendTextButton = view.findViewById(R.id.SendTextButton);
         chatInput = view.findViewById(R.id.ChatInput);
         chatContainer = view.findViewById(R.id.ChatLinearLayout);
+        chatScroll =  view.findViewById(R.id.ChatContainer);
+        chatScroll.post(() -> chatScroll.fullScroll(View.FOCUS_DOWN));
 
         sendTextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,7 +128,7 @@ public class ContactAdminPage extends Fragment {
         TextView chatText = chat.findViewById(R.id.ChatText);
         chatText.setText(text);
         chatInput.setText("");
-
+        chatScroll.post(() -> chatScroll.fullScroll(View.FOCUS_DOWN));
         chatContainer.addView(chat);
     }
 
@@ -135,8 +139,7 @@ public class ContactAdminPage extends Fragment {
 
         TextView chatText = chat.findViewById(R.id.ChatText);
         chatText.setText(text);
-        chatInput.setText("");
-
+        chatScroll.post(() -> chatScroll.fullScroll(View.FOCUS_DOWN));
         chatContainer.addView(chat);
     }
 

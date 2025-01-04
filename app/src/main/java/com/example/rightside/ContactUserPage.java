@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.firebase.firestore.DocumentChange;
@@ -51,6 +52,7 @@ public class ContactUserPage extends Fragment {
     int chatIndex = 0;
     boolean first;
     ListenerRegistration registration;
+    ScrollView chatScroll;
     ArrayList<DocumentSnapshot> textList= new ArrayList();
     public ContactUserPage() {
         // Required empty public constructor
@@ -97,7 +99,8 @@ public class ContactUserPage extends Fragment {
         ImageButton sendTextButton = view.findViewById(R.id.SendTextButton);
         chatInput = view.findViewById(R.id.ChatInput);
         chatContainer = view.findViewById(R.id.ChatLinearLayout);
-
+        chatScroll =  view.findViewById(R.id.ChatContainer);
+        chatScroll.post(() -> chatScroll.fullScroll(View.FOCUS_DOWN));
         sendTextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,6 +126,7 @@ public class ContactUserPage extends Fragment {
         TextView chatText = chat.findViewById(R.id.ChatText);
         chatText.setText(text);
         chatInput.setText("");
+        chatScroll.post(() -> chatScroll.fullScroll(View.FOCUS_DOWN));
 
         chatContainer.addView(chat);
     }
@@ -134,7 +138,7 @@ public class ContactUserPage extends Fragment {
 
         TextView chatText = chat.findViewById(R.id.ChatText);
         chatText.setText(text);
-
+        chatScroll.post(() -> chatScroll.fullScroll(View.FOCUS_DOWN));
         chatContainer.addView(chat);
     }
 

@@ -19,6 +19,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.Scroller;
 import android.widget.TextView;
 
 import com.google.firebase.firestore.DocumentChange;
@@ -56,6 +58,7 @@ public class GroupChatPage extends Fragment {
     ListenerRegistration registration;
     int chatIndex = 0;
     EditText chatInput;
+    ScrollView chatScroll;
 
     public GroupChatPage() {
         // Required empty public constructor
@@ -103,7 +106,8 @@ public class GroupChatPage extends Fragment {
         ImageButton sendTextButton = view.findViewById(R.id.SendTextButton);
         chatInput = view.findViewById(R.id.ChatInput);
         chatContainer = view.findViewById(R.id.ChatLinearLayout);
-
+        chatScroll = view.findViewById(R.id.ChatContainer);
+        chatScroll.post(() -> chatScroll.fullScroll(View.FOCUS_DOWN));
         sendTextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -195,7 +199,7 @@ public class GroupChatPage extends Fragment {
         TextView chatText = chat.findViewById(R.id.ChatText);
         chatText.setText(text);
         chatInput.setText("");
-
+        chatScroll.post(() -> chatScroll.fullScroll(View.FOCUS_DOWN));
         chatContainer.addView(chat);
     }
 
@@ -207,7 +211,7 @@ public class GroupChatPage extends Fragment {
         TextView chatText = chat.findViewById(R.id.ChatText);
         chatText.setText(text);
         chatInput.setText("");
-
+        chatScroll.post(() -> chatScroll.fullScroll(View.FOCUS_DOWN));
         chatContainer.addView(chat);
     }
 

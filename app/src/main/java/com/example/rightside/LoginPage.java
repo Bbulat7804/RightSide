@@ -3,6 +3,7 @@ package com.example.rightside;
 import static com.example.rightside.Manager.*;
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.InputType;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -100,6 +102,7 @@ public class LoginPage extends AppCompatActivity {
             Intent intent = new Intent(LoginPage.this, AdminMainActivity.class);
             startActivity(intent);
         }
+
     }
 
     private void validateLoginData(String loginType){
