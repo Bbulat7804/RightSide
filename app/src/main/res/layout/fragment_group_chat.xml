@@ -68,8 +68,8 @@
             android:layout_height="50dp"
             android:layout_gravity="bottom"
             android:background="#00FFFFFF"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/ChatInput"

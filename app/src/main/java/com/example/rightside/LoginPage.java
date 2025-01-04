@@ -84,7 +84,6 @@ public class LoginPage extends AppCompatActivity {
                 else
                     passwordInput.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 passwordInput.setTypeface(font);
-
             }
         });
     }
