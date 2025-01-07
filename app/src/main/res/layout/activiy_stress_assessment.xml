@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#001A3E"
+    tools:context=".StressAssessmentPage" >
+
+    <TextView
+        android:id="@+id/stressAssessment_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Stress Assessment"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
+    <ImageView
+        android:id="@+id/imageView17"
+        android:layout_width="392dp"
+        android:layout_height="257dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/box2"
+        />
+
+
+    <ImageButton
+        android:id="@+id/StressButton"
+        android:layout_width="392dp"
+        android:layout_height="438dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Get Stress Score Button"
+        android:scaleType="fitXY"
+        android:src="@drawable/box_button"
+         />
+
+    <TextView
+        android:id="@+id/getStressTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="-55dp"
+        android:layout_marginStart="15dp"
+        android:fontFamily="@font/roboto_condensed_bold"
+        android:text="Get Your Stress Score"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/textView46"
+        android:layout_width="356dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="150dp"
+        android:text="
+The test uses the Perceived Stress Scale (PSS). Created by Cohen et al (1983), it is a highly recognized psychological tool for measuring stress that's clinically validated and widely used.
+The test measures how stressful situations are perceived by scoring how unpredictable, uncontrollable, and overloaded you feel your life to be.
+The questions ask about your thoughts and feelings during the last month, are easy to understand and are of a general nature."
+        android:textAlignment="center"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textView47"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="-15dp"
+        android:fontFamily="@font/roboto_condensed_bold"
+        android:text="How the Stress Test works"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textView48"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="-90dp"
+        android:fontFamily="@font/roboto_condensed_bold"
+        android:text="Take this simple test and measure the stress in your life"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/score_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginStart="98dp"
+        android:layout_marginTop="130dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="..."
+        android:textAlignment="center"
+        android:textColor="#020202"
+        android:textSize="30sp" />
+
+    <ImageView
+        android:id="@+id/imageView19"
+        android:layout_width="29dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center|start"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="-55dp"
+        android:src="@drawable/start_button" />
+
+    <TextView
+        android:id="@+id/normalRange_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="90dp"
+        android:text="Normal Range"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/ScoreTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="155dp"
+        android:text="Score"
+        android:textColor="#040404"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/normalNumTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="245dp"
+        android:layout_marginTop="120dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="5 - 25"
+        android:textColor="#090808"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/stressLevelTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="210dp"
+        android:layout_marginTop="150dp"
+        android:text="Stress Level"
+        android:textColor="#000000"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/levelTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="265dp"
+        android:layout_marginTop="180dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="..."
+        android:textColor="#000000"
+        android:textSize="25sp" />
+
+
+
+</FrameLayout>
