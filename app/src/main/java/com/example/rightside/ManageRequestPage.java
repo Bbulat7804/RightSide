@@ -112,7 +112,7 @@ public class ManageRequestPage extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewRequestAdminPage.requestId = 1;
+                ViewRequestAdminPage.requestId = id;
                 goToPage(viewRequestAdminPage,getParentFragmentManager());
             }
         });

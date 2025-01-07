@@ -133,7 +133,7 @@ public class StressTestPage extends Fragment {
     }
 
     private void navigateToStressAssessment(int totalScore, String stressLevel) {
-        StressAssessmentFragment fragment = StressAssessmentFragment.newInstance(totalScore, stressLevel);
+        StressAssessmentPage fragment = StressAssessmentPage.newInstance(totalScore, stressLevel);
         getParentFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, fragment) // Replace with your fragment container ID

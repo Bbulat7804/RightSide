@@ -94,6 +94,12 @@ public class UserHomePage extends Fragment {
         TextView mentalConsultationButton = view.findViewById(R.id.MentalConsultationButton);
         TextView legalConsultationButton = view.findViewById(R.id.LegalConsultationButton);
 
+        stressManagementButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(stressAssessmentPage,getParentFragmentManager());
+            }
+        });
         liveDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
