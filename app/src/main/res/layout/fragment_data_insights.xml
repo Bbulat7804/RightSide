@@ -136,7 +136,7 @@
                             android:textSize="12sp" />
 
                         <TextView
-                            android:id="@+id/affectedPercentageText"
+                            android:id="@+id/AffectedPercentageText"
                             android:layout_width="match_parent"
                             android:layout_height="43dp"
                             android:fontFamily="@font/roboto_bold"
