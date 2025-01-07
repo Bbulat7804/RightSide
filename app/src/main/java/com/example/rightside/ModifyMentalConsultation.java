@@ -4,6 +4,7 @@ import static com.example.rightside.Manager.db;
 import static com.example.rightside.Manager.goToPage;
 import static com.example.rightside.Manager.requests;
 import static com.example.rightside.Manager.stack;
+import static com.example.rightside.Manager.userRequestPage;
 import static com.example.rightside.Manager.viewRequestPage;
 
 import android.app.AlertDialog;
@@ -160,6 +161,11 @@ public class ModifyMentalConsultation extends Fragment {
                     if (ViewRequestPage.requestId == requests.get(i).requestId) {
                         requests.remove(i);
                         db.deleteDocument("Requests", Integer.toString(ViewRequestPage.requestId));
+
+                        goToPage(userRequestPage, getParentFragmentManager());
+                        stack.removeFirst();
+                        stack.removeFirst();
+                        stack.removeFirst(); 
                     }
                 }
             }

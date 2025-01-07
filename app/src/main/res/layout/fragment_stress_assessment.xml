@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="#001A3E"
     android:orientation="vertical"
     android:padding="10dp"
@@ -169,10 +169,11 @@
 
                 <TextView
                     android:id="@+id/textView46"
-                    android:layout_width="356dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="The test uses the Perceived Stress Scale (PSS). Created by Cohen et al (1983), it is a highly recognized psychological tool for measuring stress that's clinically validated and widely used.                 The test measures how stressful situations are perceived by scoring how unpredictable, uncontrollable, and overloaded you feel your life to be.                 The questions ask about your thoughts and feelings during the last month, are easy to understand and are of a general nature."
+                    android:layout_margin="5dp"
+                    android:text="The test uses the Perceived Stress Scale (PSS). Created by Cohen et al (1983), it is a highly recognized psychological tool for measuring stress that's clinically validated and widely used. The test measures how stressful situations are perceived by scoring how unpredictable, uncontrollable, and overloaded you feel your life to be. The questions ask about your thoughts and feelings during the last month, are easy to understand and are of a general nature."
                     android:textAlignment="center"
                     android:textSize="20sp" />
 
