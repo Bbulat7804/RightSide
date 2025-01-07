@@ -192,7 +192,6 @@ public class LoginPage extends AppCompatActivity {
                             String urgency = document.getString("urgency");
                             int userId = Integer.parseInt(document.getString("user_id"));
                             int requestId = Integer.parseInt(document.getId());
-
                             requests.add(new Request(reason, desiredOutcome, method, urgency, date, time, description, status, adminId, userId, requestId, type));
                         }
                     }
