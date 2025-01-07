@@ -234,11 +234,15 @@
 
                 <Button
                     android:id="@+id/buttonCancelRequestLegal"
-                    android:layout_width="10dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="45dp"
-                    android:layout_marginEnd="130dp"
-                    android:layout_weight="1"
-                    android:text="Cancel Request" />
+                    android:text="Cancel Request"
+                    android:textColor="@color/white" />
+
+                <Space
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
                 <Button
                     android:id="@+id/buttonSubmitLegalForm"
@@ -246,7 +250,8 @@
                     android:layout_height="45dp"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:backgroundTint="@color/blue"
-                    android:text="SUBMIT" />
+                    android:text="SUBMIT"
+                    android:textColor="#FFFFFF" />
 
             </LinearLayout>
 
