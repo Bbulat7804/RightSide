@@ -119,6 +119,10 @@ public class AnonymousSupportGroupPage extends Fragment {
             public void onClick(View v) {
                 GroupChatPage.chatId = group.id;
                 goToPage(groupChatPage,getParentFragmentManager());
+                currentUser.supportGroupNo++;
+                HashMap<String,Object> data = new HashMap<>();
+                data.put("support_group_no", Integer.toString(currentUser.supportGroupNo));
+                db.updateDocument("Users", Integer.toString(currentUser.userId), data);
             }
         });
 //        db.loadImageFromStorage(groupCard.getContext(), group.image_url,grpIcon);

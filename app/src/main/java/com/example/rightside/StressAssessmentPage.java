@@ -1,5 +1,6 @@
 package com.example.rightside;
 
+import static com.example.rightside.Manager.currentUser;
 import static com.example.rightside.Manager.goToPage;
 import static com.example.rightside.Manager.stressTestPage;
 
@@ -53,59 +54,69 @@ import com.google.api.Distribution;
     private static final String ARG_STRESS_LEVEL = "stressLevel";
 
     private int totalScore;
+    TextView scoreTextView;
+    TextView levelTextView;
     private String stressLevel;
+    TextView normalNumTextView;
+    TextView stressLevelTextView;
 
     public StressAssessmentPage() {
-    // Required empty public constructor
+        // Required empty public constructor
     }
 
     public static StressAssessmentPage newInstance(int totalScore, String stressLevel) {
-    StressAssessmentPage fragment = new StressAssessmentPage();
-    Bundle args = new Bundle();
-    args.putInt(ARG_TOTAL_SCORE, totalScore);
-    args.putString(ARG_STRESS_LEVEL, stressLevel);
-    fragment.setArguments(args);
-    return fragment;
+        StressAssessmentPage fragment = new StressAssessmentPage();
+        Bundle args = new Bundle();
+        args.putInt(ARG_TOTAL_SCORE, totalScore);
+        args.putString(ARG_STRESS_LEVEL, stressLevel);
+        fragment.setArguments(args);
+        return fragment;
     }
 
-     @Override
-     public void onCreate(Bundle savedInstanceState) {
-     super.onCreate(savedInstanceState);
-     if (getArguments() != null) {
-     totalScore = getArguments().getInt(ARG_TOTAL_SCORE);
-     stressLevel = getArguments().getString(ARG_STRESS_LEVEL);
-     }
-     }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            totalScore = getArguments().getInt(ARG_TOTAL_SCORE);
+            stressLevel = getArguments().getString(ARG_STRESS_LEVEL);
+        }
+    }
 
-     @Override
-     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-     Bundle savedInstanceState) {
-     // Inflate the layout for this fragment
-     return inflater.inflate(R.layout.fragment_stress_assessment, container, false);
-     }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_stress_assessment, container, false);
+    }
 
-     @Override
-     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-     super.onViewCreated(view, savedInstanceState);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-     LinearLayout getStressScoreButton = view.findViewById(R.id.StressButton);
-     TextView scoreTextView = view.findViewById(R.id.score_TV);
-     TextView levelTextView = view.findViewById(R.id.levelTV);
-     TextView normalNumTextView = view.findViewById(R.id.normalNumTV);
-     TextView stressLevelTextView = view.findViewById(R.id.stressLevelTV);
+        LinearLayout getStressScoreButton = view.findViewById(R.id.StressButton);
+        scoreTextView = view.findViewById(R.id.score_TV);
+        levelTextView = view.findViewById(R.id.levelTV);
+        normalNumTextView = view.findViewById(R.id.normalNumTV);
+        stressLevelTextView = view.findViewById(R.id.stressLevelTV);
 
-     // Display the passed data
-     scoreTextView.setText(String.valueOf(totalScore));
-     levelTextView.setText(stressLevel);
-     normalNumTextView.setText("5 - 25");
+        // Display the passed data
+
+        normalNumTextView.setText("5 - 25");
 
 
-         getStressScoreButton.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 goToPage(stressTestPage,getParentFragmentManager());
-             }
-         });
+        getStressScoreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(stressTestPage, getParentFragmentManager());
+            }
+        });
 
-     }
-     }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        scoreTextView.setText(currentUser.stressScore + "");
+        levelTextView.setText(currentUser.stressLevel);
+    }
+}

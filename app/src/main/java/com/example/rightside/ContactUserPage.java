@@ -120,7 +120,6 @@ public class ContactUserPage extends Fragment {
     }
 
     private void sendText(String text) {
-        System.out.println("masuk method sendTexxt");
         if(text.equals(""))
             return;
         View chat = LayoutInflater.from(getActivity()).inflate(R.layout.layout_chat_bubble_send,chatContainer,false);
@@ -158,7 +157,7 @@ public class ContactUserPage extends Fragment {
         textList.clear();
         chatContainer.removeAllViews();
         currentId = 0;
-        registration = db.getCollection("ChatRoom" + ViewRequestAdminPage.requestId).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        registration = db.getCollection("ChatRooms").document("ChatRoom" + ViewRequestAdminPage.requestId).collection("Chats").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 for (DocumentChange documentChange : value.getDocumentChanges()) {
@@ -206,6 +205,7 @@ public class ContactUserPage extends Fragment {
                     }
                     for(int i=0 ; i<textList.size() ; i++){
                         currentId = currentId < Long.parseLong(textList.get(i).getId()) ? Long.parseLong(textList.get(i).getId()) : currentId;
+
                         if (textList.get(i).getString("sender").equals(ADMIN)) {
                             System.out.println("sampai");
                             sendText(textList.get(i).getString("text"));
@@ -224,7 +224,7 @@ public class ContactUserPage extends Fragment {
         HashMap <String,Object> data = new HashMap<>();
         data.put("sender",ADMIN);
         data.put("text", text);
-        db.addDocument("ChatRoom" + ViewRequestAdminPage.requestId, data,getTimeStamp());
+        db.getCollection("ChatRooms").document("ChatRoom" + ViewRequestAdminPage.requestId).collection("Chats").document(getTimeStamp()).set(data);
     }
 
     @Override

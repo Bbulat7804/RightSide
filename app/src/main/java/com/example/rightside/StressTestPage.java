@@ -1,5 +1,11 @@
 package com.example.rightside;
 
+import static com.example.rightside.Manager.currentUser;
+import static com.example.rightside.Manager.db;
+import static com.example.rightside.Manager.goToPage;
+import static com.example.rightside.Manager.stack;
+import static com.example.rightside.Manager.stressAssessmentPage;
+
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,6 +15,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,8 +58,7 @@ public class StressTestPage extends Fragment {
         questionGroups[7] = view.findViewById(R.id.radioGroup8);
         questionGroups[8] = view.findViewById(R.id.radioGroup9);
         questionGroups[9] = view.findViewById(R.id.radioGroup10);
-
-        resultText = view.findViewById(R.id.resultText);
+        
 
         view.findViewById(R.id.submitButton).setOnClickListener(v -> verifyAndCalculateScore());
 
@@ -124,22 +131,22 @@ public class StressTestPage extends Fragment {
                 stressLevel = "High Stress";
             }
 
+            currentUser.stressScore = totalScore;
+            currentUser.stressLevel = stressLevel;
+            HashMap<String, Object> data = new HashMap<>();
+            data.put("stress_score", Integer.toString(totalScore));
+            data.put("stress_level", stressLevel);
+            db.updateDocument("Users", Integer.toString(currentUser.userId), data);
             // Navigate to StressAssessmentFragment
-            navigateToStressAssessment(totalScore, stressLevel);
-
+            stack.removeFirst();
+            stack.removeFirst();
+            goToPage(stressAssessmentPage,getParentFragmentManager());
         } catch (Exception e) {
             Toast.makeText(getContext(), "An unexpected error occurred.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void navigateToStressAssessment(int totalScore, String stressLevel) {
-        StressAssessmentPage fragment = StressAssessmentPage.newInstance(totalScore, stressLevel);
-        getParentFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, fragment) // Replace with your fragment container ID
-                .addToBackStack(null)
-                .commit();
-    }
+
 }
 
 
