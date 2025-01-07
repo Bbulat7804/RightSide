@@ -128,8 +128,8 @@ public class ContactAdminPage extends Fragment {
         TextView chatText = chat.findViewById(R.id.ChatText);
         chatText.setText(text);
         chatInput.setText("");
-        chatScroll.post(() -> chatScroll.fullScroll(View.FOCUS_DOWN));
         chatContainer.addView(chat);
+        chatScroll.post(() -> chatScroll.fullScroll(View.FOCUS_DOWN));
     }
 
     private void receiveText(String text) {
@@ -139,8 +139,8 @@ public class ContactAdminPage extends Fragment {
 
         TextView chatText = chat.findViewById(R.id.ChatText);
         chatText.setText(text);
-        chatScroll.post(() -> chatScroll.fullScroll(View.FOCUS_DOWN));
         chatContainer.addView(chat);
+        chatScroll.post(() -> chatScroll.fullScroll(View.FOCUS_DOWN));
     }
 
     @Override

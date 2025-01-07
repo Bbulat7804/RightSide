@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
@@ -51,6 +52,8 @@ public class DataInsightsPage extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    TextView unaffectedPercentageText;
+    TextView affectedPercentageText;
 
     public DataInsightsPage() {
         // Required empty public constructor
@@ -105,6 +108,8 @@ public class DataInsightsPage extends Fragment {
         PieChart pieChart= view.findViewById(R.id.PieChartUnaffected);
         startDateButton = view.findViewById(R.id.StartDateButton);
         endDateButton = view.findViewById(R.id.EndDateButton);
+        affectedPercentageText = view.findViewById(R.id.AffectedPercentageText);
+        unaffectedPercentageText = view.findViewById(R.id.UnaffectedPercentageText);
 
         //Setup Date Button and OnClickListener
         startDatePickerDialog = initializeDatePicker(startDateButton);
@@ -127,16 +132,16 @@ public class DataInsightsPage extends Fragment {
         //Initialize values for charts and dropdown
         initializeStateDropDown(view);
         initializeDiscriminationTypeDropDown(view);
-        initializeLineChartValue(view, lineChart);
-        initializeBarChartValue(view,barChart);
-        initializePieChartValue(view,pieChart);
+        insertLineChartValue(view, lineChart);
+        insertBarChartValue(view,barChart);
+        insertPieChartValue(view,pieChart);
     }
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //Initialize value for graphs
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public void initializeBarChartValue(View view, BarChart barChart){
+    public void insertBarChartValue(View view, BarChart barChart){
         ArrayList<BarEntry> entries = new ArrayList<>();
         entries.add(new BarEntry(0f, 10)); // X=1, Y=10
         entries.add(new BarEntry(1f, 20)); // X=2, Y=20
@@ -174,11 +179,20 @@ public class DataInsightsPage extends Fragment {
         barChart.getDescription().setEnabled(false);
     }
 
-    public void initializePieChartValue(View view, PieChart pieChart){
+    public void insertPieChartValue(View view, PieChart pieChart){
+        float numberAffected = 9;
+        float numberUnaffected = 10;
+        float total = numberUnaffected + numberAffected;
+        float percentageAffected = ((float)Math.round((numberAffected/total)*10000))/100;
+        float percentageUnaffected = ((float)Math.round((numberUnaffected/total)*10000))/100;
+
+        unaffectedPercentageText.setText(percentageUnaffected + "%");
+        affectedPercentageText.setText(percentageAffected + "%");
+
         PieChart pieChart1 = view.findViewById(R.id.PieChartUnaffected);
         ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(60,"Unaffected"));
-        entries.add(new PieEntry(40,"Affected"));
+        entries.add(new PieEntry(percentageUnaffected,"Unaffected"));
+        entries.add(new PieEntry(percentageAffected,"Affected"));
 
         // create the data set
         int[] colors = {Color.parseColor("#5898fe"),Color.parseColor("#ef7e1e")};
@@ -197,7 +211,7 @@ public class DataInsightsPage extends Fragment {
         pieChart.setDrawSliceText(false);
         pieChart.invalidate();
     }
-    public void initializeLineChartValue(View view, LineChart lineChart){
+    public void insertLineChartValue(View view, LineChart lineChart){
         ArrayList<Entry> entries = new ArrayList<>();
 
         for(int i=0 ; i<48 ; i++){
