@@ -175,7 +175,7 @@ public class LoginPage extends AppCompatActivity {
                 QuerySnapshot snapshot = task.getResult();
                 if (snapshot != null) {
                     for (QueryDocumentSnapshot document : snapshot) {
-                        latestRequestIndex = Integer.parseInt(document.getId());
+                        latestRequestIndex = latestRequestIndex < Integer.parseInt(document.getId()) ? Integer.parseInt(document.getId()) : latestRequestIndex;
                         //kena cek whether user or admin because kalau user kita display request tapi admin tunjuk request yg dia manage
                         if (id == Integer.parseInt(document.getString(idType))){ //jadikan variable sbb nak dua2 type of user (user and admin sbb kalau admin masuk and kita amik
                             //as current user id, jadi mcm display request of the admin je but cannot manage the reqs
@@ -212,7 +212,7 @@ public class LoginPage extends AppCompatActivity {
                 QuerySnapshot snapshot = task.getResult();
                 if (snapshot != null) {
                     for (QueryDocumentSnapshot document : snapshot) {
-                        latestArticleIndex = Integer.parseInt(document.getId());
+                        latestArticleIndex = latestArticleIndex < Integer.parseInt(document.getId()) ? Integer.parseInt(document.getId()) : latestArticleIndex;
                         articles.add(new Article(Integer.parseInt(document.getId()),document.getString("article_url"), document.getString("caption"), document.getString("image_url"), document.getString("author"), document.getString("date"), document.getString("type")));
                     }
                 } else {
@@ -231,7 +231,7 @@ public class LoginPage extends AppCompatActivity {
                 QuerySnapshot snapshot = task.getResult();
                 if (snapshot != null) {
                     for (QueryDocumentSnapshot document : snapshot) {
-                        latestSupportGroupIndex++;
+                        latestSupportGroupIndex = latestSupportGroupIndex < Integer.parseInt(document.getId()) ? Integer.parseInt(document.getId()) : latestSupportGroupIndex;
                         ArrayList<String> temp = (ArrayList<String>) document.get("participants_id");
                         ArrayList<Integer> participantsId = new ArrayList();
                         for(int i=0 ; i<temp.size() ; i++){
@@ -251,8 +251,8 @@ public class LoginPage extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        emailInput.setText("Afzan@gmail.com");
-        passwordInput.setText("SayaAdmin");
+        emailInput.setText("hazimnidzam@gmail.com");
+        passwordInput.setText("1234");
     }
 
     @Override
