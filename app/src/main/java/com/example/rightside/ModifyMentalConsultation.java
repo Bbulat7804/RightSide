@@ -165,7 +165,7 @@ public class ModifyMentalConsultation extends Fragment {
                         goToPage(userRequestPage, getParentFragmentManager());
                         stack.removeFirst();
                         stack.removeFirst();
-                        stack.removeFirst(); 
+                        stack.removeFirst();
                     }
                 }
             }
