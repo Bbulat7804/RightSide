@@ -34,8 +34,10 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,6 +56,9 @@ public class DataInsightsPage extends Fragment {
     private String mParam2;
     TextView unaffectedPercentageText;
     TextView affectedPercentageText;
+
+    Date date;
+    SimpleDateFormat dateFormatter;
 
     public DataInsightsPage() {
         // Required empty public constructor
@@ -132,7 +137,7 @@ public class DataInsightsPage extends Fragment {
         //Initialize values for charts and dropdown
         initializeStateDropDown(view);
         initializeDiscriminationTypeDropDown(view);
-        insertLineChartValue(view, lineChart);
+        //insertLineChartValue(view, lineChart);
         insertBarChartValue(view,barChart);
         insertPieChartValue(view,pieChart);
     }
@@ -211,7 +216,7 @@ public class DataInsightsPage extends Fragment {
         pieChart.setDrawSliceText(false);
         pieChart.invalidate();
     }
-    public void insertLineChartValue(View view, LineChart lineChart){
+    public void insertLineChartValue(View view, LineChart lineChart, String  startDate){
         ArrayList<Entry> entries = new ArrayList<>();
 
         for(int i=0 ; i<48 ; i++){

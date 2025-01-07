@@ -219,6 +219,6 @@ public class ContactUserPage extends Fragment {
     public void onStop() {
         super.onStop();
         if(registration!=null)
-        registration.remove();
+            registration.remove();
     }
 }
