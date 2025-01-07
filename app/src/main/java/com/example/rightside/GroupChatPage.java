@@ -178,7 +178,7 @@ public class GroupChatPage extends Fragment {
                         // Last i elements are already in place
                         for (int j = 0; j < n - 1 - i; j++) {
                             // Compare adjacent elements and swap if needed
-                            if (Integer.parseInt(textList.get(j).getId()) > Integer.parseInt(textList.get(j + 1).getId())) {
+                            if (Long.parseLong(textList.get(j).getId()) > Long.parseLong(textList.get(j + 1).getId())) {
                                 DocumentSnapshot temp = textList.get(j);
                                 textList.set(j, textList.get(j + 1));
                                 textList.set(j + 1, temp);

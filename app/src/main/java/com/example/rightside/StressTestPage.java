@@ -58,7 +58,7 @@ public class StressTestPage extends Fragment {
         questionGroups[7] = view.findViewById(R.id.radioGroup8);
         questionGroups[8] = view.findViewById(R.id.radioGroup9);
         questionGroups[9] = view.findViewById(R.id.radioGroup10);
-        
+
 
         view.findViewById(R.id.submitButton).setOnClickListener(v -> verifyAndCalculateScore());
 

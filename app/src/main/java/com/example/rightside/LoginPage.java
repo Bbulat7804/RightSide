@@ -132,11 +132,8 @@ public class LoginPage extends AppCompatActivity {
                 String name = document.getString("name");
                 String username = document.getString("username");
                 String email = document.getString("email");
-                System.out.println("sini");
                 String reportNo = document.getString("report_no");
-                System.out.println("sini kot");
                 String stressLevel = document.getString("stress_level");
-                System.out.println("jye");
                 String eventNo = document.getString("event_no");
                 String phoneNo = document.getString("phone_no");
                 String adminId = document.getString("admin_id");
