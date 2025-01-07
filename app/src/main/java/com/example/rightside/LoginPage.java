@@ -250,8 +250,8 @@ public class LoginPage extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        emailInput.setText("hazimnidzam@gmail.com");
-        passwordInput.setText("1234");
+        emailInput.setText("Afzan@gmail.com");
+        passwordInput.setText("SayaAdmin");
     }
 
     @Override

@@ -38,10 +38,6 @@ public class AdminMainActivity extends AppCompatActivity {
             // This ensures the default fragment is displayed only when the activity is created for the first time
             goToPage(adminHomePage, getSupportFragmentManager());
         }
-        System.out.println("----------------------------");
-        for(int i=0 ; i<stack.size() ; i++){
-            System.out.println(stack.get(i));
-        }
 
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
