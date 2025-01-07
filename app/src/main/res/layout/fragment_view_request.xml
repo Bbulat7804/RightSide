@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="800dp"
+    android:layout_height="match_parent"
     android:background="@color/darkBlue"
+    android:textAlignment="gravity"
     tools:context=".ViewRequestPage">
 
     <ScrollView
@@ -24,6 +25,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_bold"
                 android:text="View Request"
+                android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="30sp" />
 
@@ -35,14 +37,12 @@
                 android:layout_marginBottom="18dp"
                 android:foregroundGravity="center_horizontal"
                 android:gravity="center_horizontal"
-                android:orientation="horizontal"
-                android:paddingStart="50dp"
-                android:paddingEnd="50dp">
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/buttonChat"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="45dp"
                     android:layout_marginEnd="30dp"
                     android:layout_weight="1"
                     android:backgroundTint="@color/blue"
@@ -54,7 +54,7 @@
                 <Button
                     android:id="@+id/buttonRequest"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="45dp"
                     android:layout_marginStart="30dp"
                     android:layout_weight="1"
                     android:backgroundTint="@color/green"
@@ -76,12 +76,16 @@
 
             <TextView
                 android:id="@+id/TVViewRequestconsultationReason"
-                android:layout_width="305dp"
+                android:layout_width="354dp"
                 android:layout_height="39dp"
                 android:background="@drawable/box_rounded_bordered_white"
                 android:ems="10"
+                android:gravity="center_vertical"
                 android:inputType="text"
-                android:paddingStart="10dp" />
+                android:paddingStart="8dp"
+                android:text="Reason"
+                android:textColor="@color/design_default_color_on_secondary"
+                android:textColorHighlight="#000000" />
 
             <TextView
                 android:id="@+id/TVViewRequestConsultationReason"
@@ -100,8 +104,11 @@
                 android:layout_height="39dp"
                 android:background="@drawable/box_rounded_bordered_white"
                 android:ems="10"
+                android:gravity="center_vertical"
                 android:inputType="text"
-                android:paddingStart="10dp" />
+                android:paddingStart="10dp"
+                android:text="outcome"
+                android:textColor="#0F0F0F" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -116,7 +123,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_condensed_bold"
-                    android:text="Preferred Consultation Type"
+                    android:text="Preferred Consultation Method"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
 

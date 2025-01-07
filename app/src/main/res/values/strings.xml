@@ -114,5 +114,10 @@
         <item>Completed</item>
         <item>Rejected</item>
     </string-array>
+    <string-array name="ArticleTypes">
+        <item>Guides</item>
+        <item>Your Rights</item>
+        <item>Discrimination</item>
+    </string-array>
 
 </resources>

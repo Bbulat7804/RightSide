@@ -29,7 +29,7 @@ public class DisplayRequestPage extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private static final ArrayList<Request> requests = new ArrayList<>();
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -77,10 +77,6 @@ public class DisplayRequestPage extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         LinearLayout cardContainer = view.findViewById(R.id.ViewRequestCardContainer);
-        for (int i = 0; i < 20; i++) {
-            requests.add(new Request("Tajuk", "Information and Guidance", "Completed",1000));
-        }
-
         for(int i=0 ; i<requests.size() ; i++){
             addCard(cardContainer,requests.get(i));
         }
@@ -94,12 +90,12 @@ public class DisplayRequestPage extends Fragment {
         TextView cardUpdateStates = card.findViewById(R.id.ViewRequestStatusUpdate);
         TextView id = card.findViewById(R.id.userRequestId);
 
-        cardTitle.setText(request.title);
+        cardTitle.setText(request.reason);
         cardDesiredOutcome.setText(request.desiredOutcome);
         cardUpdateStates.setText(request.status);
-        id.setText(request.id + "");
+        id.setText(request.requestId + "");
 
-        initializeCardButton(card.findViewById(R.id.ButtonViewRequest),request.id);
+        initializeCardButton(card.findViewById(R.id.ButtonViewRequest),request.requestId);
         container.addView(card);
     }
 
@@ -107,9 +103,9 @@ public class DisplayRequestPage extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ViewRequestPage.requestId = id;
                 goToPage(viewRequestPage,getParentFragmentManager());
             }
         });
-
     }
 }

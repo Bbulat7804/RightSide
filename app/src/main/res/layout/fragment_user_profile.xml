@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/UsernameTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_bold"
@@ -40,7 +40,7 @@
                 android:padding="20dp">
 
                 <TextView
-                    android:id="@+id/UserProfileName"
+                    android:id="@+id/NameTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="45dp"
@@ -50,7 +50,7 @@
                     android:textColor="#000000" />
 
                 <TextView
-                    android:id="@+id/UserProfileEmail"
+                    android:id="@+id/EmailTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto"
@@ -112,7 +112,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
                     <TextView
-                        android:id="@+id/textView31"
+                        android:id="@+id/ReportNoTV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto"
@@ -166,7 +166,7 @@
                         app:layout_constraintVertical_bias="0.688" />
 
                     <TextView
-                        android:id="@+id/SupportGroupNumber"
+                        android:id="@+id/SupportGroupNoTV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto"
@@ -178,7 +178,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView28" />
 
                     <TextView
-                        android:id="@+id/StressLevel"
+                        android:id="@+id/StressLevelTV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto"
@@ -190,7 +190,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView26" />
 
                     <TextView
-                        android:id="@+id/EventNumber"
+                        android:id="@+id/EventNoTV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto"
@@ -241,16 +241,26 @@
                         app:layout_constraintStart_toEndOf="@+id/textView28"
                         app:layout_constraintTop_toTopOf="@+id/textView28" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/imageView12"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/ProfilePhotoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/round_white_border_blue"
-                android:padding="4dp"
-                android:src="@drawable/sample_profile_image" />
+                app:cardCornerRadius="100dp">
+
+                <ImageView
+                    android:id="@+id/ProfilePhoto"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="4dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/sample_profile_image" />
+            </androidx.cardview.widget.CardView>
+
         </FrameLayout>
     </LinearLayout>
 </ScrollView>

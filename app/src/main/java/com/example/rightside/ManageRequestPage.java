@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,6 @@ public class ManageRequestPage extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private static final ArrayList<Request> requests = new ArrayList<>();
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -80,10 +80,6 @@ public class ManageRequestPage extends Fragment {
 
         LinearLayout cardContainer = view.findViewById(R.id.ManageRequestCardContainer);
 
-        for (int i = 0; i < 20; i++) {
-            requests.add(new Request("Tajuk", "Information and Guidance", "Completed", 1000));
-        }
-
         for(int i=0 ; i<requests.size() ; i++){
             addCard(cardContainer,requests.get(i));
         }
@@ -91,18 +87,17 @@ public class ManageRequestPage extends Fragment {
 
     private void addCard(LinearLayout container, Request request){
         View card = LayoutInflater.from(getActivity()).inflate(R.layout.card_manage_request,container,false);
-
         TextView cardTitle = card.findViewById(R.id.ManageRequestTitle);
         TextView cardDesiredOutcome = card.findViewById(R.id.ManageRequestDesiredOutcome);
         TextView cardUpdateStates = card.findViewById(R.id.ManageRequestStatusUpdate);
         TextView id = card.findViewById(R.id.adminRequestId);
 
-        cardTitle.setText(request.title);
+        cardTitle.setText(request.reason);
         cardDesiredOutcome.setText(request.desiredOutcome);
         cardUpdateStates.setText(request.status);
-        id.setText(request.id + "");
+        id.setText(request.requestId + "");
 
-        initializeCardButton(card.findViewById(R.id.ManageRequestTitle),request.id);
+        initializeCardButton(card.findViewById(R.id.ManageRequestTitle),request.requestId);
 
         Spinner spinner = card.findViewById(R.id.ManageRequestSpinner);
 
@@ -117,6 +112,7 @@ public class ManageRequestPage extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ViewRequestAdminPage.requestId = 1;
                 goToPage(viewRequestAdminPage,getParentFragmentManager());
             }
         });

@@ -76,7 +76,7 @@ public class UserHomePage extends Fragment {
 
         //Declare data display view
         TextView nameTV = view.findViewById(R.id.HomeNameTV);
-        nameTV.setText("Name");
+        nameTV.setText(currentUser.name);
 
         //Declare Buttons
         LinearLayout liveDataButton = view.findViewById(R.id.LiveDataButton);
@@ -151,6 +151,12 @@ public class UserHomePage extends Fragment {
             }
         });
 
+        userSupportGroupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(anonymousSupportGroupPage,getParentFragmentManager());
+            }
+        });
         for(int i=0; i<10 ; i++){
             addImage(eventImageContainer,R.drawable.sample_event_image);
         }

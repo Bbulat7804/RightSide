@@ -1,7 +1,14 @@
 package com.example.rightside;
 
+import static com.example.rightside.Manager.db;
+import static com.example.rightside.Manager.latestRequestIndex;
+import static com.example.rightside.Manager.requests;
+import static com.example.rightside.Manager.viewRequestPage;
+
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,10 +21,19 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,6 +50,23 @@ public class ModifyMentalConsultation extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    TextView dateTV;
+    TextView timeTV;
+    TextView descriptionTV;
+    ListView attachmentList;
+    Spinner spinnerReasonConsultation;
+    Spinner spinnerDesiredOutcome;
+    RadioGroup preferredConsultation;
+    RadioButton inPerson;
+    RadioButton phoneCall;
+    RadioButton videoCall;
+    RadioButton textChat;
+    RadioGroup urgency;
+    RadioButton urgent;
+    RadioButton nonUrgent;
+    Button submitButton;
+    String selectedText;
 
     public ModifyMentalConsultation() {
         // Required empty public constructor
@@ -77,16 +110,40 @@ public class ModifyMentalConsultation extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Spinner spinnerReasonConsultation = view.findViewById(R.id.MentalConsultationReasonSpinner);
+        dateTV = view.findViewById(R.id.ETpreferredDateMental);
+        timeTV = view.findViewById(R.id.ETpreferredTimeMental);
+        descriptionTV = view.findViewById(R.id.editTextDescribeMental);
+
+        preferredConsultation = view.findViewById(R.id.RadioGroupPreferredConsultation);
+        int checkedRadioButtonId = preferredConsultation.getCheckedRadioButtonId();
+            if (checkedRadioButtonId != -1) {
+                RadioButton checkedRadioButton = view.findViewById(checkedRadioButtonId);
+                selectedText = checkedRadioButton.getText().toString();
+            }
+
+        urgency = view.findViewById(R.id.RadioGroupUrgency);
+            int checkedRadioButton2 = urgency.getCheckedRadioButtonId();
+            if (checkedRadioButtonId != -1) {
+
+            }
+        inPerson = view.findViewById(R.id.buttonInPersonMental);
+        phoneCall = view.findViewById(R.id.buttonPhoneCallMental);
+        videoCall = view.findViewById(R.id.buttonVideoCallMental);
+        textChat = view.findViewById(R.id.buttonVideoCallMental);
+        urgent = view.findViewById(R.id.buttonUrgentMental);
+        nonUrgent = view.findViewById(R.id.buttonNonUrgentMental);
+
+        spinnerReasonConsultation = view.findViewById(R.id.MentalConsultationReasonSpinner);
         ArrayAdapter<CharSequence> reasonConsultationAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.MentalConsultationReason, R.layout.layout_spinner);
         spinnerReasonConsultation.setAdapter(reasonConsultationAdapter);
-
-        Spinner spinnerDesiredOutcome = view.findViewById(R.id.MentalDesiredOutcomeSpinner);
+        spinnerDesiredOutcome = view.findViewById(R.id.MentalDesiredOutcomeSpinner);
         ArrayAdapter<CharSequence> desiredOutcomeAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.MentalDesiredOutcome, R.layout.layout_spinner);
         spinnerDesiredOutcome.setAdapter(desiredOutcomeAdapter);
 
         TextView dateButton = view.findViewById(R.id.ETpreferredDateMental);
         DatePickerDialog datePickerDialog = initializeDatePicker(dateButton);
+
+        submitButton = view.findViewById(R.id.buttonSubmitMentalForm);
 
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,14 +151,40 @@ public class ModifyMentalConsultation extends Fragment {
                 openDatePicker(datePickerDialog);
             }
         });
+
+        timeTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimePicker(timeTV);
+            }
+        });
+
     }
 
-    public DatePickerDialog initializeDatePicker(TextView dateButton){
+    private void showTimePicker(TextView timeTextView) {
+        // Get the current time
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+
+        // Create and show TimePickerDialog
+        TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(), AlertDialog.THEME_HOLO_LIGHT,
+                new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        String selectedTime = String.format("%02d:%02d", hourOfDay, minute);
+                        timeTextView.setText(selectedTime); // Update the TextView
+                    }
+                }, hour, minute, true); // true for 24-hour format
+        timePickerDialog.show();
+    }
+
+    public DatePickerDialog initializeDatePicker(TextView dateButton) {
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int day) {
                 month = month + 1;
-                String date = makeDateString(day ,month,year);
+                String date = makeDateString(day, month, year);
                 dateButton.setText(date);
             }
         };
@@ -111,15 +194,15 @@ public class ModifyMentalConsultation extends Fragment {
         int month = cal.get(Calendar.MONTH);
         int day = cal.get(Calendar.DAY_OF_MONTH);
         int style = AlertDialog.THEME_HOLO_LIGHT;
-        return new DatePickerDialog(getActivity(),style,dateSetListener,year,month,day);
+        return new DatePickerDialog(getActivity(), style, dateSetListener, year, month, day);
     }
 
-    private String makeDateString(int day, int month, int year){
+    private String makeDateString(int day, int month, int year) {
         return getMonthFormat(month) + " " + day + " " + year;
     }
 
     private String getMonthFormat(int month) {
-        if(month == 1)
+        if (month == 1)
             return "Jan";
         else if (month == 2)
             return "Feb";
@@ -151,12 +234,84 @@ public class ModifyMentalConsultation extends Fragment {
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
-        month = month+1;
+        month = month + 1;
         int day = cal.get(Calendar.DAY_OF_MONTH);
 
-        return makeDateString(day,month,year);
+        return makeDateString(day, month, year);
     }
-    public void openDatePicker(DatePickerDialog datePickerDialog){
+
+    public void openDatePicker(DatePickerDialog datePickerDialog) {
         datePickerDialog.show();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Request r = null;
+        for (int i = 0; i < requests.size(); i++) {
+            if (ViewRequestPage.requestId == requests.get(i).requestId) {
+                r = requests.get(i);
+            }
+        }
+        final Request request = r;
+        dateTV.setText(request.date);
+        timeTV.setText(request.time);
+        descriptionTV.setText(request.description);
+        String reason = request.reason;
+        String outcome = request.desiredOutcome;
+        String method = request.method;
+        String urgency = request.urgency;
+
+
+        SpinnerAdapter spinnerAdapter = spinnerReasonConsultation.getAdapter();
+        for (int i = 0; i < spinnerAdapter.getCount(); i++) {
+            if (spinnerAdapter.getItem(i).toString().equals(reason)) {
+                spinnerReasonConsultation.setSelection(i); // Set the matched item as selected
+                break;
+            }
+        }
+
+        SpinnerAdapter spinnerAdapter1 = spinnerDesiredOutcome.getAdapter();
+        for (int i=0; i<spinnerAdapter1.getCount(); i++) {
+            if (spinnerAdapter1.getItem(i).toString().equals(outcome)) {
+                spinnerDesiredOutcome.setSelection(i);
+            }
+        }
+        switch (method){
+            case "In-Person":
+                inPerson.setChecked(true);
+                break;
+            case "Phone Call":
+                phoneCall.setChecked(true);
+                break;
+            case "Video Call":
+                videoCall.setChecked(true);
+                break;
+            case "Text Chat":
+                textChat.setChecked(true);
+                break;
+            default:
+                break;
+        }
+
+        if (urgency.equals("Urgent")) {
+            urgent.setChecked(true);
+        }
+        else
+            nonUrgent.setChecked(true);
+
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                request.reason = spinnerReasonConsultation.getSelectedItem().toString();
+                request.desiredOutcome = spinnerDesiredOutcome.getSelectedItem().toString();
+                request.date = dateTV.getText().toString();
+                request.time = timeTV.getText().toString();
+                request.method = selectedText; //nnot sure
+            }
+        });
+    }
+
+
 }
+

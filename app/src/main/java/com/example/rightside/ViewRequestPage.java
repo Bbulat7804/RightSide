@@ -2,6 +2,7 @@ package com.example.rightside;
 
 import static com.example.rightside.Manager.*;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -33,6 +35,16 @@ public class ViewRequestPage extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    public static int requestId;
+    TextView reasonTV;
+    TextView outcomeTV;
+    TextView consultationMethodTV;
+    TextView urgencyTV;
+    TextView dateTV;
+    TextView timeTV;
+    TextView descriptionTV;
+    ListView attachmentList;
+    ImageButton editButton;
 
     public ViewRequestPage() {
         // Required empty public constructor
@@ -73,12 +85,21 @@ public class ViewRequestPage extends Fragment {
         return inflater.inflate(R.layout.fragment_view_request, container, false);
     }
 
+    @SuppressLint("WrongViewCast")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         Button contactAdminButton = view.findViewById(R.id.buttonChat);
-        ImageButton editButton = view.findViewById(R.id.editButton);
+        reasonTV = view.findViewById(R.id.TVViewRequestconsultationReason);
+        outcomeTV = view.findViewById(R.id.TVViewRequestconsultationOutcome);
+        consultationMethodTV = view.findViewById(R.id.TVViewConsultationType);
+        urgencyTV = view.findViewById(R.id.TVurgency);
+        dateTV = view.findViewById(R.id.ETpreferredDateLegal);
+        timeTV = view.findViewById(R.id.ETpreferredTimeLegal);
+        descriptionTV = view.findViewById(R.id.TVdescribeRequest);
+        attachmentList = view.findViewById(R.id.attachments);
+        editButton = view.findViewById(R.id.editButton);
 
         contactAdminButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,16 +108,33 @@ public class ViewRequestPage extends Fragment {
             }
         });
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Request request = null;
+
+        for (int i=0; i<requests.size(); i++) {
+            if (requests.get(i).requestId == requestId) {
+                request = requests.get(i);
+            }
+        }
+        reasonTV.setText(request.reason);
+        outcomeTV.setText(request.desiredOutcome);
+        consultationMethodTV.setText(request.method);
+        urgencyTV.setText(request.urgency);
+        dateTV.setText(request.date);
+        timeTV.setText(request.time);
+        descriptionTV.setText(request.description);
+        String type = request.type;
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String requestType = "Legal";
-                System.out.println("test");
-                if(requestType.equals("Mental"))
+                if(type.equals("Mental"))
                     goToPage(modifyMentalConsultationPage,getParentFragmentManager());
                 else
                     goToPage(modifyLegalConsultationPage,getParentFragmentManager());
-                System.out.println("not here");
             }
         });
     }

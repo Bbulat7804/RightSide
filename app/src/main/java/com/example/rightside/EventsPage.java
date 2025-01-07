@@ -1,5 +1,7 @@
 package com.example.rightside;
 
+import static com.example.rightside.Manager.*;
+
 import android.content.Context;
 import android.os.Bundle;
 
@@ -78,7 +80,6 @@ public class EventsPage extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        DatabaseConnection db = new DatabaseConnection();
         LinearLayout eventCardContainer = view.findViewById(R.id.EventCardContainer);
         Button tryTambahButton = view.findViewById(R.id.tryTambahButton);
 

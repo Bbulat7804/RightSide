@@ -77,7 +77,7 @@ public class AdminHomePage extends Fragment {
 
         //Declara data display view
         TextView nameTV = view.findViewById(R.id.HomeNameTV);
-        nameTV.setText("Name");
+        nameTV.setText(currentAdmin.name);
 
         //Declare Buttons
         LinearLayout reportButton = view.findViewById(R.id.UserReportButton);
@@ -93,6 +93,12 @@ public class AdminHomePage extends Fragment {
         LinearLayout uploadArticleButton = view.findViewById(R.id.UploadArticlesButton);
         LinearLayout articleButton = view.findViewById(R.id.ArticlesButton);
 
+        supportGroupsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(anonymousSupportGroupAdminPage,getParentFragmentManager());
+            }
+        });
         manageRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

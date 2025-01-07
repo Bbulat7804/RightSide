@@ -24,26 +24,45 @@
             android:textColor="@color/white"
             android:textSize="30sp" />
 
-        <EditText
-            android:id="@+id/searchBar2"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="14dp"
-            android:layout_marginEnd="24dp"
-            android:layout_weight="6"
-            android:background="@drawable/box_rounded_bordered_white"
-            android:drawableStart="@drawable/icon_search_green"
-            android:fontFamily="@font/roboto"
-            android:padding="8dp"
-            android:textColor="@color/green" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/searchBar2"
+                android:layout_height="40dp"
+                android:layout_width="0dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="24dp"
+                android:layout_weight="6"
+                android:background="@drawable/box_rounded_bordered_white"
+                android:drawableStart="@drawable/icon_search_green"
+                android:fontFamily="@font/roboto"
+                android:padding="8dp"
+                android:textColor="@color/green" />
+
+            <Button
+                android:id="@+id/NewGroupButton"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="14dp"
+                android:layout_weight="2"
+                android:backgroundTint="@color/blue"
+                android:fontFamily="@font/roboto_bold"
+                android:padding="0dp"
+                android:text="Add Group"
+                android:textColor="@color/white" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textView36"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
             android:text="Suggestion"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="24sp" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
@@ -63,6 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"
+            android:fontFamily="@font/roboto_bold"
             android:text="Groups"
             android:textColor="@color/white"
             android:textSize="24sp" />

@@ -2,11 +2,14 @@ package com.example.rightside;
 
 import static android.content.ContentValues.TAG;
 
+import static com.example.rightside.Manager.USERLIBRARY;
+import static com.example.rightside.Manager.db;
 import static java.security.AccessController.getContext;
 
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -15,6 +18,7 @@ import androidx.annotation.NonNull;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -30,12 +34,12 @@ import java.util.Map;
 public class DatabaseConnection {
     private final FirebaseFirestore db;
     private final FirebaseStorage storage;
-
+    private final StorageReference storageReference;
     public DatabaseConnection() {
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
     }
-
 
     // =================== Firestore Methods ===================
 
@@ -45,8 +49,9 @@ public class DatabaseConnection {
     }
 
     //method utk add document ke collection
-    public Task<DocumentReference> addDocument(String collectionName, Map<String, Object> data) {
-        return getCollection(collectionName).add(data);
+    public void addDocument(String collectionName, Map<String, Object> data, String id) {
+        DocumentReference doc = getCollection(collectionName).document(id);
+        doc.set(data);
     }
 
     //method utk get document dari collection
@@ -102,6 +107,26 @@ public class DatabaseConnection {
                 .addOnFailureListener(e -> Log.e("Firebase", "Failed to load image", e));
     }
 
+    public void uploadImageToFirebase(Uri imageUri, String path, ImageView imageView, Context context) {
+        StorageReference fileReference = storageReference.child(path);
 
+        fileReference.putFile(imageUri)
+                .addOnSuccessListener(taskSnapshot -> {
+                    // Get the download URL
+                    fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                        String downloadUrl = uri.toString();
+                        System.out.println("Upload successful: " + downloadUrl);
+                        loadImageFromStorage(context, path, imageView);
+                        // Save URL to Firestore if needed
+                    });
+                })
+                .addOnFailureListener(e -> {
+                    System.out.println("Upload failed: " + e.getMessage());
+                });
+    }
 
+    public void deleteImageFromFirebase(String path){
+        StorageReference sf = storageReference.child(path);
+        sf.delete();
+    }
 }

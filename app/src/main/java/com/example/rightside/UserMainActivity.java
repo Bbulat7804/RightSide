@@ -38,7 +38,6 @@ public class UserMainActivity extends AppCompatActivity {
         if(savedInstanceState == null) {
             goToPage(userHomePage, getSupportFragmentManager());
         }
-
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,22 +45,18 @@ public class UserMainActivity extends AppCompatActivity {
                 goToPage(userHomePage,getSupportFragmentManager());
             }
         });
-
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToPage(userProfilePage,getSupportFragmentManager());
             }
         });
-
         helpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToPage(faqPage,getSupportFragmentManager());
             }
         });
-
-
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -72,8 +67,26 @@ public class UserMainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        if(false)
+            super.onBackPressed();
+        if(stack.size()==1) {
+            stack.removeFirst();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,blankPage).commit();
+            Intent intent = new Intent(UserMainActivity.this, LoginPage.class);
+            startActivity(intent);
+        }
+        else {
+            stack.removeFirst();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, stack.getFirst()).commit();
+        }
+    }
+
+    @Override
     public boolean onSupportNavigateUp(){
-        if(stack.isEmpty()) {
+        if(stack.size()==1) {
+            stack.removeFirst();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,blankPage).commit();
             Intent intent = new Intent(UserMainActivity.this, LoginPage.class);
             startActivity(intent);
         }
@@ -100,6 +113,4 @@ public class UserMainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 }
