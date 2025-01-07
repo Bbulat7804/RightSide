@@ -134,9 +134,10 @@ public class SignUpPage extends AppCompatActivity {
         userData.put("name",name);
         userData.put("profile_photo_url","");
         userData.put("report_no", "0");
-        userData.put("stress_level","");
+        userData.put("stress_level","No Data");
         userData.put("username",username);
         userData.put("support_group_no","0");
+        userData.put("stress_score", "0");
         db.addDocument("Users", userData, userId);
         Intent intent = new Intent(SignUpPage.this,LoginPage.class);
         startActivity(intent);

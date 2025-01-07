@@ -132,16 +132,19 @@ public class LoginPage extends AppCompatActivity {
                 String name = document.getString("name");
                 String username = document.getString("username");
                 String email = document.getString("email");
+                System.out.println("sini");
                 String reportNo = document.getString("report_no");
+                System.out.println("sini kot");
                 String stressLevel = document.getString("stress_level");
+                System.out.println("jye");
                 String eventNo = document.getString("event_no");
                 String phoneNo = document.getString("phone_no");
                 String adminId = document.getString("admin_id");
                 String password = document.getString("password");
                 String profilePhotoUrl = document.getString("profile_photo_url");
                 String supportGroupNo = document.getString("support_group_no");
-
-                Manager.currentUser = new User(name,Integer.parseInt(userId),username,email,Integer.parseInt(reportNo),stressLevel,Integer.parseInt(eventNo),phoneNo,Integer.parseInt(adminId),password,profilePhotoUrl,Integer.parseInt(supportGroupNo));
+                String stressScore = document.getString("stress_score");
+                Manager.currentUser = new User(name,Integer.parseInt(userId),username,email,Integer.parseInt(reportNo),stressLevel,Integer.parseInt(eventNo),phoneNo,Integer.parseInt(adminId),password,profilePhotoUrl,Integer.parseInt(supportGroupNo), Integer.parseInt(stressScore));
                 if(loginType.equals(USER)) {
                     fetchRequest(currentUser.userId, "user_id");
                     fetchArticle();
@@ -159,7 +162,7 @@ public class LoginPage extends AppCompatActivity {
         db.getDocument("Admins",Integer.toString(currentUser.adminId)).addOnSuccessListener(document ->{
             if (document.exists()) {
                 int requestManaged = Integer.parseInt(document.getString("request_managed"));
-                currentAdmin = new Admin(currentUser.name, currentUser.userId, currentUser.username, currentUser.email, currentUser.reportNo, currentUser.stressLevel, currentUser.eventsNo, currentUser.phoneNo, currentUser.adminId, currentUser.password, currentUser.profilePhotoUrl, currentUser.supportGroupNo, requestManaged);
+                currentAdmin = new Admin(currentUser.name, currentUser.userId, currentUser.username, currentUser.email, currentUser.reportNo, currentUser.stressLevel, currentUser.eventsNo, currentUser.phoneNo, currentUser.adminId, currentUser.password, currentUser.profilePhotoUrl, currentUser.supportGroupNo, requestManaged, currentUser.stressScore);
                 fetchArticle();
                 fetchSupportGroup();
                 fetchRequest(currentAdmin.adminId, "admin_id");

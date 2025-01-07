@@ -5,10 +5,12 @@ import static com.example.rightside.Manager.currentUser;
 import static com.example.rightside.Manager.db;
 import static com.example.rightside.Manager.supportGroups;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -30,6 +32,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -56,7 +60,7 @@ public class GroupChatPage extends Fragment {
     ArrayList<DocumentSnapshot> textList= new ArrayList();
     LinearLayout chatContainer;
     ListenerRegistration registration;
-    int chatIndex = 0;
+    long currentId = 0;
     EditText chatInput;
     ScrollView chatScroll;
 
@@ -109,6 +113,7 @@ public class GroupChatPage extends Fragment {
         chatScroll = view.findViewById(R.id.ChatContainer);
         chatScroll.post(() -> chatScroll.fullScroll(View.FOCUS_DOWN));
         sendTextButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 if(chatInput.getText().toString().trim().equals(""))
@@ -135,8 +140,8 @@ public class GroupChatPage extends Fragment {
         first = true;
         textList.clear();
         chatContainer.removeAllViews();
-        chatIndex = 0;
-        registration = db.getCollection("GroupChat" + chatId).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        currentId = 0;
+        registration = db.getCollection("GroupChats").document("ChatRoom" + chatId).collection("Chats").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 for (DocumentChange documentChange : value.getDocumentChanges()) {
@@ -147,9 +152,9 @@ public class GroupChatPage extends Fragment {
                                 textList.add(document);
                             }
                             else {
-                                if(Integer.parseInt(document.getId())<=chatIndex)
+                                if(Long.parseLong(document.getId())<=currentId)
                                     continue;
-                                chatIndex++;
+                                currentId = Long.parseLong(document.getId());
                                 if (document.getString("sender").equals(Integer.toString(currentUser.userId))) {
                                     sendText(document.getString("text"));
                                 } else {
@@ -181,7 +186,7 @@ public class GroupChatPage extends Fragment {
                         }
                     }
                     for(int i=0 ; i<textList.size() ; i++){
-                        chatIndex++;
+                        currentId = currentId < Long.parseLong(textList.get(i).getId()) ? Long.parseLong(textList.get(i).getId()) : currentId;
                         if (textList.get(i).getString("sender").equals(Integer.toString(currentUser.userId))) {
                             sendText(textList.get(i).getString("text"));
                         } else {
@@ -215,10 +220,18 @@ public class GroupChatPage extends Fragment {
         chatContainer.addView(chat);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void uploadMessage(String text){
         HashMap<String,Object> data = new HashMap<>();
         data.put("sender",currentUser.userId + "");
         data.put("text", text);
-        db.addDocument("GroupChat" + chatId, data,Integer.toString(chatIndex+1));
+        db.getCollection("GroupChats").document("ChatRoom" + chatId).collection("Chats").document(getTimeStamp()).set(data);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public String getTimeStamp(){
+        DateTimeFormatter timeStampFormat = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
+        LocalDateTime now = LocalDateTime.now();
+        return now.format(timeStampFormat);
     }
 }
