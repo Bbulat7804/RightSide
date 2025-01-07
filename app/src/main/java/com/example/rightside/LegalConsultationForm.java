@@ -8,7 +8,6 @@ import static com.example.rightside.Manager.latestRequestIndex;
 import static com.example.rightside.Manager.requests;
 import static com.example.rightside.Manager.stack;
 import static com.example.rightside.Manager.userRequestPage;
-import static com.example.rightside.Manager.viewRequestPage;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -51,10 +50,6 @@ public class LegalConsultationForm extends Fragment {
     Spinner spinnerDesiredOutcome;
     String selectedMethod;
     String selectedUrgency;
-    RadioButton inPerson;
-    RadioButton phoneCall;
-    RadioButton videoCall;
-    RadioButton textChat;
     RadioGroup preferredConsultationRG;
     RadioGroup urgencyRG;
     RadioButton urgent;
@@ -151,13 +146,13 @@ public class LegalConsultationForm extends Fragment {
                     selectedMethod = checkedRadioButton.getText().toString();
                 }
 
-                Request request = new Request(reason,desiredOutcome,selectedMethod,selectedUrgency,dateChosen,timeChosen,description,"Pending", currentUser.adminId, currentUser.userId,++latestRequestIndex,"Legal");
+                Request request = new Request(reason,desiredOutcome,selectedMethod,selectedUrgency,dateChosen,timeChosen,description,"Pending", 1, currentUser.userId,++latestRequestIndex,"Legal");
                 uploadRequest(request);
                 Toast.makeText(requireContext(), "Your form has been submitted!", Toast.LENGTH_SHORT).show();
 
-
-                goToPage(userRequestPage, getParentFragmentManager());
                 stack.removeFirst();
+                goToPage(userRequestPage, getParentFragmentManager());
+                clearAll();
             }
         });
         dateTV.setOnClickListener(new View.OnClickListener() {
@@ -278,6 +273,15 @@ public class LegalConsultationForm extends Fragment {
         datePickerDialog.show();
     }
 
+    public void clearAll () {
+        spinnerReasonConsultation.setSelection(0);
+        spinnerDesiredOutcome.setSelection(0);
+        preferredConsultationRG.clearCheck();
+        urgencyRG.clearCheck();
+        dateTV.setText("");
+        timeTV.setText("");
+        descriptionTV.setText("");
+    }
 
 }
 
