@@ -1,12 +1,14 @@
 package com.example.rightside;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 
 public class Manager {
@@ -49,11 +51,14 @@ public class Manager {
     public static int latestRequestIndex = 0;
     public static int latestArticleIndex = 0;
     public static int latestSupportGroupIndex = 0;
+    public static int latestReportIndex = 0;
     public static final int PICK_IMAGE_REQUEST = 1;
     public static final int PICK_GROUP_ICON_REQUEST = 10;
     public static ArrayList<Request> requests = new ArrayList<>();
+    public static SimpleDateFormat dateFormat = new SimpleDateFormat("dd MM yyyy");
     public static ArrayList<SupportGroup> supportGroups = new ArrayList<>();
     public static ArrayList<Article> articles = new ArrayList<>();
+    public static ArrayList<Report> reports = new ArrayList<>();
     public static LinkedList<Fragment> stack = new LinkedList();
 
 
@@ -66,5 +71,17 @@ public class Manager {
     public static void goToSiblingPage(Fragment fragment, FragmentManager fm){
         int containerId = R.id.fragment_container;
         fm.beginTransaction().replace(containerId,fragment).commit();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static Date stringToDate(String dateString){
+        Date date = null;
+         // Date format
+        try {
+            date = dateFormat.parse(dateString); // Convert string to Date
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return date;
     }
 }

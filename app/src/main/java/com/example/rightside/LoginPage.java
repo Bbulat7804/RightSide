@@ -3,8 +3,8 @@ package com.example.rightside;
 import static com.example.rightside.Manager.*;
 
 import android.content.Intent;
-import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -13,19 +13,19 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.ScrollView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class LoginPage extends AppCompatActivity {
     boolean hide = true;
@@ -55,6 +55,7 @@ public class LoginPage extends AppCompatActivity {
         font = passwordInput.getTypeface();
 
         loginButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 selectedId = loginOptionGroup.getCheckedRadioButtonId();
@@ -104,6 +105,7 @@ public class LoginPage extends AppCompatActivity {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void validateLoginData(String loginType){
         if(loginType==null)
             return;
@@ -126,6 +128,7 @@ public class LoginPage extends AppCompatActivity {
             }
         });
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void fetchUserData(String userId, String loginType){
         db.getDocument(USERLIBRARY,userId).addOnSuccessListener(document ->{
             if (document.exists()) {
@@ -146,6 +149,7 @@ public class LoginPage extends AppCompatActivity {
                     fetchRequest(currentUser.userId, "user_id");
                     fetchArticle();
                     fetchSupportGroup();
+                    fetchReports(currentUser.userId, "user_id");
                     login(loginType);
                 }
                 else{
@@ -155,6 +159,7 @@ public class LoginPage extends AppCompatActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void fetchAdminData(String loginType){
         db.getDocument("Admins",Integer.toString(currentUser.adminId)).addOnSuccessListener(document ->{
             if (document.exists()) {
@@ -163,7 +168,42 @@ public class LoginPage extends AppCompatActivity {
                 fetchArticle();
                 fetchSupportGroup();
                 fetchRequest(currentAdmin.adminId, "admin_id");
+                fetchReports(currentUser.userId, "user_id");
                 login(loginType);
+            }
+        });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void fetchReports(int id, String idType){
+        reports.clear();
+        db.getCollection("Reports").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot snapshot = task.getResult();
+                if (snapshot != null) {
+                    for (QueryDocumentSnapshot document : snapshot) {
+                        latestReportIndex = latestReportIndex < Integer.parseInt(document.getId()) ? Integer.parseInt(document.getId()) : latestReportIndex;
+                        if (id == Integer.parseInt(document.getString(idType))){
+                            int userId = Integer.parseInt((String) document.get("user_id"));
+                            int adminId = Integer.parseInt((String) document.get("admin_id"));
+                            String discriminationType = (String) document.get("discrimination_type");
+                            String location = (String) document.get("location");
+                            Date date = stringToDate(document.getString("date"));
+                            String description = (String) document.get("description");
+                            String phoneNumber = (String) document.get("phone_number");
+                            String email = (String) document.get("email");
+                            String witness = (String) document.get("witness");
+                            String extraInfo = (String) document.get("extra_info");
+                            String personInvolved = (String) document.get("person_involved");
+                            String injury = (String) document.get("injury");
+                            boolean isAnonymous = Boolean.parseBoolean(document.get("is_anonymous").toString());
+                        }
+                    }
+                } else {
+                    System.out.println("No documents found in the collection.");
+                }
+            } else {
+                System.err.println("Error fetching documents: " + task.getException());
             }
         });
     }
@@ -260,4 +300,5 @@ public class LoginPage extends AppCompatActivity {
             super.onBackPressed();
         finishAffinity();
     }
+
 }

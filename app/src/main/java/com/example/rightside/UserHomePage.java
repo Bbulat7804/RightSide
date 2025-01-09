@@ -2,6 +2,7 @@ package com.example.rightside;
 
 import static com.example.rightside.Manager.*;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -94,6 +95,17 @@ public class UserHomePage extends Fragment {
         TextView mentalConsultationButton = view.findViewById(R.id.MentalConsultationButton);
         TextView legalConsultationButton = view.findViewById(R.id.LegalConsultationButton);
 
+        userReportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(blankPage, getParentFragmentManager());
+                stack.clear();
+                Intent intent = new Intent(getActivity(), IncidentReporting1.class);
+                System.out.println(getActivity());
+                System.out.println(IncidentReporting1.class);
+                startActivity(intent);
+            }
+        });
         stressManagementButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

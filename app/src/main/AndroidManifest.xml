@@ -40,6 +40,26 @@
             android:exported="false"
             android:windowSoftInputMode="adjustPan">
         </activity>
+        <activity
+            android:name=".IncidentReporting1"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity
+            android:name=".IncidentReporting2"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity
+            android:name=".IncidentReporting3"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity
+            android:name=".IncidentReporting4"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
 
         <meta-data
             android:name="preloaded_fonts"
