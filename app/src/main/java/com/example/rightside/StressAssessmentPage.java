@@ -4,6 +4,7 @@ import static com.example.rightside.Manager.currentUser;
 import static com.example.rightside.Manager.goToPage;
 import static com.example.rightside.Manager.stressTestPage;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,7 +18,14 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.google.api.Distribution;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -100,9 +108,7 @@ import com.google.api.Distribution;
         stressLevelTextView = view.findViewById(R.id.stressLevelTV);
 
         // Display the passed data
-
         normalNumTextView.setText("5 - 25");
-
 
         getStressScoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
