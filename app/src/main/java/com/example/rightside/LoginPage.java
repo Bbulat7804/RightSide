@@ -21,8 +21,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,7 +34,7 @@ public class LoginPage extends AppCompatActivity {
     private String email;
     private String password;
     private int selectedId;
-
+    DatabaseConnection db = new DatabaseConnection();
     EditText emailInput;
     EditText passwordInput;
     Typeface font;
@@ -58,6 +60,7 @@ public class LoginPage extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
+
                 selectedId = loginOptionGroup.getCheckedRadioButtonId();
                 email = emailInput.getText().toString();
                 password = passwordInput.getText().toString();
@@ -144,11 +147,12 @@ public class LoginPage extends AppCompatActivity {
                 String profilePhotoUrl = document.getString("profile_photo_url");
                 String supportGroupNo = document.getString("support_group_no");
                 String stressScore = document.getString("stress_score");
-                Manager.currentUser = new User(name,Integer.parseInt(userId),username,email,Integer.parseInt(reportNo),stressLevel,Integer.parseInt(eventNo),phoneNo,Integer.parseInt(adminId),password,profilePhotoUrl,Integer.parseInt(supportGroupNo), Integer.parseInt(stressScore));
+                currentUser = new User(name,Integer.parseInt(userId),username,email,Integer.parseInt(reportNo),stressLevel,Integer.parseInt(eventNo),phoneNo,Integer.parseInt(adminId),password,profilePhotoUrl,Integer.parseInt(supportGroupNo), Integer.parseInt(stressScore));
                 if(loginType.equals(USER)) {
                     fetchRequest(currentUser.userId, "user_id");
                     fetchArticle();
                     fetchSupportGroup();
+                    fetchUsers();
                     fetchReports(currentUser.userId, "user_id");
                     login(loginType);
                 }
@@ -167,8 +171,9 @@ public class LoginPage extends AppCompatActivity {
                 currentAdmin = new Admin(currentUser.name, currentUser.userId, currentUser.username, currentUser.email, currentUser.reportNo, currentUser.stressLevel, currentUser.eventsNo, currentUser.phoneNo, currentUser.adminId, currentUser.password, currentUser.profilePhotoUrl, currentUser.supportGroupNo, requestManaged, currentUser.stressScore);
                 fetchArticle();
                 fetchSupportGroup();
+                fetchUsers();
                 fetchRequest(currentAdmin.adminId, "admin_id");
-                fetchReports(currentUser.userId, "user_id");
+                fetchReports(currentUser.userId, "admin_id");
                 login(loginType);
             }
         });
@@ -184,6 +189,8 @@ public class LoginPage extends AppCompatActivity {
                     for (QueryDocumentSnapshot document : snapshot) {
                         latestReportIndex = latestReportIndex < Integer.parseInt(document.getId()) ? Integer.parseInt(document.getId()) : latestReportIndex;
                         if (id == Integer.parseInt(document.getString(idType))){
+                            int reportId = Integer.parseInt(document.getId());
+                            String name = document.getString("name");
                             int userId = Integer.parseInt((String) document.get("user_id"));
                             int adminId = Integer.parseInt((String) document.get("admin_id"));
                             String discriminationType = (String) document.get("discrimination_type");
@@ -197,8 +204,13 @@ public class LoginPage extends AppCompatActivity {
                             String personInvolved = (String) document.get("person_involved");
                             String injury = (String) document.get("injury");
                             boolean isAnonymous = Boolean.parseBoolean(document.get("is_anonymous").toString());
+                            ArrayList<String> impacts = (ArrayList<String>) document.get("impacts");
+                            ArrayList<String> actions = (ArrayList<String>) document.get("actions");
+
+                            reports.add(new Report(reportId, name, userId, adminId, discriminationType, location, date, description, phoneNumber, email, witness, extraInfo, personInvolved, injury, isAnonymous, impacts, actions));
                         }
                     }
+                    sortReport();
                 } else {
                     System.out.println("No documents found in the collection.");
                 }
@@ -207,6 +219,22 @@ public class LoginPage extends AppCompatActivity {
             }
         });
     }
+
+    private void sortReport() {
+        int n = reports.size();
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                // Compare the dates in the Report objects
+                if (reports.get(j).date.compareTo(reports.get(j + 1).date) > 0) {
+                    // Swap if they are in the wrong order
+                    Report temp = reports.get(j);
+                    reports.set(j, reports.get(j + 1));
+                    reports.set(j + 1, temp);
+                }
+            }
+        }
+    }
+
     // fetch request data from firebase
     public void fetchRequest (int id, String idType) {
         requests.clear();
@@ -277,6 +305,36 @@ public class LoginPage extends AppCompatActivity {
                             participantsId.add(Integer.parseInt(temp.get(i)));
                         }
                         supportGroups.add(new SupportGroup(document.getString("name"), document.getString("description"), Integer.parseInt(document.getId()), document.getString("icon_url"), participantsId));
+                    }
+                } else {
+                    System.out.println("No documents found in the collection.");
+                }
+            } else {
+                System.err.println("Error fetching documents: " + task.getException());
+            }
+        });
+    }
+
+    private void fetchUsers(){
+        users.clear();
+        db.getCollection("Users").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot snapshot = task.getResult();
+                if (snapshot != null) {
+                    for (QueryDocumentSnapshot document : snapshot) {
+                        String name = document.getString("name");
+                        String username = document.getString("username");
+                        String email = document.getString("email");
+                        String reportNo = document.getString("report_no");
+                        String stressLevel = document.getString("stress_level");
+                        String eventNo = document.getString("event_no");
+                        String phoneNo = document.getString("phone_no");
+                        String adminId = document.getString("admin_id");
+                        String password = document.getString("password");
+                        String profilePhotoUrl = document.getString("profile_photo_url");
+                        String supportGroupNo = document.getString("support_group_no");
+                        String stressScore = document.getString("stress_score");
+                        users.add(new User(name,Integer.parseInt(document.getId()),username,email,Integer.parseInt(reportNo),stressLevel,Integer.parseInt(eventNo),phoneNo,Integer.parseInt(adminId),password,profilePhotoUrl,Integer.parseInt(supportGroupNo), Integer.parseInt(stressScore)));
                     }
                 } else {
                     System.out.println("No documents found in the collection.");

@@ -2,7 +2,6 @@ package com.example.rightside;
 
 import static com.example.rightside.Manager.USER;
 import static com.example.rightside.Manager.currentUser;
-import static com.example.rightside.Manager.db;
 import static com.example.rightside.Manager.supportGroups;
 
 import android.os.Build;
@@ -63,6 +62,7 @@ public class GroupChatPage extends Fragment {
     long currentId = 0;
     EditText chatInput;
     ScrollView chatScroll;
+    DatabaseConnection db = new DatabaseConnection();
 
     public GroupChatPage() {
         // Required empty public constructor

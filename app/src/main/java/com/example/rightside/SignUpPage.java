@@ -2,7 +2,6 @@ package com.example.rightside;
 
 import static com.example.rightside.Manager.USER;
 import static com.example.rightside.Manager.USERLIBRARY;
-import static com.example.rightside.Manager.db;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -28,6 +27,7 @@ import java.util.HashMap;
 public class SignUpPage extends AppCompatActivity {
     boolean hidePassword = true;
     boolean hideReconfirmPassword = true;
+    DatabaseConnection db = new DatabaseConnection();
 
     Typeface font;
     @Override

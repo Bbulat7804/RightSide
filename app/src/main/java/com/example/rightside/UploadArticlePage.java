@@ -48,6 +48,7 @@ public class UploadArticlePage extends Fragment {
     EditText authorInput;
     ImageView imageUploadButton;
     Spinner articleTypeSpinner;
+    DatabaseConnection db = new DatabaseConnection();
 
     // TODO: Rename and change types of parameters
     private String mParam1;

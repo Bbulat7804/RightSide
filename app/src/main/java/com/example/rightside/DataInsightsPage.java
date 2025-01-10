@@ -224,8 +224,17 @@ public class DataInsightsPage extends Fragment {
     }
 
     public void insertPieChartValue(View view, PieChart pieChart){
-        float numberAffected = 9;
-        float numberUnaffected = 10;
+        int affect = 0;
+        int unaffect = 0;
+        for(int i=0 ; i<users.size() ; i++){
+            if(users.get(i).stressLevel.equals("Low Stress"))
+                unaffect++;
+            else
+                affect++;
+        }
+
+        float numberAffected = affect;
+        float numberUnaffected = unaffect;
         float total = numberUnaffected + numberAffected;
         float percentageAffected = ((float)Math.round((numberAffected/total)*10000))/100;
         float percentageUnaffected = ((float)Math.round((numberUnaffected/total)*10000))/100;
@@ -378,7 +387,7 @@ public class DataInsightsPage extends Fragment {
     }
 
     private String makeDateString(int day, int month, int year){
-        return getMonthFormat(month) + " " + day + " " + year;
+        return day + " " + getMonthFormat(month) + " " + year;
     }
 
     private String getMonthFormat(int month) {

@@ -38,6 +38,7 @@ public class EventsPage extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    DatabaseConnection db = new DatabaseConnection();
 
     public EventsPage() {
         // Required empty public constructor

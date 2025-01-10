@@ -43,6 +43,8 @@ public class Manager {
     public static Fragment anonymousSupportGroupPage = new AnonymousSupportGroupPage();
     public static Fragment anonymousSupportGroupAdminPage = new AnonymousSupportGroupAdminPage();
     public static Fragment createGroupPage = new CreateSupportGroupPage();
+    public static Fragment viewReportPage = new ViewReportPage();
+    public static Fragment reportPage = new ReportPage();
     public static Fragment blankPage = new BlankPage();
     public static String userType;
     public static User currentUser;
@@ -59,6 +61,7 @@ public class Manager {
     public static ArrayList<SupportGroup> supportGroups = new ArrayList<>();
     public static ArrayList<Article> articles = new ArrayList<>();
     public static ArrayList<Report> reports = new ArrayList<>();
+    public static ArrayList<User> users = new ArrayList<>();
     public static LinkedList<Fragment> stack = new LinkedList();
 
 
@@ -76,7 +79,7 @@ public class Manager {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public static Date stringToDate(String dateString){
         Date date = null;
-         // Date format
+        // Date format
         try {
             date = dateFormat.parse(dateString); // Convert string to Date
         } catch (Exception e) {

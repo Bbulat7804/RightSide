@@ -169,7 +169,7 @@ public class IncidentReporting2 extends AppCompatActivity {
     }
 
     private String makeDateString(int day, int month, int year){
-        return getMonthFormat(month) + " " + day + " " + year;
+        return day + " " + getMonthFormat(month) + " " + year;
     }
 
     private String getMonthFormat(int month) {

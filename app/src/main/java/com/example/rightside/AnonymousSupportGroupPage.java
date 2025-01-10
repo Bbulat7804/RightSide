@@ -38,6 +38,7 @@ public class AnonymousSupportGroupPage extends Fragment {
     private String mParam2;
     LinearLayout suggestionGroupContainer;
     LinearLayout joinedGroupContainer;
+    DatabaseConnection db = new DatabaseConnection();
 
     public AnonymousSupportGroupPage() {
         // Required empty public constructor

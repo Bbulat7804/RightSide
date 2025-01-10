@@ -2,6 +2,7 @@ package com.example.rightside;
 
 import static com.example.rightside.Manager.*;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -93,6 +94,24 @@ public class AdminHomePage extends Fragment {
         LinearLayout uploadArticleButton = view.findViewById(R.id.UploadArticlesButton);//remove
         LinearLayout articleButton = view.findViewById(R.id.ArticlesButton);
 
+        reportHistoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(reportPage,getParentFragmentManager());
+            }
+        });
+
+        reportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(blankPage, getParentFragmentManager());
+                stack.clear();
+                Intent intent = new Intent(getActivity(), IncidentReporting1.class);
+                System.out.println(getActivity());
+                System.out.println(IncidentReporting1.class);
+                startActivity(intent);
+            }
+        });
 
         stressManagementButton.setOnClickListener(new View.OnClickListener() {
             @Override
