@@ -2,18 +2,10 @@
 <project version="4">
   <component name="deploymentTargetSelector">
     <selectionStates>
-      <SelectionState runConfigName="app">
+      <SelectionState runConfigName="Unnamed">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-12-31T17:43:22.512607400Z">
-          <Target type="DEFAULT_BOOT">
-            <handle>
-              <DeviceId pluginId="PhysicalDevice" identifier="serial=43d2cffb" />
-            </handle>
-          </Target>
-        </DropdownSelection>
-        <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="LoginPage">
+      <SelectionState runConfigName="IncidentReporting1">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
