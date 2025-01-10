@@ -177,7 +177,7 @@ public class UploadArticlePage extends Fragment {
         return new DatePickerDialog(getActivity(),style,dateSetListener,year,month,day);
     }
 
-    private static String makeDateString(int day, int month, int year){
+    public static String makeDateString(int day, int month, int year){
         return getMonthFormat(month) + " " + day + " " + year;
     }
 

@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -98,6 +100,7 @@ public class UploadEvent extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         uploadEventImageButton = view.findViewById(R.id.uploadEventImage);
         uploadEventTitleTextInput = view.findViewById(R.id.uploadEventTitleTextInput);
         uploadEventDescTextInput = view.findViewById(R.id.uploadEventDescTextInput);
@@ -125,22 +128,51 @@ public class UploadEvent extends Fragment {
         uploadEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Event event = new Event(latestEventIndex + 1,
+                if (checkEmptyFields())
+                    return;
+
+                Event event = new Event(latestEventIndex,
                         uploadEventURLTextInput.getText().toString().trim(),
                         uploadEventTitleTextInput.getText().toString().trim(),
                         uploadEventDescTextInput.getText().toString().trim(),
                         getIconPath(),
                         uploadEventAuthorNameInput.getText().toString().trim(),
                         uploadEventDateButton.getText().toString().trim());
-                latestEventIndex++;
+
                 events.add(event);
                 uploadArticleToFirestore(event);
                 for (int i = 0; i < 2; i++) {
                     stack.removeFirst();
                 }
                 goToPage(eventsPage, getParentFragmentManager());
+                Toast.makeText(getContext(), "Event Uploaded: "+event.title, Toast.LENGTH_SHORT).show();
+                uploadEventTitleTextInput.setText("");
+                uploadEventDescTextInput.setText("");
+                uploadEventURLTextInput.setText("");
+                uploadEventAuthorNameInput.setText("");
             }
         });
+    }
+
+    private boolean checkEmptyFields() {
+        boolean flag = false;
+        if(uploadEventURLTextInput.getText().toString().trim().isEmpty()){
+            uploadEventURLTextInput.setError("URL cannot be empty");
+            flag = true;
+        }
+        if(uploadEventTitleTextInput.getText().toString().trim().isEmpty()){
+            uploadEventTitleTextInput.setError("Title cannot be empty");
+            flag = true;
+        }
+        if(uploadEventDescTextInput.getText().toString().trim().isEmpty()){
+            uploadEventDescTextInput.setError("Description cannot be empty");
+            flag = true;
+        }
+        if(uploadEventAuthorNameInput.getText().toString().trim().isEmpty()){
+            uploadEventAuthorNameInput.setError("Author Name cannot be empty");
+            flag = true;
+        }
+        return flag;
     }
 
     private void openFileChooser() {
@@ -155,20 +187,14 @@ public class UploadEvent extends Fragment {
         if (requestCode == PICK_IMAGE_EVENT_REQUEST && resultCode == RESULT_OK && data != null) {
             Uri imageUri = data.getData();
             if (imageUri != null) {
+                latestEventIndex++;
                 db.uploadImageToFirebase(imageUri,getIconPath(),uploadEventImageButton,getContext());  // Call the upload function
             }
         }
     }
 
     private String getIconPath() {
-        return "ArticlesIcon/" + Integer.toString(latestArticleIndex+1) + ".jpg";
-
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-
+        return "EventsIcon/" + Integer.toString(latestEventIndex) + ".jpg";
 
     }
 
@@ -177,7 +203,7 @@ public class UploadEvent extends Fragment {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int day) {
                 month = month + 1;
-                String date = makeDateString(day ,month,year);
+                String date = UploadArticlePage.makeDateString(day ,month,year);
                 UploadEventDateButton.setText(date);
             }
         };
@@ -190,10 +216,6 @@ public class UploadEvent extends Fragment {
         return new DatePickerDialog(getActivity(),style,dateSetListener,year,month,day);
     }
 
-    private String makeDateString(int day, int month, int year) {
-        return null;
-    }
-
 
     public void uploadArticleToFirestore(Event event){
         HashMap<String,String> data = new HashMap();
@@ -204,6 +226,6 @@ public class UploadEvent extends Fragment {
         data.put("image_url",event.imageURL);
         data.put("organizer",event.organizer);
 
-        db.addDocument("Articles", data, Integer.toString(event.id));
+        db.addDocument("Events", data, Integer.toString(event.id));
     }
 }

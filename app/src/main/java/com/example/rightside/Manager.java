@@ -1,13 +1,19 @@
 package com.example.rightside;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.concurrent.CompletableFuture;
 
 public class Manager {
     public static final String USER = "USER";
@@ -63,5 +69,27 @@ public class Manager {
     public static void goToSiblingPage(Fragment fragment, FragmentManager fm){
         int containerId = R.id.fragment_container;
         fm.beginTransaction().replace(containerId,fragment).commit();
+    }
+
+    //ni aku pakai utk fetch index events, aku perasan
+    public static CompletableFuture<Integer> fetchLatestIndex(String collectionName){
+        CompletableFuture<Integer> future = new CompletableFuture<>();
+        db.getCollection(collectionName).get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    int docIndex = 0;
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        docIndex++;
+                                    }
+                                    future.complete(docIndex);
+                                } else {
+                                    Log.d("TAG", "Error getting documents: ", task.getException());
+                                    future.complete(-1);
+                                }
+                            }
+                        });
+        return future;
     }
 }

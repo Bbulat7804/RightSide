@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,8 +21,17 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class LoginPage extends AppCompatActivity {
     boolean hide = true;
@@ -141,6 +151,7 @@ public class LoginPage extends AppCompatActivity {
                 if(loginType.equals(USER)) {
                     fetchRequest(currentUser.userId, "user_id");
                     fetchArticle();
+                    fetchEvents();
                     login(loginType);
                 }
                 else{
@@ -156,6 +167,7 @@ public class LoginPage extends AppCompatActivity {
                 int requestManaged = Integer.parseInt(document.getString("request_managed"));
                 currentAdmin = new Admin(currentUser.name, currentUser.userId, currentUser.username, currentUser.email, currentUser.reportNo, currentUser.stressLevel, currentUser.eventsNo, currentUser.phoneNo, currentUser.adminId, currentUser.password, currentUser.profilePhotoUrl, currentUser.supportGroupNo, requestManaged);
                 fetchArticle();
+                fetchEvents();
                 fetchRequest(currentAdmin.adminId, "admin_id");
                 login(loginType);
             }
@@ -210,6 +222,50 @@ public class LoginPage extends AppCompatActivity {
                         articles.add(new Article(Integer.parseInt(document.getId()),document.getString("article_url"), document.getString("caption"), document.getString("image_url"), document.getString("author"), document.getString("date"), document.getString("type")));
                     }
                 } else {
+                    System.out.println("No documents found in the collection.");
+                }
+            } else {
+                System.err.println("Error fetching documents: " + task.getException());
+            }
+        });
+    }
+
+    private void fetchEvents (){
+        events.clear();
+        db.getCollection("Events").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot snapshot = task.getResult();
+                if (snapshot != null) {
+                    List<DocumentSnapshot> documents = new ArrayList<>(snapshot.getDocuments());
+                    Collections.sort(documents, (doc1, doc2) -> {
+                        String dateStr1 = doc1.getString("date");
+                        String dateStr2 = doc2.getString("date");
+
+                        try {
+                            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd yyyy", Locale.getDefault());
+                            Date date1 = sdf.parse(dateStr1);
+                            Date date2 = sdf.parse(dateStr2);
+
+                            return date1.compareTo(date2); // Ascending order
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                            return 0;
+                        }
+                    });
+
+
+
+                    for (DocumentSnapshot document : documents) {
+                        latestEventIndex = Integer.parseInt(document.getId());
+                        events.add(new Event(Integer.parseInt(document.getId()),
+                                document.getString("event_url"),
+                                document.getString("title"),
+                                document.getString("description"),
+                                document.getString("image_url"),
+                                document.getString("organizer"),
+                                document.getString("date")));
+                    }
+                }else {
                     System.out.println("No documents found in the collection.");
                 }
             } else {

@@ -118,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/roboto_bold"
-                android:text="Author"
+                android:text="Organization"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 
