@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -58,6 +59,8 @@ public class SignUpPage extends AppCompatActivity {
                 if(!nameInput.getText().toString().trim().equals("") && !usernameInput.getText().toString().trim().equals("") && !phoneNoInput.getText().toString().trim().equals("") && !emailInput.getText().toString().trim().equals("") && !passwordInput.getText().toString().trim().equals("") && !reconfirmPasswordInput.getText().toString().trim().equals("")) {
                     validateSignUpData(nameInput.getText().toString(), usernameInput.getText().toString(), phoneNoInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString(), reconfirmPasswordInput.getText().toString());
                 }
+                else
+                    Toast.makeText(SignUpPage.this, "Fill in all details", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -106,11 +109,20 @@ public class SignUpPage extends AppCompatActivity {
                     boolean valid = true;
                     int id = 0;
                     for (QueryDocumentSnapshot document : snapshot) {
-                        if(document.getString("email").equals(email) || document.getString("username").equals(username)){
+                        if(document.getString("email").equalsIgnoreCase(email) || document.getString("username").equalsIgnoreCase(username)){
                             valid = false;
+                            if(document.getString("email").equals(email))
+                                Toast.makeText(SignUpPage.this, "Email already exist", Toast.LENGTH_SHORT).show();
+                            else
+                                Toast.makeText(SignUpPage.this, "Username already exist", Toast.LENGTH_SHORT).show();
                         }
                         id = Integer.parseInt(document.getId());
                     }
+                    if(!password.equals(reconfirmPassword)){
+                        valid = false;
+                        Toast.makeText(SignUpPage.this, "Your passwords doesn't match", Toast.LENGTH_SHORT).show();
+                    }
+
                     id += 1;
                     if(valid)
                         signUp(Integer.toString(id),name,username,phoneNo,email,password);
