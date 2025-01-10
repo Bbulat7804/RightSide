@@ -5,15 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkBlue"
-    tools:context=".CourseInfo">
+    tools:context=".QuizIntroPage">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Today's Quiz:"
+            android:textColor="@color/white"
+            android:textSize="40sp" />
+
         <!--bookmark nanti set onclicked: fill colour lightgrey and vice versa-->
-        <include layout="@layout/card_course_info_page" />
+        <include layout="@layout/card_quiz_intro" />
 
         <TableRow
             android:layout_width="match_parent"
@@ -23,24 +32,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/box_rounded_green"
-                android:drawablePadding="8dp"
-                android:fontFamily="@font/roboto_bold"
-                android:padding="8dp"
-                android:text="@string/x_lessons"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                app:drawableStartCompat="@drawable/icon_book_black" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/box_rounded_green"
@@ -57,6 +49,7 @@
         </TableRow>
 
         <TextView
+            android:id="@+id/QuizDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -67,6 +60,7 @@
             android:textSize="16sp" />
 
         <Button
+            android:id="@+id/QuizIntroStartButton"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,10 +69,12 @@
             android:backgroundTint="@color/blue"
             android:drawableEnd="@drawable/icon_website_white"
             android:drawablePadding="8dp"
-            android:fontFamily="@font/roboto_condensed_regular"
+            android:textAllCaps="true"
+            android:fontFamily="@font/roboto_bold"
             android:text="@string/access_course"
             android:textColor="@color/white"
             android:textSize="16sp" />
+
 
     </LinearLayout>
 

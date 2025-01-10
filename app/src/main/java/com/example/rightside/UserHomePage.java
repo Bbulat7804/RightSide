@@ -133,6 +133,11 @@ public class UserHomePage extends Fragment {
             }
         });
 
+        quizButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { goToPage(quizIntroPage,getParentFragmentManager());}
+        });
+
         manageRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

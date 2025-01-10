@@ -82,6 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/darkBlue">
+
                     <RadioButton
                         android:id="@+id/buttonInPersonMental"
                         android:layout_width="match_parent"
@@ -168,6 +169,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="18dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/ETpreferredDateMental"
                     android:layout_width="143dp"
@@ -247,7 +249,7 @@
                     android:id="@+id/AttachmentContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"></LinearLayout>
+                    android:orientation="vertical"></LinearLayout>
             </LinearLayout>
 
             <Button

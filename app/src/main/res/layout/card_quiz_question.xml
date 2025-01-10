@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/QuestionCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/box_rounded_white"
+    android:backgroundTint="@color/white"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="8dp">
+
+        <TextView
+            android:id="@+id/QuestionText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_condensed_bold"
+            android:textSize="18sp"
+            android:textColor="@color/darkBlue"
+            android:text="1. contoh contoh"/>
+
+        <RadioGroup
+            android:id="@+id/Options"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp">
+
+            <RadioButton
+                android:id="@+id/Option1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-10dp"
+                android:text="Never"
+                android:fontFamily="@font/roboto_condensed_regular"
+                android:textColor="@color/darkBlue"/>
+
+            <RadioButton
+                android:id="@+id/Option2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-20dp"
+                android:text="Almost never"
+                android:fontFamily="@font/roboto_condensed_regular"
+                android:textColor="@color/darkBlue" />
+
+            <RadioButton
+                android:id="@+id/Option3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-20dp"
+                android:text="Sometimes"
+                android:fontFamily="@font/roboto_condensed_regular"
+                android:textColor="@color/darkBlue" />
+
+            <RadioButton
+                android:id="@+id/Option4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-20dp"
+                android:text="Fairly Often"
+                android:fontFamily="@font/roboto_condensed_regular"
+                android:textColor="@color/darkBlue" />
+
+        </RadioGroup>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

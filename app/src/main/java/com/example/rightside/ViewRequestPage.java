@@ -146,6 +146,6 @@ public class ViewRequestPage extends Fragment {
         for(String path : request.attachmentPaths){
             db.addAttachmentCard(attachmentContainer,path.split("/")[0] + "/" + path.split("/")[1] + "/", path.split("/")[2],getActivity());
         }
-
+        
     }
 }

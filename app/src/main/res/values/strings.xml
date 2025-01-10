@@ -14,11 +14,11 @@
     <string name="author_date">Author • Date</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="access_course">Access Course</string>
+    <string name="access_course">Start</string>
     <string name="course_desc_no_limit_lines">course desc no limit lines</string>
-    <string name="x_quizzes">x quizzes</string>
+    <string name="x_quizzes">5 questions</string>
     <string name="x_lessons">x lessons</string>
-    <string name="x_x_5_0">x.x/5.0</string>
+    <string name="x_x_5_0">x / 5</string>
     <string name="course_title_max_4_line">COURSE TITLE max 4 line</string>
     <string name="see_more"><u>try tambah card</u></string>
     <string name="volunteer_event_title">Volunteer Event Title</string>
