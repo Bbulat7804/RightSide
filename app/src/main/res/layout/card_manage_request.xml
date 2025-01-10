@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ButtonManageRequest"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -53,6 +54,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_condensed_regular"
                 android:text="Information and Guidance"
+                android:textColor="@color/design_default_color_on_secondary"
                 android:textSize="16sp" />
 
             <LinearLayout
@@ -74,6 +76,7 @@
                     android:foregroundGravity="top"
                     android:gravity="top"
                     android:text="Status:"
+                    android:textColor="@color/design_default_color_on_secondary"
                     android:textSize="16sp" />
 
                 <TextView
@@ -86,17 +89,44 @@
                     android:fontFamily="@font/roboto_condensed_bold"
                     android:gravity="top"
                     android:text="Completed"
+                    android:textColor="@color/design_default_color_on_secondary"
                     android:textSize="16sp" />
 
-                <Spinner
-                    android:id="@+id/ManageRequestSpinner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="bottom"
-                    android:layout_marginStart="110dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/box_rounded_bordered_white"
-                    android:popupBackground="@drawable/box_rounded_bordered_white" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Spinner
+                        android:id="@+id/ManageRequestSpinner"
+                        android:layout_width="109dp"
+                        android:layout_height="33dp"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="1"
+                        android:background="@drawable/box_rounded_bordered_white"
+                        android:gravity="center_vertical"
+                        android:popupBackground="@drawable/box_rounded_bordered_white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.797"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageButton
+                        android:id="@+id/imageButton"
+                        android:layout_width="40dp"
+                        android:layout_height="35dp"
+                        android:backgroundTint="#00FFFFFF"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/ManageRequestSpinner"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="@+id/ManageRequestSpinner"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0"
+                        app:srcCompat="@drawable/icon_dropdown_arrow" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </LinearLayout>
 
         </LinearLayout>
