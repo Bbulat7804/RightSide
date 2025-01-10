@@ -1,18 +1,25 @@
 package com.example.rightside;
 
+import static com.example.rightside.Manager.db;
+import static com.example.rightside.Manager.latestReportIndex;
+
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +28,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class IncidentReporting2 extends AppCompatActivity {
@@ -31,8 +39,11 @@ public class IncidentReporting2 extends AppCompatActivity {
 
     private EditText locationField, describeMoreField;
     TextView dateField;
+    LinearLayout attachmentContainer;
     private RadioButton checkBoxOnlyMe, checkBoxMeAndOthers, checkBoxPreferNotToDisclose, checkBoxInjured, checkBoxNotInjured;
     CheckBox checkBoxAnonymitySubmission;
+    ArrayList<String> attachmentPaths = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +153,7 @@ public class IncidentReporting2 extends AppCompatActivity {
                 switch (requestCode) {
                     case REQUEST_CODE_FILES:
                         Toast.makeText(this, "File selected: " + selectedFile.getPath(), Toast.LENGTH_SHORT).show();
+                        db.uploadFileToDatabase(selectedFile,"ReportAttachment/Report" + (latestReportIndex+1) + "/" + getFileName(selectedFile,IncidentReporting2.this),attachmentContainer,IncidentReporting2.this,attachmentPaths);
                         break;
                     case REQUEST_CODE_IMAGES:
                         Toast.makeText(this, "Image selected: " + selectedFile.getPath(), Toast.LENGTH_SHORT).show();
@@ -182,6 +194,26 @@ public class IncidentReporting2 extends AppCompatActivity {
 
     private String makeDateString(int day, int month, int year){
         return day + " " + getMonthFormat(month) + " " + year;
+    }
+
+    public String getFileName(Uri uri, Context context) {
+        String fileName = null;
+
+        // For content URI (e.g., from file picker)
+        if (uri.getScheme().equals("content")) {
+            Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                fileName = cursor.getString(nameIndex);
+                cursor.close();
+            }
+        }
+        // For file URI (direct file path)
+        else if (uri.getScheme().equals("file")) {
+            fileName = uri.getLastPathSegment();
+        }
+
+        return fileName;
     }
 
     private String getMonthFormat(int month) {
