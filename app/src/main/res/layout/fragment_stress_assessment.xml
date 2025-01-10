@@ -48,20 +48,10 @@
                     android:orientation="vertical">
 
                     <com.github.mikephil.charting.charts.PieChart
-                        android:id="@+id/stressPieChart"
+                        android:id="@+id/semiCircleChart"
                         android:layout_width="match_parent"
-                        android:layout_height="67dp"
+                        android:layout_height="150dp"
                         android:layout_marginTop="16dp" />
-
-                    <TextView
-                        android:id="@+id/score_TV"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="..."
-                        android:textAlignment="center"
-                        android:textColor="#020202"
-                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/ScoreTV"
