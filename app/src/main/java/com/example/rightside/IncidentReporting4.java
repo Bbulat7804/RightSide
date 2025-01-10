@@ -1,25 +1,22 @@
 package com.example.rightside;
 
-import static com.example.rightside.Manager.*;
-import static com.example.rightside.Manager.userHomePage;
+import static com.example.rightside.Manager.userType;
+import static com.example.rightside.Manager.USER;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.Toast;
-import android.content.Intent;
-
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 public class IncidentReporting4 extends AppCompatActivity {
 
-    private CheckBox impact1, impact2, impact3, impact4, action1, action2, action3;
+    private CheckBox impact1, impact2, impact3, impact4, action1, action2, action3, condition1, condition2;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -34,7 +31,9 @@ public class IncidentReporting4 extends AppCompatActivity {
         impact4 = findViewById(R.id.Impact4);
         action1 = findViewById(R.id.Action1);
         action2 = findViewById(R.id.Action2);
-        action3= findViewById(R.id.Action3);
+        action3 = findViewById(R.id.Action3);
+        condition1 = findViewById(R.id.Condition1); // Acknowledgment checkbox
+        condition2 = findViewById(R.id.Condition2); // Understanding checkbox
 
         // Initialize buttons
         ImageButton viewReportButton = findViewById(R.id.imageButton6);
@@ -55,10 +54,19 @@ public class IncidentReporting4 extends AppCompatActivity {
 
         // Set click listener for Submit button
         submitButton.setOnClickListener(v -> {
+            // Ensure that both mandatory checkboxes are ticked before submitting
+            if (!condition1.isChecked() || !condition2.isChecked()) {
+                Toast.makeText(this, "Please acknowledge and agree to the terms before submitting.", Toast.LENGTH_LONG).show();
+                return;
+            }
+
             // Save user data before submission
             saveUserData();
+
+            // Simulate uploading report
             UserDataSingleton data = UserDataSingleton.getInstance();
             data.uploadReport();
+
             // Show a toast message to indicate submission
             Toast.makeText(this, "Submitted", Toast.LENGTH_SHORT).show();
 
@@ -86,6 +94,8 @@ public class IncidentReporting4 extends AppCompatActivity {
         data.page4Action1 = action1.isChecked();
         data.page4Action2 = action2.isChecked();
         data.page4Action3 = action3.isChecked();
+        data.page4Condition1 = condition1.isChecked(); // Save acknowledgment checkbox
+        data.page4Condition2 = condition2.isChecked(); // Save understanding checkbox
     }
 
     // Load saved checkbox states from the singleton
@@ -98,15 +108,16 @@ public class IncidentReporting4 extends AppCompatActivity {
         if (data.page4Action1 != null) action1.setChecked(data.page4Action1);
         if (data.page4Action2 != null) action2.setChecked(data.page4Action2);
         if (data.page4Action3 != null) action3.setChecked(data.page4Action3);
+        if (data.page4Condition1 != null) condition1.setChecked(data.page4Condition1);
+        if (data.page4Condition2 != null) condition2.setChecked(data.page4Condition2);
     }
 
     // Navigate to UserHomePage Fragment
     private void navigateToUserHomePage() {
-        if(userType.equals(USER)) {
+        if (userType.equals(USER)) {
             Intent intent = new Intent(IncidentReporting4.this, UserMainActivity.class);
             startActivity(intent);
-        }
-        else{
+        } else {
             Intent intent = new Intent(IncidentReporting4.this, AdminMainActivity.class);
             startActivity(intent);
         }

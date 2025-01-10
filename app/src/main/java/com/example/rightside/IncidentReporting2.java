@@ -39,7 +39,7 @@ public class IncidentReporting2 extends AppCompatActivity {
 
     private EditText locationField, describeMoreField;
     TextView dateField;
-    LinearLayout attachmentContainer;
+    LinearLayout ButtonContainer;
     private RadioButton checkBoxOnlyMe, checkBoxMeAndOthers, checkBoxPreferNotToDisclose, checkBoxInjured, checkBoxNotInjured;
     CheckBox checkBoxAnonymitySubmission;
     ArrayList<String> attachmentPaths = new ArrayList<>();
@@ -60,7 +60,7 @@ public class IncidentReporting2 extends AppCompatActivity {
         checkBoxInjured = findViewById(R.id.Action2);
         checkBoxNotInjured = findViewById(R.id.Condition2);
         checkBoxAnonymitySubmission = findViewById(R.id.Impact3); // "Anonymity Submission" checkbox
-
+        ButtonContainer= findViewById(R.id.ButtonContainer);
         ImageButton buttonFiles1 = findViewById(R.id.imageButton2);
         ImageButton buttonImages = findViewById(R.id.imageButton3);
         ImageButton buttonAudio = findViewById(R.id.imageButton4);
@@ -153,13 +153,15 @@ public class IncidentReporting2 extends AppCompatActivity {
                 switch (requestCode) {
                     case REQUEST_CODE_FILES:
                         Toast.makeText(this, "File selected: " + selectedFile.getPath(), Toast.LENGTH_SHORT).show();
-                        db.uploadFileToDatabase(selectedFile,"ReportAttachment/Report" + (latestReportIndex+1) + "/" + getFileName(selectedFile,IncidentReporting2.this),attachmentContainer,IncidentReporting2.this,attachmentPaths);
+                        db.uploadFileToDatabase(selectedFile,"ReportAttachment/Report" + (latestReportIndex+1) + "/" + getFileName(selectedFile,IncidentReporting2.this),ButtonContainer,IncidentReporting2.this,attachmentPaths);
                         break;
                     case REQUEST_CODE_IMAGES:
                         Toast.makeText(this, "Image selected: " + selectedFile.getPath(), Toast.LENGTH_SHORT).show();
+                        db.uploadFileToDatabase(selectedFile,"ReportAttachment/Report" + (latestReportIndex+1) + "/" + getFileName(selectedFile,IncidentReporting2.this),ButtonContainer,IncidentReporting2.this,attachmentPaths);
                         break;
                     case REQUEST_CODE_AUDIO:
                         Toast.makeText(this, "Audio selected: " + selectedFile.getPath(), Toast.LENGTH_SHORT).show();
+                        db.uploadFileToDatabase(selectedFile,"ReportAttachment/Report" + (latestReportIndex+1) + "/" + getFileName(selectedFile,IncidentReporting2.this),ButtonContainer,IncidentReporting2.this,attachmentPaths);
                         break;
                 }
             }

@@ -170,6 +170,7 @@ public class LegalConsultationForm extends Fragment {
                 clearAll();
             }
         });
+
         dateTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,6 +190,7 @@ public class LegalConsultationForm extends Fragment {
                 openFileChooser();
             }
         });
+        System.out.println("here");
     }
 
     private void openFileChooser() {

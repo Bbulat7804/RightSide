@@ -2,10 +2,12 @@ package com.example.rightside;
 
 import static com.example.rightside.Manager.*;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -15,7 +17,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +34,14 @@ public class DisplayRequestPage extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    Button allRequest;
+    Button mental;
+    Button legal;
+
+    int green;
+    int white;
+    int black;
+    LinearLayout container;
 
     public DisplayRequestPage() {
         // Required empty public constructor
@@ -68,18 +77,62 @@ public class DisplayRequestPage extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_display_request, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        container = view.findViewById(R.id.ViewRequestCardContainer);
+        allRequest = view.findViewById(R.id.buttonAll);
+        mental = view.findViewById(R.id.buttonMental);
+        legal = view.findViewById(R.id.buttonLegal);
         LinearLayout cardContainer = view.findViewById(R.id.ViewRequestCardContainer);
         for(int i=0 ; i<requests.size() ; i++){
             addCard(cardContainer,requests.get(i));
         }
+
+        allRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetButtonColor();
+                setButtonColor(allRequest);
+                container.removeAllViews();
+                for (int i = 0; i < requests.size(); i++) {
+                    addCard(container, requests.get(i));
+                }
+            }
+        });
+
+        mental.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick (View v){
+                resetButtonColor();
+                setButtonColor(mental);
+                container.removeAllViews();
+                for (int i = 0; i < requests.size(); i++) {
+                    if (requests.get(i).type.equals("Mental"))
+                        addCard(container, requests.get(i));
+                }
+            }
+        });
+
+        legal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetButtonColor();
+                setButtonColor(legal);
+                container.removeAllViews();
+                for(int i=0 ; i<requests.size() ; i++){
+                    if(requests.get(i).type.equals("Legal"))
+                        addCard(container, requests.get(i));
+                }
+            }
+        });
+
+        green = ContextCompat.getColor(getContext(),R.color.green);
+        white = ContextCompat.getColor(getContext(),R.color.white);
+        black = Color.BLACK;
     }
 
     private void addCard(LinearLayout container, Request request){
@@ -108,4 +161,27 @@ public class DisplayRequestPage extends Fragment {
             }
         });
     }
+
+    public void onResume(){
+        super.onResume();
+        container.removeAllViews();
+        for(int i=0 ; i<requests.size() ; i++){
+            addCard(container, requests.get(i));
+        }
+    }
+
+    public void resetButtonColor(){
+        allRequest.setTextColor(black);
+        allRequest.setBackgroundColor(white);
+        mental.setTextColor(black);
+        mental.setBackgroundColor(white);
+        legal.setTextColor(black);
+        legal.setBackgroundColor(white);
+    }
+    public void setButtonColor(Button button){
+        button.setTextColor(white);
+        button.setBackgroundColor(green);
+    }
+
+
 }
