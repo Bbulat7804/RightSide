@@ -161,6 +161,12 @@ public class AdminHomePage extends Fragment {
             }
         });
 
+        quizButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { goToPage(quizIntroPage,getParentFragmentManager());}
+        });
+
+
         for(int i=0; i<10 ; i++){
             addImage(eventImageContainer,R.drawable.sample_event_image);
         }

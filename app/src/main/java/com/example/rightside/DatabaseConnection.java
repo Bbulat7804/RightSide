@@ -95,10 +95,8 @@ public class DatabaseConnection {
 
     //pakai ni utk load image to imageview
     public void loadImageFromStorage(Context context, String storagePath, ImageView imageView) {
-        Log.d("SINI SINI SINI", "Error sini 1");
         this.getDownloadUrl(storagePath)
                 .addOnSuccessListener(uri -> {
-                    Log.d("SINI SINI SINI", "Error sini 2");
                     // Use Glide to load the image
                     Glide.with(context)
                             .load(uri)

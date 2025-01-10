@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:background="@drawable/box_rounded_bordered_white">
+
+    <TextView
+        android:id="@+id/popup_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="congratulations!"
+        android:fontFamily="@font/roboto_condensed_bold"
+        android:textAllCaps="true"
+        android:textSize="16sp"
+        android:textColor="@color/darkBlue"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="You answered x/5 questions correctly"
+        android:fontFamily="@font/roboto_condensed_regular"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/darkBlue"/>
+
+    <Button
+        android:id="@+id/close_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/blue"
+        android:fontFamily="@font/roboto_condensed_bold"
+        android:text="Close"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/white"/>
+</LinearLayout>

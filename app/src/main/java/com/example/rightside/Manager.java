@@ -31,6 +31,8 @@ public class Manager {
     public static Fragment faqPage = new FAQPage();
     public static Fragment eventsPage = new EventsPage();
     public static Fragment uploadEventPage = new UploadEvent();
+    public static Fragment quizIntroPage = new QuizIntroPage();
+    public static Fragment quizQuestions = new QuizQuestions();
     public static Fragment dataInsigtsPage = new DataInsightsPage();
     public static Fragment userRequestPage = new DisplayRequestPage();
     public static Fragment legalConsultationForm = new LegalConsultationForm();
@@ -88,28 +90,6 @@ public class Manager {
     public static void goToSiblingPage(Fragment fragment, FragmentManager fm){
         int containerId = R.id.fragment_container;
         fm.beginTransaction().replace(containerId,fragment).commit();
-    }
-
-    //ni aku pakai utk fetch index events, aku perasan
-    public static CompletableFuture<Integer> fetchLatestIndex(String collectionName){
-        CompletableFuture<Integer> future = new CompletableFuture<>();
-        db.getCollection(collectionName).get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    int docIndex = 0;
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        docIndex++;
-                                    }
-                                    future.complete(docIndex);
-                                } else {
-                                    Log.d("TAG", "Error getting documents: ", task.getException());
-                                    future.complete(-1);
-                                }
-                            }
-                        });
-        return future;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
