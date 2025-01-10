@@ -75,10 +75,14 @@ public class Manager {
     public static ArrayList<Request> requests = new ArrayList<>();
     public static SimpleDateFormat dateFormat = new SimpleDateFormat("dd MM yyyy");
     public static ArrayList<SupportGroup> supportGroups = new ArrayList<>();
+<<<<<<< HEAD
     public static ArrayList<Article> articles = new ArrayList<>();
     public static ArrayList<Report> reports = new ArrayList<>();
     public static ArrayList<User> users = new ArrayList<>();
     public static LinkedList<Fragment> stack = new LinkedList();
+=======
+        public static ArrayList<Report> reports = new ArrayList<>();
+>>>>>>> e1d0000b15d998a05429bc30c85896f7157e43fe
 
 
     public static void goToPage(Fragment fragment, FragmentManager fm){
