@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +49,16 @@ public class IncidentReporting2 extends AppCompatActivity {
         checkBoxInjured = findViewById(R.id.Action2);
         checkBoxNotInjured = findViewById(R.id.Condition2);
         checkBoxAnonymitySubmission = findViewById(R.id.Impact3); // "Anonymity Submission" checkbox
+
+        ImageButton buttonFiles1 = findViewById(R.id.imageButton2);
+        ImageButton buttonImages = findViewById(R.id.imageButton3);
+        ImageButton buttonAudio = findViewById(R.id.imageButton4);
+        ImageButton buttonFiles2 = findViewById(R.id.imageButton5);
+
+        buttonFiles1.setOnClickListener(v -> openFileChooser(REQUEST_CODE_FILES));
+        buttonImages.setOnClickListener(v -> openGallery());
+        buttonAudio.setOnClickListener(v -> openAudioChooser());
+        buttonFiles2.setOnClickListener(v -> openFileChooser(REQUEST_CODE_FILES));
 
         Button continueButton = findViewById(R.id.button2); // CONTINUE button
 
@@ -187,5 +199,23 @@ public class IncidentReporting2 extends AppCompatActivity {
     }
     public void openDatePicker(DatePickerDialog datePickerDialog){
         datePickerDialog.show();
+    }
+    private void openFileChooser(int requestCode) {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("*/*"); // Allows selection of any file type
+        startActivityForResult(intent, requestCode);
+    }
+
+    // Method to open gallery for selecting images
+    private void openGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, REQUEST_CODE_IMAGES);
+    }
+
+    // Method to open file chooser for audio files
+    private void openAudioChooser() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("audio/*"); // Restricts to audio file types
+        startActivityForResult(intent, REQUEST_CODE_AUDIO);
     }
 }
