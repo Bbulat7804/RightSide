@@ -1,6 +1,5 @@
 package com.example.rightside;
 
-import static com.example.rightside.Manager.db;
 import static com.example.rightside.Manager.goToPage;
 import static com.example.rightside.Manager.requests;
 import static com.example.rightside.Manager.stack;
@@ -69,6 +68,7 @@ public class ModifyMentalConsultation extends Fragment {
     String selectedText2;
     View view;
     Button buttonDelete;
+    DatabaseConnection db = new DatabaseConnection();
 
     public ModifyMentalConsultation() {
         // Required empty public constructor

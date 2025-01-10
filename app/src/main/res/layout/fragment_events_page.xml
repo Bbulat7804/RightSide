@@ -11,12 +11,13 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/upcomingEventsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_margin="24dp">
 
             <RelativeLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -25,8 +26,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:orientation="vertical"
-                    android:layout_margin="24dp">
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/date"
@@ -41,7 +41,7 @@
                         android:id="@+id/location"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Arau, Perlis"
+                        android:text="Petaling Jaya, Kuala Lumpur"
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         android:fontFamily="@font/roboto_bold"/>
@@ -75,24 +75,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_marginStart="24dp"
                     android:layout_marginTop="160dp"
                     android:fontFamily="@font/roboto_bold"
                     android:text="Now Calling"
                     android:textColor="@color/white"
                     android:textSize="30sp" />
 
-                <Button
-                    android:id="@+id/tryTambahButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginTop="160dp"
-                    android:backgroundTint="@color/darkBlue"
-                    android:text="@string/see_more"
-                    android:fontFamily="@font/roboto"
-                    android:textColor="@color/lightGray"/>
+                <ImageView
+                    android:id="@+id/uploadEventAdminButton"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/icon_upload_button"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"/>
             </RelativeLayout>
 
             <HorizontalScrollView
@@ -110,7 +105,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="Upcoming Events"
                 android:textColor="@color/white"

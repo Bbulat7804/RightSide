@@ -28,15 +28,6 @@ public class IncidentReporting1 extends AppCompatActivity {
         Button educationButton = findViewById(R.id.button11);
         Button incomeButton = findViewById(R.id.button8);
 
-        // Set click listeners for each button
-//        View.OnClickListener navigateToPage2 = new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                navigateToPage2();
-//
-//            }
-//        };
-
         racialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

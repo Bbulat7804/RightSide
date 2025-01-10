@@ -95,6 +95,13 @@ public class UserHomePage extends Fragment {
         TextView mentalConsultationButton = view.findViewById(R.id.MentalConsultationButton);
         TextView legalConsultationButton = view.findViewById(R.id.LegalConsultationButton);
 
+        reportHistoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(reportPage,getParentFragmentManager());
+            }
+        });
+
         userReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

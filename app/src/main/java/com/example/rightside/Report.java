@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Report {
+    int id;
     int userId;
     int adminId;
+    String name;
     String discriminationType;
     String location;
     Date date;
@@ -20,7 +22,8 @@ public class Report {
     ArrayList<String> impacts = new ArrayList<>();
     ArrayList<String> actions = new ArrayList<>();
 
-    public Report(int userId, int adminId, String discriminationType, String location, Date date, String description, String phoneNumber, String email, String witness, String extraInfo, String personInvolved, String injury, boolean isAnonymous, ArrayList<String> impacts, ArrayList<String> actions) {
+    public Report(int id, String name, int userId, int adminId, String discriminationType, String location, Date date, String description, String phoneNumber, String email, String witness, String extraInfo, String personInvolved, String injury, boolean isAnonymous, ArrayList<String> impacts, ArrayList<String> actions) {
+        this.id = id;
         this.discriminationType = discriminationType;
         this.location = location;
         this.date = date;
@@ -36,5 +39,6 @@ public class Report {
         this.actions = actions;
         this.userId = userId;
         this.adminId = adminId;
+        this.name = name;
     }
 }

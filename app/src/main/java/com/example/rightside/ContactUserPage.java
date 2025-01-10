@@ -48,6 +48,7 @@ public class ContactUserPage extends Fragment {
     private String mParam1;
     private String mParam2;
     LinearLayout chatContainer;
+    DatabaseConnection db = new DatabaseConnection();
     EditText chatInput;
     long currentId = 0;
     boolean first;

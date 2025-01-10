@@ -2,7 +2,6 @@ package com.example.rightside;
 
 import static com.example.rightside.Manager.currentUser;
 import static com.example.rightside.Manager.dateFormat;
-import static com.example.rightside.Manager.db;
 import static com.example.rightside.Manager.latestReportIndex;
 import static com.example.rightside.Manager.reports;
 import static com.example.rightside.Manager.stringToDate;
@@ -43,6 +42,7 @@ public class UserDataSingleton {
     public Boolean page4Action1;
     public Boolean page4Action2;
     public Boolean page4Action3;
+    DatabaseConnection db = new DatabaseConnection();
 
     // Private constructor to prevent instantiation
     private UserDataSingleton() {}
@@ -119,8 +119,9 @@ public class UserDataSingleton {
         if(page4Action3)
             actions.add("Refer to meditation");
 
-        Report report = new Report(currentUser.userId, 1, discriminationType, location, stringToDate(date), description, phoneNumber, email, witness, extraInfo, personInvolved, injury, isAnonymous, impacts, actions);
+        Report report = new Report(latestReportIndex+1, currentUser.name, currentUser.userId, 1, discriminationType, location, stringToDate(date), description, phoneNumber, email, witness, extraInfo, personInvolved, injury, isAnonymous, impacts, actions);
         reports.add(report);
+        sortReport();
         HashMap<String,Object> map = new HashMap<>();
         map.put("user_id", Integer.toString(report.userId));
         map.put("admin_id", Integer.toString(report.adminId)); // Assuming it's an integer
@@ -137,6 +138,22 @@ public class UserDataSingleton {
         map.put("is_anonymous", report.isAnonymous); // Assuming it's a boolean
         map.put("impacts", report.impacts); // Adjust if it's a list or custom object
         map.put("actions", report.actions); // Adjust if it's a list or custom object;
+        map.put("name", report.name);
         db.addDocument("Reports", map, Integer.toString(++latestReportIndex));
+    }
+
+    private void sortReport() {
+        int n = reports.size();
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                // Compare the dates in the Report objects
+                if (reports.get(j).date.compareTo(reports.get(j + 1).date) > 0) {
+                    // Swap if they are in the wrong order
+                    Report temp = reports.get(j);
+                    reports.set(j, reports.get(j + 1));
+                    reports.set(j + 1, temp);
+                }
+            }
+        }
     }
 }

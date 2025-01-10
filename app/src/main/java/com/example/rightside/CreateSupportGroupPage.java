@@ -42,6 +42,7 @@ public class CreateSupportGroupPage extends Fragment {
     EditText groupNameInput;
     EditText groupDescriptionInput;
     Button createButton;
+    DatabaseConnection db = new DatabaseConnection();
 
     ImageView groupIconButton;
     public CreateSupportGroupPage() {
