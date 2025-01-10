@@ -2,13 +2,19 @@ package com.example.rightside;
 
 import static com.example.rightside.Manager.*;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +27,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import org.w3c.dom.Text;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,65 +97,120 @@ public class EventsPage extends Fragment {
         return inflater.inflate(R.layout.fragment_events_page, container, false);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        LocalDate currentDate = LocalDate.now();
+        Handler handler = new Handler();
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("MMM dd yyyy", Locale.ENGLISH);
+        TextView todayDate = view.findViewById(R.id.date);
         LinearLayout eventCardContainer = view.findViewById(R.id.EventCardContainer);
-        Button tryTambahButton = view.findViewById(R.id.tryTambahButton);
+        LinearLayout upcomingEventsContainer = view.findViewById(R.id.upcomingEventsContainer);
+        ImageView uploadEventAdminButton = view.findViewById(R.id.uploadEventAdminButton);
 
-        tryTambahButton.setOnClickListener(v -> {
-            addEventCard(eventCardContainer, db);
+        todayDate.setText(dateFormatter.format(new Date()));
+
+        //admin je akan nampak upload button
+        if (userType.equals(USER))
+            uploadEventAdminButton.setVisibility(View.GONE);
+
+        uploadEventAdminButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(uploadEventPage, getParentFragmentManager());
+            }
         });
+
+        //add card kat "Now Calling" ikut date within this month
+        for (int i = 0; i < events.size(); i++) {
+            Date eventDate = getDateInDateFormat(dateFormatter, events.get(i).date);
+            LocalDate localEventDate = eventDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            long daysBetween = ChronoUnit.DAYS.between(currentDate, localEventDate);
+            if (daysBetween >= 0 && daysBetween <= 30){
+                addCardNowCalling(eventCardContainer, events.get(i));
+            } else {
+                int finalI = i;
+                //tambah delay
+                handler.postDelayed(() -> {
+                    //tambah yang lain kat bawah
+                    addCardUpcomingEvents(upcomingEventsContainer, events.get(finalI));
+                        },i*500);
+            }
+        }
     }
 
-    private void addEventCard(LinearLayout cardContainer, DatabaseConnection db) {
+    private Date getDateInDateFormat(SimpleDateFormat dateFormatter, String dateString) {
+        try {
+            Date date = dateFormatter.parse(dateString);
+            return date;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private void addCardNowCalling(LinearLayout eventCardContainer, Event event) {
 
         // Create a new card
-        LayoutInflater inflater = LayoutInflater.from(cardContainer.getContext());
-        View cardView = inflater.inflate(R.layout.card_events_page, cardContainer, false);
+        View cardView = LayoutInflater.from(eventCardContainer.getContext()).inflate(R.layout.card_events_page, eventCardContainer, false);
 
-        // Find views in the card
-        ImageView imageView = cardView.findViewById(R.id.EventImage);
-        TextView titleTextView = cardView.findViewById(R.id.EventTitle);
+        // cari view
+        ImageView eventImageView = cardView.findViewById(R.id.EventImage);
+        TextView eventTitleTextView = cardView.findViewById(R.id.EventTitle);
         TextView orgNameTextView = cardView.findViewById(R.id.EventOrganizer);
-        TextView descriptionTextView = cardView.findViewById(R.id.EventDescription);
+        TextView eventDescriptionTextView = cardView.findViewById(R.id.EventDescription);
+        TextView eventDateTextView = cardView.findViewById(R.id.EventDate);
 
-        // ganti text dgn data dari cloudfirebase
-        db.getDocument("Volunteering Library","vZaeyFAAJAeV3zYGfcpQ")
-                .addOnSuccessListener(document -> {
-                    if (document.exists()) {
-                        //amik data from firebase
-                        titleTextView.setText(document.getString("title"));
-                        orgNameTextView.setText(document.getString("author"));
-                        descriptionTextView.setText(document.getString("content"));
+        //tuka view content
+        eventTitleTextView.setText(event.title);
+        eventDescriptionTextView.setText(event.description);
+        orgNameTextView.setText(event.organizer);
+        eventDateTextView.setText(event.date);
+        db.loadImageFromStorage(getContext(), event.imageURL, eventImageView);
 
-                        // Get the context of the card view
-                        Context cardContext = cardView.getContext();
-                        //dapatkan gambar dari storage
-                        db.loadImageFromStorage(cardContext, document.getString("media_bucket_path"), imageView);
-                        Toast.makeText(cardContext, "Card Added!!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(requireContext(), "tak jumpa data", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(e -> Log.e("Firestore", "Error getting document", e));
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(event.url));
+                try {
+                    startActivity(intent);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(getContext(), "Unable to open URL", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         // Add the card to the HorizontalScrollView
-        cardContainer.addView(cardView);
+        eventCardContainer.addView(cardView);
+        animateCard(cardView);
+    }
+
+    private void addCardUpcomingEvents(LinearLayout upcomingEventsContainer, Event event){
+        // Create a new card
+        View cardView = LayoutInflater.from(upcomingEventsContainer.getContext()).inflate(R.layout.card_upcoming_events, upcomingEventsContainer, false);
+        //cari view
+        ImageView eventImageView = cardView.findViewById(R.id.UpcomingEventsImage);
+        TextView eventTitleTextView = cardView.findViewById(R.id.UpcomingEventsTitle);
+        TextView orgNameTextView = cardView.findViewById(R.id.UpcomingEventsOrganizer);
+        TextView eventDescriptionTextView = cardView.findViewById(R.id.UpcomingEventsDescription);
+        TextView eventDateTextView = cardView.findViewById(R.id.UpcomingEventsDate);
+        //tuka view content
+        eventTitleTextView.setText(event.title);
+        eventDescriptionTextView.setText(event.description);
+        orgNameTextView.setText(event.organizer);
+        eventDateTextView.setText(event.date);
+        db.loadImageFromStorage(getContext(), event.imageURL, eventImageView);
+        // Add the card to the HorizontalScrollView
+        upcomingEventsContainer.addView(cardView);
         animateCard(cardView);
     }
 
     private void animateCard(View cardView) {
-
-        // Create animations
-        AlphaAnimation fadeIn = new AlphaAnimation(0f, cardView.getAlpha());
-        fadeIn.setDuration(300);
-
         TranslateAnimation slideIn = new TranslateAnimation(0, 0, -100, cardView.getY());
-        slideIn.setDuration(300);
-
-        // Start animations together
-        cardView.startAnimation(fadeIn);
+        slideIn.setDuration(500);
         cardView.startAnimation(slideIn);
     }
+
 }

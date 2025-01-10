@@ -26,8 +26,13 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class LoginPage extends AppCompatActivity {
     boolean hide = true;
@@ -88,6 +93,7 @@ public class LoginPage extends AppCompatActivity {
                 else
                     passwordInput.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 passwordInput.setTypeface(font);
+
             }
         });
     }
@@ -105,7 +111,6 @@ public class LoginPage extends AppCompatActivity {
             Intent intent = new Intent(LoginPage.this, AdminMainActivity.class);
             startActivity(intent);
         }
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -151,6 +156,7 @@ public class LoginPage extends AppCompatActivity {
                 if(loginType.equals(USER)) {
                     fetchRequest(currentUser.userId, "user_id");
                     fetchArticle();
+                    fetchEvents();
                     fetchSupportGroup();
                     fetchUsers();
                     fetchReports(currentUser.userId, "user_id");
@@ -170,6 +176,7 @@ public class LoginPage extends AppCompatActivity {
                 int requestManaged = Integer.parseInt(document.getString("request_managed"));
                 currentAdmin = new Admin(currentUser.name, currentUser.userId, currentUser.username, currentUser.email, currentUser.reportNo, currentUser.stressLevel, currentUser.eventsNo, currentUser.phoneNo, currentUser.adminId, currentUser.password, currentUser.profilePhotoUrl, currentUser.supportGroupNo, requestManaged, currentUser.stressScore);
                 fetchArticle();
+                fetchEvents();
                 fetchSupportGroup();
                 fetchUsers();
                 fetchRequest(currentAdmin.adminId, "admin_id");
@@ -260,6 +267,7 @@ public class LoginPage extends AppCompatActivity {
                             String urgency = document.getString("urgency");
                             int userId = Integer.parseInt(document.getString("user_id"));
                             int requestId = Integer.parseInt(document.getId());
+
                             requests.add(new Request(reason, desiredOutcome, method, urgency, date, time, description, status, adminId, userId, requestId, type));
                         }
                     }
@@ -283,6 +291,50 @@ public class LoginPage extends AppCompatActivity {
                         articles.add(new Article(Integer.parseInt(document.getId()),document.getString("article_url"), document.getString("caption"), document.getString("image_url"), document.getString("author"), document.getString("date"), document.getString("type")));
                     }
                 } else {
+                    System.out.println("No documents found in the collection.");
+                }
+            } else {
+                System.err.println("Error fetching documents: " + task.getException());
+            }
+        });
+    }
+
+    private void fetchEvents (){
+        events.clear();
+        db.getCollection("Events").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot snapshot = task.getResult();
+                if (snapshot != null) {
+                    List<DocumentSnapshot> documents = new ArrayList<>(snapshot.getDocuments());
+                    Collections.sort(documents, (doc1, doc2) -> {
+                        String dateStr1 = doc1.getString("date");
+                        String dateStr2 = doc2.getString("date");
+
+                        try {
+                            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd yyyy", Locale.getDefault());
+                            Date date1 = sdf.parse(dateStr1);
+                            Date date2 = sdf.parse(dateStr2);
+
+                            return date1.compareTo(date2); // Ascending order
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                            return 0;
+                        }
+                    });
+
+
+
+                    for (DocumentSnapshot document : documents) {
+                        latestEventIndex = Integer.parseInt(document.getId());
+                        events.add(new Event(Integer.parseInt(document.getId()),
+                                document.getString("event_url"),
+                                document.getString("title"),
+                                document.getString("description"),
+                                document.getString("image_url"),
+                                document.getString("organizer"),
+                                document.getString("date")));
+                    }
+                }else {
                     System.out.println("No documents found in the collection.");
                 }
             } else {
@@ -358,5 +410,4 @@ public class LoginPage extends AppCompatActivity {
             super.onBackPressed();
         finishAffinity();
     }
-
 }

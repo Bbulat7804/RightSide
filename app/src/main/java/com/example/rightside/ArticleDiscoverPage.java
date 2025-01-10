@@ -4,6 +4,7 @@ import static com.example.rightside.Manager.*;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -22,6 +23,7 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -180,7 +182,12 @@ public class ArticleDiscoverPage extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(article.url));
-                startActivity(intent);
+                try {
+                    startActivity(intent);
+                } catch (ActivityNotFoundException e) {
+                    // Handle the exception (e.g., show a Toast message)
+                    Toast.makeText(getContext(), "Unable to open the URL", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         db.loadImageFromStorage(card.getContext(), article.imageURL, articleImage);

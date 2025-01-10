@@ -3,13 +3,22 @@ package com.example.rightside;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.concurrent.CompletableFuture;
 
 public class Manager {
     public static final String USER = "USER";
@@ -21,6 +30,7 @@ public class Manager {
     public static Fragment adminProfilePage = new AdminProfilePage();
     public static Fragment faqPage = new FAQPage();
     public static Fragment eventsPage = new EventsPage();
+    public static Fragment uploadEventPage = new UploadEvent();
     public static Fragment dataInsigtsPage = new DataInsightsPage();
     public static Fragment userRequestPage = new DisplayRequestPage();
     public static Fragment legalConsultationForm = new LegalConsultationForm();
@@ -50,12 +60,18 @@ public class Manager {
     public static User currentUser;
     public static Admin currentAdmin;
     public static DatabaseConnection db = new DatabaseConnection();
+    public static LinkedList<Fragment> stack = new LinkedList();
+    public static ArrayList<Article> articles = new ArrayList<>();
+    public static ArrayList<Event> events = new ArrayList<>();
     public static int latestRequestIndex = 0;
     public static int latestArticleIndex = 0;
     public static int latestSupportGroupIndex = 0;
     public static int latestReportIndex = 0;
+    public static int latestEventIndex = 0;
     public static final int PICK_IMAGE_REQUEST = 1;
     public static final int PICK_GROUP_ICON_REQUEST = 10;
+    public static final int PICK_IMAGE_EVENT_REQUEST = 1;
+
     public static ArrayList<Request> requests = new ArrayList<>();
     public static SimpleDateFormat dateFormat = new SimpleDateFormat("dd MM yyyy");
     public static ArrayList<SupportGroup> supportGroups = new ArrayList<>();
@@ -74,6 +90,28 @@ public class Manager {
     public static void goToSiblingPage(Fragment fragment, FragmentManager fm){
         int containerId = R.id.fragment_container;
         fm.beginTransaction().replace(containerId,fragment).commit();
+    }
+
+    //ni aku pakai utk fetch index events, aku perasan
+    public static CompletableFuture<Integer> fetchLatestIndex(String collectionName){
+        CompletableFuture<Integer> future = new CompletableFuture<>();
+        db.getCollection(collectionName).get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    int docIndex = 0;
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        docIndex++;
+                                    }
+                                    future.complete(docIndex);
+                                } else {
+                                    Log.d("TAG", "Error getting documents: ", task.getException());
+                                    future.complete(-1);
+                                }
+                            }
+                        });
+        return future;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

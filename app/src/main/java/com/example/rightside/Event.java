@@ -1,15 +1,23 @@
 package com.example.rightside;
 
 public class Event {
+    int id;
+     String url;
     String title;
-    String organizer;
     String description;
+    String organizer;
+    String imageURL;
+    String date;
 
     //eventImage
 
-    public Event(String title, String organizer, String description) {
+    public Event(int id, String url, String title, String description, String imageURL, String organizer, String date) {
+        this.id = id;
+        this.url = url;
         this.title = title;
-        this.organizer = organizer;
         this.description = description;
+        this.imageURL = imageURL;
+        this.organizer = organizer;
+        this.date = date;
     }
 }
