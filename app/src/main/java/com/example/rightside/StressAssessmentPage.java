@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -105,7 +106,8 @@ import java.util.ArrayList;
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        LinearLayout getStressScoreButton = view.findViewById(R.id.StressButton);
+        TextView getStressScoreText = view.findViewById(R.id.getStressTV);
+        ImageView getStressScoreButton = view.findViewById(R.id.imageView19);
         levelTextView = view.findViewById(R.id.levelTV);
         normalNumTextView = view.findViewById(R.id.normalNumTV);
         stressLevelTextView = view.findViewById(R.id.stressLevelTV);
@@ -115,6 +117,12 @@ import java.util.ArrayList;
 
         normalNumTextView.setText("5 - 25");
 
+        getStressScoreText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(stressTestPage, getParentFragmentManager());
+            }
+        });
 
         getStressScoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,7 +144,7 @@ import java.util.ArrayList;
     private void setupSemiCircleChart() {
         semiCircleChart.setUsePercentValues(true);
         semiCircleChart.setDrawHoleEnabled(true);
-        semiCircleChart.setHoleRadius(80f);
+        semiCircleChart.setHoleRadius(60f); //decrease to thicken the chart
         semiCircleChart.setTransparentCircleRadius(85f);
         semiCircleChart.setRotationEnabled(false);
         semiCircleChart.setRotationAngle(180f);
