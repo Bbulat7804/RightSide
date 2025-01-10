@@ -42,6 +42,11 @@ public class UserDataSingleton {
     public Boolean page4Action1;
     public Boolean page4Action2;
     public Boolean page4Action3;
+
+    // Mandatory acknowledgment and understanding checkboxes
+    public Boolean page4Condition1; // Acknowledgment checkbox
+    public Boolean page4Condition2; // Understanding checkbox
+
     DatabaseConnection db = new DatabaseConnection();
 
     // Private constructor to prevent instantiation
@@ -65,7 +70,7 @@ public class UserDataSingleton {
         page2CheckBoxPreferNotToDisclose = null;
         page2CheckBoxInjured = null;
         page2CheckBoxNotInjured = null;
-        page2CheckBoxAnonymitySubmission = null; // Reset Anonymity Submission checkbox
+        page2CheckBoxAnonymitySubmission = null;
 
         // Reset Page 3 data
         phoneNumber = null;
@@ -81,48 +86,59 @@ public class UserDataSingleton {
         page4Action1 = null;
         page4Action2 = null;
         page4Action3 = null;
+        page4Condition1 = null; // Reset acknowledgment checkbox
+        page4Condition2 = null; // Reset understanding checkbox
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void uploadReport(){
+    public void uploadReport() {
         String personInvolved = "";
         String injury = "";
         boolean isAnonymous = false;
         ArrayList<String> impacts = new ArrayList<>();
         ArrayList<String> actions = new ArrayList<>();
 
-        if(page2CheckBoxOnlyMe)
+        if (page2CheckBoxOnlyMe != null && page2CheckBoxOnlyMe)
             personInvolved = "Only me";
-        else if(page2CheckBoxMeAndOthers)
+        else if (page2CheckBoxMeAndOthers != null && page2CheckBoxMeAndOthers)
             personInvolved = "Me and others too";
-        else if(page2CheckBoxPreferNotToDisclose)
-            personInvolved = "Prefer not to disclosed";
+        else if (page2CheckBoxPreferNotToDisclose != null && page2CheckBoxPreferNotToDisclose)
+            personInvolved = "Prefer not to disclose";
 
-        if(page2CheckBoxInjured)
+        if (page2CheckBoxInjured != null && page2CheckBoxInjured)
             injury = "Injured";
-        else if(page2CheckBoxNotInjured)
+        else if (page2CheckBoxNotInjured != null && page2CheckBoxNotInjured)
             injury = "Not injured";
 
-        if(page4Impact1)
+        if (page4Impact1 != null && page4Impact1)
             impacts.add("Emotional Distress or trauma");
-        if(page4Impact2)
+        if (page4Impact2 != null && page4Impact2)
             impacts.add("Career or education-related harm");
-        if(page4Impact3)
+        if (page4Impact3 != null && page4Impact3)
             impacts.add("Violation of rights or dignity");
-        if(page4Impact4)
+        if (page4Impact4 != null && page4Impact4)
             impacts.add("Provide legal assistance to the victim(s)");
 
-        if(page4Action1)
+        if (page4Action1 != null && page4Action1)
             actions.add("Issue a warning or take disciplinary action");
-        if(page4Action2)
-            actions.add("Raise awarness or educate");
-        if(page4Action3)
-            actions.add("Refer to meditation");
+        if (page4Action2 != null && page4Action2)
+            actions.add("Raise awareness or educate");
+        if (page4Action3 != null && page4Action3)
+            actions.add("Refer to mediation");
 
-        Report report = new Report(latestReportIndex+1, currentUser.name, currentUser.userId, 1, discriminationType, location, stringToDate(date), description, phoneNumber, email, witness, extraInfo, personInvolved, injury, isAnonymous, impacts, actions);
+        // Ensure mandatory checkboxes are ticked before proceeding
+        if (page4Condition1 == null || !page4Condition1 || page4Condition2 == null || !page4Condition2) {
+            throw new IllegalStateException("Mandatory checkboxes for acknowledgment and understanding must be checked before submitting.");
+        }
+
+        Report report = new Report(latestReportIndex + 1, currentUser.name, currentUser.userId, 1,
+                discriminationType, location, stringToDate(date), description, phoneNumber,
+                email, witness, extraInfo, personInvolved, injury, isAnonymous, impacts, actions);
         reports.add(report);
         sortReport();
-        HashMap<String,Object> map = new HashMap<>();
+
+        // Save to database
+        HashMap<String, Object> map = new HashMap<>();
         map.put("user_id", Integer.toString(report.userId));
         map.put("admin_id", Integer.toString(report.adminId)); // Assuming it's an integer
         map.put("discrimination_type", report.discriminationType);
@@ -137,8 +153,9 @@ public class UserDataSingleton {
         map.put("injury", report.injury);
         map.put("is_anonymous", report.isAnonymous); // Assuming it's a boolean
         map.put("impacts", report.impacts); // Adjust if it's a list or custom object
-        map.put("actions", report.actions); // Adjust if it's a list or custom object;
+        map.put("actions", report.actions); // Adjust if it's a list or custom object
         map.put("name", report.name);
+
         db.addDocument("Reports", map, Integer.toString(++latestReportIndex));
     }
 

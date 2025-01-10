@@ -1,8 +1,11 @@
 
 package com.example.rightside;
 
+import static android.app.Activity.RESULT_OK;
+import static com.example.rightside.Manager.PICK_IMAGE_REQUEST;
 import static com.example.rightside.Manager.currentUser;
 import static com.example.rightside.Manager.goToPage;
+import static com.example.rightside.Manager.latestReportIndex;
 import static com.example.rightside.Manager.latestRequestIndex;
 import static com.example.rightside.Manager.requests;
 import static com.example.rightside.Manager.stack;
@@ -11,18 +14,26 @@ import static com.example.rightside.Manager.userRequestPage;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.provider.OpenableColumns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -30,6 +41,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
@@ -58,8 +70,10 @@ public class LegalConsultationForm extends Fragment {
     TextView descriptionTV;
     Button submitButton;
     DatabaseConnection db = new DatabaseConnection();
-
-
+    LinearLayout attachmentContainer;
+    ArrayList<String> attachmentPaths = new ArrayList<>();
+    ImageButton attachmentButton;
+    final int PICK_FILE_REQUEST = 100;
 
     public LegalConsultationForm() {
         // Required empty public constructor
@@ -121,6 +135,8 @@ public class LegalConsultationForm extends Fragment {
         DatePickerDialog datePickerDialog = initializeDatePicker(dateTV);
         descriptionTV = view.findViewById(R.id.editTextDescribeLegal);
         submitButton = view.findViewById(R.id.buttonSubmitLegalForm);
+        attachmentContainer = view.findViewById(R.id.AttachmentContainer);
+        attachmentButton = view.findViewById(R.id.addAttachmentButtonLegal);
 
 
         //////////////////////////////////////////////////////////////////////////////////////////////
@@ -145,7 +161,7 @@ public class LegalConsultationForm extends Fragment {
                     selectedMethod = checkedRadioButton.getText().toString();
                 }
 
-                Request request = new Request(reason,desiredOutcome,selectedMethod,selectedUrgency,dateChosen,timeChosen,description,"Pending", 1, currentUser.userId,++latestRequestIndex,"Legal");
+                Request request = new Request(reason,desiredOutcome,selectedMethod,selectedUrgency,dateChosen,timeChosen,description,"Pending", 1, currentUser.userId,++latestRequestIndex,"Legal", attachmentPaths);
                 uploadRequest(request);
                 Toast.makeText(requireContext(), "Your form has been submitted!", Toast.LENGTH_SHORT).show();
 
@@ -154,6 +170,7 @@ public class LegalConsultationForm extends Fragment {
                 clearAll();
             }
         });
+
         dateTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,6 +184,50 @@ public class LegalConsultationForm extends Fragment {
 
             }
         });
+        attachmentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFileChooser();
+            }
+        });
+        System.out.println("here");
+    }
+
+    private void openFileChooser() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("*/*");
+        startActivityForResult(intent, PICK_FILE_REQUEST);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_FILE_REQUEST && resultCode == RESULT_OK && data != null) {
+            Uri fileUri = data.getData();
+            if (fileUri != null) {
+                db.uploadFileToDatabase(fileUri,"RequestAttachment/Request" + (latestRequestIndex+1) + "/" + getFileName(fileUri,getActivity()),attachmentContainer,getActivity(),attachmentPaths);
+            }
+        }
+    }
+
+    public String getFileName(Uri uri, Context context) {
+        String fileName = null;
+
+        // For content URI (e.g., from file picker)
+        if (uri.getScheme().equals("content")) {
+            Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                fileName = cursor.getString(nameIndex);
+                cursor.close();
+            }
+        }
+        // For file URI (direct file path)
+        else if (uri.getScheme().equals("file")) {
+            fileName = uri.getLastPathSegment();
+        }
+
+        return fileName;
     }
 
     public void uploadRequest(Request request) {
@@ -183,6 +244,7 @@ public class LegalConsultationForm extends Fragment {
         data.put("time", request.time);
         data.put("urgency", request.urgency);
         data.put("type", request.type);
+        data.put("attachment_paths", request.attachmentPaths);
 
         db.addDocument("Requests",data, Integer.toString(request.requestId ));
         //upload into ArrayList
@@ -207,7 +269,6 @@ public class LegalConsultationForm extends Fragment {
         timePickerDialog.show();
     }
     public DatePickerDialog initializeDatePicker(TextView dateButton) {
-
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int day) {

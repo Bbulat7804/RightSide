@@ -1,6 +1,9 @@
 package com.example.rightside;
 
+import static android.app.Activity.RESULT_OK;
+import static com.example.rightside.Manager.db;
 import static com.example.rightside.Manager.goToPage;
+import static com.example.rightside.Manager.latestRequestIndex;
 import static com.example.rightside.Manager.requests;
 import static com.example.rightside.Manager.stack;
 import static com.example.rightside.Manager.userRequestPage;
@@ -9,18 +12,26 @@ import static com.example.rightside.Manager.viewRequestPage;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.provider.OpenableColumns;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -28,6 +39,10 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
@@ -68,7 +83,10 @@ public class ModifyLegalConsultation extends Fragment {
     View view;
     Button buttonDelete;
     DatabaseConnection db = new DatabaseConnection();
-
+    LinearLayout attachmentContainer;
+    ImageButton attachmentButton;
+    final int PICK_FILE_REQUEST = 100;
+    public static ArrayList<String> attachmentPaths = new ArrayList();
 
     public ModifyLegalConsultation() {
         // Required empty public constructor
@@ -134,6 +152,14 @@ public class ModifyLegalConsultation extends Fragment {
         spinnerDesiredOutcome = view.findViewById(R.id.LegalDesiredOutcomeSpinner);
         ArrayAdapter<CharSequence> desiredOutcomeAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.LegalDesiredOutcome, R.layout.layout_spinner);
         spinnerDesiredOutcome.setAdapter(desiredOutcomeAdapter);
+        attachmentContainer = view.findViewById(R.id.AttachmentContainer);
+        attachmentButton = view.findViewById(R.id.addAttachmentButtonLegal);
+        attachmentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFileChooser();
+            }
+        });
 
 
         TextView dateButton = view.findViewById(R.id.ETpreferredDateLegal);
@@ -150,7 +176,7 @@ public class ModifyLegalConsultation extends Fragment {
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                openDatePicker(datePickerDialog);
             }
         });
 
@@ -163,10 +189,24 @@ public class ModifyLegalConsultation extends Fragment {
                         db.deleteDocument("Requests", Integer.toString(ViewRequestPage.requestId));
                     }
                 }
+                for(int j=0 ; j<attachmentPaths.size() ; j++){
+                    StorageReference fileReference = FirebaseStorage.getInstance().getReference().child(attachmentPaths.get(j));
+                    fileReference.delete()
+                            .addOnSuccessListener(aVoid -> {
+                                // File deleted successfully
+                                Log.d("Firebase", "File deleted successfully.");
+                            })
+                            .addOnFailureListener(exception -> {
+                                // An error occurred
+                                Log.e("Firebase", "Error deleting file: " + exception.getMessage());
+                            });
+                }
+                attachmentPaths.clear();
                 goToPage(userRequestPage, getParentFragmentManager());
                 stack.removeFirst();
                 stack.removeFirst();
                 stack.removeFirst();
+
             }
         });
     }
@@ -215,12 +255,15 @@ public class ModifyLegalConsultation extends Fragment {
             default:
                 break;
         }
+        attachmentContainer.removeAllViews();
+        for(String path : request.attachmentPaths){
+            db.addAttachmentCard(attachmentContainer,path.split("/")[0] + "/" + path.split("/")[1] + "/", path.split("/")[2],getActivity());
+        }
 
         if (request.urgency.equals("Urgent")) {
             urgent.setChecked(true);
         } else
             nonUrgent.setChecked(true);
-
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -247,7 +290,10 @@ public class ModifyLegalConsultation extends Fragment {
                 goToPage(viewRequestPage, getParentFragmentManager());
                 stack.removeFirst();
                 stack.removeFirst();
-
+                for(int i=0 ; i<attachmentPaths.size() ; i++){
+                    request.attachmentPaths.add(attachmentPaths.get(i));
+                }
+                attachmentPaths.clear();
                 updateRequest(request);
             }
         });
@@ -257,7 +303,42 @@ public class ModifyLegalConsultation extends Fragment {
         descriptionTV.setText(request.description);
 
     }
+    private void openFileChooser() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("*/*");
+        startActivityForResult(intent, PICK_FILE_REQUEST);
+    }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_FILE_REQUEST && resultCode == RESULT_OK && data != null) {
+            Uri fileUri = data.getData();
+            if (fileUri != null) {
+                db.uploadFileToDatabase(fileUri,"RequestAttachment/Request" + ViewRequestPage.requestId + "/" + getFileName(fileUri,getActivity()),attachmentContainer,getActivity(),attachmentPaths);
+            }
+        }
+    }
+
+    public String getFileName(Uri uri, Context context) {
+        String fileName = null;
+
+        // For content URI (e.g., from file picker)
+        if (uri.getScheme().equals("content")) {
+            Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                fileName = cursor.getString(nameIndex);
+                cursor.close();
+            }
+        }
+        // For file URI (direct file path)
+        else if (uri.getScheme().equals("file")) {
+            fileName = uri.getLastPathSegment();
+        }
+
+        return fileName;
+    }
     public void updateRequest(Request request) {
         HashMap<String, Object> data = new HashMap<>();
         data.put("date", request.date);

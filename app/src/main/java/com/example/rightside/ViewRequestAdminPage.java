@@ -2,7 +2,11 @@ package com.example.rightside;
 
 import static com.example.rightside.Manager.contactAdminPage;
 import static com.example.rightside.Manager.contactUserPage;
+import static com.example.rightside.Manager.goToPage;
 import static com.example.rightside.Manager.goToSiblingPage;
+import static com.example.rightside.Manager.modifyLegalConsultationPage;
+import static com.example.rightside.Manager.modifyMentalConsultationPage;
+import static com.example.rightside.Manager.requests;
 import static com.example.rightside.Manager.viewRequestPage;
 
 import android.os.Bundle;
@@ -15,6 +19,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +38,14 @@ public class ViewRequestAdminPage extends Fragment {
     private String mParam1;
     private String mParam2;
     public static int requestId;
+    TextView reasonTV;
+    TextView outcomeTV;
+    TextView consultationMethodTV;
+    TextView urgencyTV;
+    TextView dateTV;
+    TextView timeTV;
+    TextView descriptionTV;
+    ListView attachmentList;
     public ViewRequestAdminPage() {
         // Required empty public constructor
     }
@@ -74,6 +88,14 @@ public class ViewRequestAdminPage extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Button contactUserButton = view.findViewById(R.id.buttonChat);
+        reasonTV = view.findViewById(R.id.TVViewRequestconsultationReason);
+        outcomeTV = view.findViewById(R.id.TVViewRequestconsultationOutcome);
+        consultationMethodTV = view.findViewById(R.id.TVViewConsultationType);
+        urgencyTV = view.findViewById(R.id.TVurgency);
+        dateTV = view.findViewById(R.id.ETpreferredDateLegal);
+        timeTV = view.findViewById(R.id.ETpreferredTimeLegal);
+        descriptionTV = view.findViewById(R.id.TVdescribeRequest);
+        attachmentList = view.findViewById(R.id.attachments);
 
         contactUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,5 +103,26 @@ public class ViewRequestAdminPage extends Fragment {
                 goToSiblingPage(contactUserPage,getParentFragmentManager());
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Request request = null;
+
+        for (int i=0; i<requests.size(); i++) {
+            if (requests.get(i).requestId == requestId) {
+                request = requests.get(i);
+            }
+        }
+        reasonTV.setText(request.reason);
+        outcomeTV.setText(request.desiredOutcome);
+        consultationMethodTV.setText(request.method);
+        urgencyTV.setText(request.urgency);
+        dateTV.setText(request.date);
+        timeTV.setText(request.time);
+        descriptionTV.setText(request.description);
+        String type = request.type;
+
     }
 }

@@ -1,8 +1,6 @@
 package com.example.rightside;
 
-import static com.example.rightside.Manager.goToPage;
-import static com.example.rightside.Manager.reports;
-import static com.example.rightside.Manager.viewReportPage;
+import static com.example.rightside.Manager.*;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -106,7 +104,8 @@ public class ReportPage extends Fragment {
                 setButtonColor(allButton);
                 container.removeAllViews();
                 for(int i=0 ; i<reports.size() ; i++){
-                    addCard(container, reports.get(i));
+                    if(isMyReport(reports.get(i)))
+                        addCard(container, reports.get(i));
                 }
             }
         });
@@ -117,7 +116,7 @@ public class ReportPage extends Fragment {
                 setButtonColor(racialButton);
                 container.removeAllViews();
                 for(int i=0 ; i<reports.size() ; i++){
-                    if(reports.get(i).discriminationType.equals("Racial"))
+                    if(reports.get(i).discriminationType.equals("Racial") && isMyReport(reports.get(i)))
                         addCard(container, reports.get(i));
                 }
             }
@@ -129,7 +128,7 @@ public class ReportPage extends Fragment {
                 setButtonColor(healthButton);
                 container.removeAllViews();
                 for(int i=0 ; i<reports.size() ; i++){
-                    if(reports.get(i).discriminationType.equals("Health"))
+                    if(reports.get(i).discriminationType.equals("Health") && isMyReport(reports.get(i)))
                         addCard(container, reports.get(i));
                 }
             }
@@ -141,7 +140,7 @@ public class ReportPage extends Fragment {
                 setButtonColor(genderButton);
                 container.removeAllViews();
                 for(int i=0 ; i<reports.size() ; i++){
-                    if(reports.get(i).discriminationType.equals("Gender"))
+                    if(reports.get(i).discriminationType.equals("Gender") && isMyReport(reports.get(i)))
                         addCard(container, reports.get(i));
                 }
             }
@@ -153,7 +152,7 @@ public class ReportPage extends Fragment {
                 setButtonColor(educationButton);
                 container.removeAllViews();
                 for(int i=0 ; i<reports.size() ; i++){
-                    if(reports.get(i).discriminationType.equals("Education"))
+                    if(reports.get(i).discriminationType.equals("Education") && isMyReport(reports.get(i)))
                         addCard(container, reports.get(i));
                 }
             }
@@ -165,7 +164,7 @@ public class ReportPage extends Fragment {
                 setButtonColor(incomeButton);
                 container.removeAllViews();
                 for(int i=0 ; i<reports.size() ; i++){
-                    if(reports.get(i).discriminationType.equals("Income"))
+                    if(reports.get(i).discriminationType.equals("Income") && isMyReport(reports.get(i)))
                         addCard(container, reports.get(i));
                 }
             }
@@ -176,7 +175,8 @@ public class ReportPage extends Fragment {
         super.onResume();
         container.removeAllViews();
         for(int i=0 ; i<reports.size() ; i++){
-            addCard(container, reports.get(i));
+            if(isMyReport(reports.get(i)))
+                addCard(container, reports.get(i));
         }
     }
 
@@ -223,5 +223,13 @@ public class ReportPage extends Fragment {
     public void setButtonColor(Button button){
         button.setTextColor(white);
         button.setBackgroundColor(green);
+    }
+    public boolean isMyReport(Report report){;
+        if(userType.equals(USER))
+            return report.userId==currentUser.userId;
+        else if(userType.equals(ADMIN))
+            return report.adminId==currentAdmin.adminId;
+        else
+            return false;
     }
 }

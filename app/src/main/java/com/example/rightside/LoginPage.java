@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.RequiresApi;
@@ -66,13 +67,18 @@ public class LoginPage extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
-
                 selectedId = loginOptionGroup.getCheckedRadioButtonId();
                 email = emailInput.getText().toString();
                 password = passwordInput.getText().toString();
+                if(email.equals("") || password.equals("")) {
+                    Toast.makeText(LoginPage.this, "Fill in all details", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 RadioButton selectedButton = findViewById(selectedId);
                 if(selectedButton!=null)
                     validateLoginData(selectedButton.getText().toString().toUpperCase());
+                else
+                    Toast.makeText(LoginPage.this, "Choose a login type", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -116,6 +122,8 @@ public class LoginPage extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void validateLoginData(String loginType){
+        currentUser = null;
+        currentAdmin = null;
         if(loginType==null)
             return;
         db.getCollection(USERLIBRARY).get().addOnCompleteListener(task -> {
@@ -124,11 +132,15 @@ public class LoginPage extends AppCompatActivity {
                 if (snapshot != null) {
                     for (QueryDocumentSnapshot document : snapshot) {
                         if(password.equals(document.getString("password")) && email.equals(document.getString("email"))) {
-                            if(loginType.equals(Manager.ADMIN) && document.getString("admin_id").equals("0"))
-                                break;
+                            if(loginType.equals(Manager.ADMIN) && document.getString("admin_id").equals("0")) {
+                                Toast.makeText(LoginPage.this, "You are not an admin", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
                             fetchUserData(document.getId(),loginType);
+                            return;
                         }
                     }
+                    Toast.makeText(LoginPage.this, "incorrect password or email", Toast.LENGTH_SHORT).show();
                 } else {
                     System.out.println("No documents found in the collection.");
                 }
@@ -160,7 +172,7 @@ public class LoginPage extends AppCompatActivity {
                     fetchEvents();
                     fetchSupportGroup();
                     fetchUsers();
-                    fetchReports(currentUser.userId, "user_id");
+                    fetchReports();
                     login(loginType);
                 }
                 else{
@@ -181,14 +193,14 @@ public class LoginPage extends AppCompatActivity {
                 fetchSupportGroup();
                 fetchUsers();
                 fetchRequest(currentAdmin.adminId, "admin_id");
-                fetchReports(currentUser.userId, "admin_id");
+                fetchReports();
                 login(loginType);
             }
         });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void fetchReports(int id, String idType){
+    public void fetchReports(){
         reports.clear();
         db.getCollection("Reports").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -196,27 +208,24 @@ public class LoginPage extends AppCompatActivity {
                 if (snapshot != null) {
                     for (QueryDocumentSnapshot document : snapshot) {
                         latestReportIndex = latestReportIndex < Integer.parseInt(document.getId()) ? Integer.parseInt(document.getId()) : latestReportIndex;
-                        if (id == Integer.parseInt(document.getString(idType))){
-                            int reportId = Integer.parseInt(document.getId());
-                            String name = document.getString("name");
-                            int userId = Integer.parseInt((String) document.get("user_id"));
-                            int adminId = Integer.parseInt((String) document.get("admin_id"));
-                            String discriminationType = (String) document.get("discrimination_type");
-                            String location = (String) document.get("location");
-                            Date date = stringToDate(document.getString("date"));
-                            String description = (String) document.get("description");
-                            String phoneNumber = (String) document.get("phone_number");
-                            String email = (String) document.get("email");
-                            String witness = (String) document.get("witness");
-                            String extraInfo = (String) document.get("extra_info");
-                            String personInvolved = (String) document.get("person_involved");
-                            String injury = (String) document.get("injury");
-                            boolean isAnonymous = Boolean.parseBoolean(document.get("is_anonymous").toString());
-                            ArrayList<String> impacts = (ArrayList<String>) document.get("impacts");
-                            ArrayList<String> actions = (ArrayList<String>) document.get("actions");
-
-                            reports.add(new Report(reportId, name, userId, adminId, discriminationType, location, date, description, phoneNumber, email, witness, extraInfo, personInvolved, injury, isAnonymous, impacts, actions));
-                        }
+                        int reportId = Integer.parseInt(document.getId());
+                        String name = document.getString("name");
+                        int userId = Integer.parseInt((String) document.get("user_id"));
+                        int adminId = Integer.parseInt((String) document.get("admin_id"));
+                        String discriminationType = (String) document.get("discrimination_type");
+                        String location = (String) document.get("location");
+                        Date date = stringToDate(document.getString("date"));
+                        String description = (String) document.get("description");
+                        String phoneNumber = (String) document.get("phone_number");
+                        String email = (String) document.get("email");
+                        String witness = (String) document.get("witness");
+                        String extraInfo = (String) document.get("extra_info");
+                        String personInvolved = (String) document.get("person_involved");
+                        String injury = (String) document.get("injury");
+                        boolean isAnonymous = Boolean.parseBoolean(document.get("is_anonymous").toString());
+                        ArrayList<String> impacts = (ArrayList<String>) document.get("impacts");
+                        ArrayList<String> actions = (ArrayList<String>) document.get("actions");
+                        reports.add(new Report(reportId, name, userId, adminId, discriminationType, location, date, description, phoneNumber, email, witness, extraInfo, personInvolved, injury, isAnonymous, impacts, actions));
                     }
                     sortReport();
                 } else {
@@ -268,8 +277,9 @@ public class LoginPage extends AppCompatActivity {
                             String urgency = document.getString("urgency");
                             int userId = Integer.parseInt(document.getString("user_id"));
                             int requestId = Integer.parseInt(document.getId());
+                            ArrayList<String> attachmentPaths = (ArrayList<String>) document.get("attachment_paths");
 
-                            requests.add(new Request(reason, desiredOutcome, method, urgency, date, time, description, status, adminId, userId, requestId, type));
+                            requests.add(new Request(reason, desiredOutcome, method, urgency, date, time, description, status, adminId, userId, requestId, type, attachmentPaths));
                         }
                     }
                 } else {
