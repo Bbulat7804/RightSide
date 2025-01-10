@@ -150,6 +150,9 @@ public class DatabaseConnection {
                         paths.add(path);
                         String name = path.split("/")[2];
                         addAttachmentCard(container,path.split("/")[0] + "/" + path.split("/")[1] + "/", name, context);
+                        for(int i=0 ; i<paths.size() ; i++){
+                            System.out.println(paths.get(i));
+                        }
                     });
                 })
                 .addOnFailureListener(e -> {

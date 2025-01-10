@@ -2,9 +2,15 @@ package com.example.rightside;
 
 import static com.example.rightside.Manager.contactAdminPage;
 import static com.example.rightside.Manager.contactUserPage;
+import static com.example.rightside.Manager.db;
+import static com.example.rightside.Manager.goToPage;
 import static com.example.rightside.Manager.goToSiblingPage;
+import static com.example.rightside.Manager.modifyLegalConsultationPage;
+import static com.example.rightside.Manager.modifyMentalConsultationPage;
+import static com.example.rightside.Manager.requests;
 import static com.example.rightside.Manager.viewRequestPage;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +21,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +41,18 @@ public class ViewRequestAdminPage extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    TextView reasonTV;
+    TextView outcomeTV;
+    TextView consultationMethodTV;
+    TextView urgencyTV;
+    TextView dateTV;
+    TextView timeTV;
+    TextView descriptionTV;
+    ListView attachmentList;
+    ImageButton editButton;
+
+    LinearLayout attachmentContainer;
+
     public static int requestId;
     public ViewRequestAdminPage() {
         // Required empty public constructor
@@ -66,20 +88,55 @@ public class ViewRequestAdminPage extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_view_request_admin, container, false);
     }
 
+    @SuppressLint("WrongViewCast")
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button contactUserButton = view.findViewById(R.id.buttonChat);
+        Button contactAdminButton = view.findViewById(R.id.buttonChat);
+        reasonTV = view.findViewById(R.id.TVViewRequestconsultationReason);
+        outcomeTV = view.findViewById(R.id.TVViewRequestconsultationOutcome);
+        consultationMethodTV = view.findViewById(R.id.TVViewConsultationType);
+        urgencyTV = view.findViewById(R.id.TVurgency);
+        dateTV = view.findViewById(R.id.ETpreferredDateLegal);
+        timeTV = view.findViewById(R.id.ETpreferredTimeLegal);
+        descriptionTV = view.findViewById(R.id.TVdescribeRequest);
+        attachmentContainer = view.findViewById(R.id.AttachmentContainer);
 
-        contactUserButton.setOnClickListener(new View.OnClickListener() {
+        contactAdminButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToSiblingPage(contactUserPage,getParentFragmentManager());
             }
         });
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Request request = null;
+
+        for (int i=0; i<requests.size(); i++) {
+            if (requests.get(i).requestId == requestId) {
+                request = requests.get(i);
+            }
+        }
+        reasonTV.setText(request.reason);
+        outcomeTV.setText(request.desiredOutcome);
+        consultationMethodTV.setText(request.method);
+        urgencyTV.setText(request.urgency);
+        dateTV.setText(request.date);
+        timeTV.setText(request.time);
+        descriptionTV.setText(request.description);
+
+        for(String path : request.attachmentPaths){
+            db.addAttachmentCard(attachmentContainer,path.split("/")[0] + "/" + path.split("/")[1] + "/", path.split("/")[2],getActivity());
+        }
     }
 }

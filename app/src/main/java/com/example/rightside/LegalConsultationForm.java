@@ -161,7 +161,7 @@ public class LegalConsultationForm extends Fragment {
                     selectedMethod = checkedRadioButton.getText().toString();
                 }
 
-                Request request = new Request(reason,desiredOutcome,selectedMethod,selectedUrgency,dateChosen,timeChosen,description,"Pending", 1, currentUser.userId,++latestRequestIndex,"Legal");
+                Request request = new Request(reason,desiredOutcome,selectedMethod,selectedUrgency,dateChosen,timeChosen,description,"Pending", 1, currentUser.userId,++latestRequestIndex,"Legal", attachmentPaths);
                 uploadRequest(request);
                 Toast.makeText(requireContext(), "Your form has been submitted!", Toast.LENGTH_SHORT).show();
 
@@ -203,7 +203,7 @@ public class LegalConsultationForm extends Fragment {
         if (requestCode == PICK_FILE_REQUEST && resultCode == RESULT_OK && data != null) {
             Uri fileUri = data.getData();
             if (fileUri != null) {
-                db.uploadFileToDatabase(fileUri,"ReportAttachment/Report" + (latestReportIndex+1) + "/" + getFileName(fileUri,getActivity()),attachmentContainer,getActivity(),attachmentPaths);
+                db.uploadFileToDatabase(fileUri,"RequestAttachment/Request" + (latestRequestIndex+1) + "/" + getFileName(fileUri,getActivity()),attachmentContainer,getActivity(),attachmentPaths);
             }
         }
     }
@@ -242,6 +242,7 @@ public class LegalConsultationForm extends Fragment {
         data.put("time", request.time);
         data.put("urgency", request.urgency);
         data.put("type", request.type);
+        data.put("attachment_paths", request.attachmentPaths);
 
         db.addDocument("Requests",data, Integer.toString(request.requestId ));
         //upload into ArrayList
