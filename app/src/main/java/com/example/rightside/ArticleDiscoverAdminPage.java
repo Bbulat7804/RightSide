@@ -38,6 +38,7 @@ public class ArticleDiscoverAdminPage extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    DatabaseConnection db = new DatabaseConnection();
 
     public ArticleDiscoverAdminPage() {
         // Required empty public constructor

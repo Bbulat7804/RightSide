@@ -2,7 +2,6 @@ package com.example.rightside;
 
 import static com.example.rightside.Manager.ADMIN;
 import static com.example.rightside.Manager.USER;
-import static com.example.rightside.Manager.db;
 import static com.example.rightside.Manager.goToSiblingPage;
 import static com.example.rightside.Manager.viewRequestPage;
 import static com.google.firebase.firestore.DocumentChange.Type.*;
@@ -49,7 +48,7 @@ public class ContactAdminPage extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    DatabaseConnection db = new DatabaseConnection();
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;

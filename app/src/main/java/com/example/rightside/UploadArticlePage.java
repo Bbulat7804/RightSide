@@ -48,6 +48,7 @@ public class UploadArticlePage extends Fragment {
     EditText authorInput;
     ImageView imageUploadButton;
     Spinner articleTypeSpinner;
+    DatabaseConnection db = new DatabaseConnection();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -177,11 +178,11 @@ public class UploadArticlePage extends Fragment {
         return new DatePickerDialog(getActivity(),style,dateSetListener,year,month,day);
     }
 
-    private String makeDateString(int day, int month, int year){
+    public static String makeDateString(int day, int month, int year){
         return getMonthFormat(month) + " " + day + " " + year;
     }
 
-    private String getMonthFormat(int month) {
+    private static String getMonthFormat(int month) {
         if(month == 1)
             return "Jan";
         else if (month == 2)
@@ -209,7 +210,7 @@ public class UploadArticlePage extends Fragment {
         else
             return "Jan";
     }
-    private String getTodaysDate() {
+    public static String getTodaysDate() {
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
@@ -218,7 +219,7 @@ public class UploadArticlePage extends Fragment {
 
         return makeDateString(day,month,year);
     }
-    public void openDatePicker(DatePickerDialog datePickerDialog){
+    public static void openDatePicker(DatePickerDialog datePickerDialog){
         datePickerDialog.show();
     }
 

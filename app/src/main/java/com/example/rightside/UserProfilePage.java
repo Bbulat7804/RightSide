@@ -3,7 +3,6 @@ package com.example.rightside;
 import static android.app.Activity.RESULT_OK;
 import static com.example.rightside.Manager.PICK_IMAGE_REQUEST;
 import static com.example.rightside.Manager.currentUser;
-import static com.example.rightside.Manager.db;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -37,6 +36,7 @@ public class UserProfilePage extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    DatabaseConnection db = new DatabaseConnection();
 
     private ImageView profilePhoto;
     public UserProfilePage() {

@@ -2,7 +2,6 @@
 package com.example.rightside;
 
 import static com.example.rightside.Manager.currentUser;
-import static com.example.rightside.Manager.db;
 import static com.example.rightside.Manager.goToPage;
 import static com.example.rightside.Manager.latestRequestIndex;
 import static com.example.rightside.Manager.requests;
@@ -58,7 +57,7 @@ public class LegalConsultationForm extends Fragment {
     TextView timeTV;
     TextView descriptionTV;
     Button submitButton;
-
+    DatabaseConnection db = new DatabaseConnection();
 
 
 

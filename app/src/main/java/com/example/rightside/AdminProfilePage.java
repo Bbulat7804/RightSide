@@ -45,6 +45,7 @@ public class AdminProfilePage extends Fragment {
     TextView stressLevelTV;
     TextView eventNoTV;
     TextView requestManagedNoTV;
+    DatabaseConnection db = new DatabaseConnection();
 
     public AdminProfilePage() {
         // Required empty public constructor

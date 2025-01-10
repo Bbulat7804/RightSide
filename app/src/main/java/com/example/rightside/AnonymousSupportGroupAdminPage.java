@@ -36,6 +36,7 @@ public class AnonymousSupportGroupAdminPage extends Fragment {
     LinearLayout suggestionGroupContainer;
     LinearLayout joinedGroupContainer;
     Button createGroupButton;
+    DatabaseConnection db = new DatabaseConnection();
 
     public AnonymousSupportGroupAdminPage() {
         // Required empty public constructor

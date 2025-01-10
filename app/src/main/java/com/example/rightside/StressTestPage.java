@@ -1,7 +1,6 @@
 package com.example.rightside;
 
 import static com.example.rightside.Manager.currentUser;
-import static com.example.rightside.Manager.db;
 import static com.example.rightside.Manager.goToPage;
 import static com.example.rightside.Manager.stack;
 import static com.example.rightside.Manager.stressAssessmentPage;
@@ -27,6 +26,7 @@ public class StressTestPage extends Fragment {
 
     private RadioGroup[] questionGroups;
     private TextView resultText;
+    DatabaseConnection db = new DatabaseConnection();
 
     public StressTestPage() {
         // Required empty public constructor
