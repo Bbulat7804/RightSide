@@ -182,6 +182,7 @@ public class ModifyMentalConsultation extends Fragment {
             }
 
         });
+
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -352,7 +353,6 @@ public class ModifyMentalConsultation extends Fragment {
         String method = request.method;
         String urgency = request.urgency;
 
-
         SpinnerAdapter spinnerAdapter = spinnerReasonConsultation.getAdapter();
         for (int i = 0; i < spinnerAdapter.getCount(); i++) {
             if (spinnerAdapter.getItem(i).toString().equals(reason)) {
@@ -367,6 +367,7 @@ public class ModifyMentalConsultation extends Fragment {
                 spinnerDesiredOutcome.setSelection(i);
             }
         }
+        System.out.println(method);
         switch (method){
             case "In-Person":
                 inPerson.setChecked(true);
