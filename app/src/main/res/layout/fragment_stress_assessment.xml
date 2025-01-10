@@ -50,8 +50,8 @@
                     <com.github.mikephil.charting.charts.PieChart
                         android:id="@+id/semiCircleChart"
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:layout_marginTop="16dp" />
+                        android:layout_height="200dp"
+                        android:layout_marginTop="12dp" />
 
                     <TextView
                         android:id="@+id/ScoreTV"
@@ -150,7 +150,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:fontFamily="@font/roboto_condensed_bold"
-                        android:text="Get Your Stress Score"
+                        android:text="  Get Your Stress Score"
                         android:textSize="30sp" />
                 </LinearLayout>
 
