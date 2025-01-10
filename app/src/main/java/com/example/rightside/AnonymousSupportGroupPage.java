@@ -1,5 +1,7 @@
 package com.example.rightside;
 
+import static com.example.rightside.Manager.*;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,9 +11,15 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.firebase.firestore.FieldValue;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +36,8 @@ public class AnonymousSupportGroupPage extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    LinearLayout suggestionGroupContainer;
+    LinearLayout joinedGroupContainer;
 
     public AnonymousSupportGroupPage() {
         // Required empty public constructor
@@ -70,38 +80,69 @@ public class AnonymousSupportGroupPage extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        LinearLayout suggestionGroupContainer = view.findViewById(R.id.SuggestionSupportGroupCardContainer);
-        LinearLayout joinedGroupContainer = view.findViewById(R.id.SupportGroupsJoinedContainer);
+        suggestionGroupContainer = view.findViewById(R.id.SuggestionSupportGroupCardContainer);
+        joinedGroupContainer = view.findViewById(R.id.SupportGroupsJoinedContainer);
 
-        for (int i=0; i<3; i++) {
-            addSuggestionGroupCard(suggestionGroupContainer,new SupportGroup("SafeSpace"));
-            addJoinedGroupCard(joinedGroupContainer, new SupportGroup("CareConnect"));
-        }
     }
 
-    public void addSuggestionGroupCard (LinearLayout container, SupportGroup group){
-        View suggestionCard = LayoutInflater.from(getActivity()).inflate(R.layout.card_suggestion_support_group, container, false);
+    public void addSuggestionGroupCard (SupportGroup group){
+        View suggestionCard = LayoutInflater.from(getActivity()).inflate(R.layout.card_suggestion_support_group, suggestionGroupContainer, false);
 
         TextView grpName = suggestionCard.findViewById(R.id.GroupName);
         ImageView grpIcon = suggestionCard.findViewById(R.id.GroupIcon);
 
         grpName.setText(group.name);
-        grpIcon.setImageResource(R.mipmap.ic_rightside_foreground);
-
-        container.addView(suggestionCard);
+        db.loadImageFromStorage(suggestionCard.getContext(), group.iconUrl,grpIcon);
+        suggestionGroupContainer.addView(suggestionCard);
+        grpName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                group.participantId.add(currentUser.userId);
+                db.getCollection("Support Groups").document(Integer.toString(group.id)).update("participants_id", FieldValue.arrayUnion(Integer.toString(currentUser.userId))).addOnFailureListener(e -> {
+                    System.out.println("failed");
+                });
+                addCards();
+            }
+        });
     }
-
-    public void addJoinedGroupCard (LinearLayout container, SupportGroup group) {
-        View groupCard = LayoutInflater.from(getActivity()).inflate(R.layout.card_support_group, container, false);
+    public void addJoinedGroupCard (SupportGroup group) {
+        View groupCard = LayoutInflater.from(getActivity()).inflate(R.layout.card_support_group, joinedGroupContainer, false);
 
         TextView grpName = groupCard.findViewById(R.id.JoinedGroupName);
         ImageView grpIcon = groupCard.findViewById(R.id.GroupJoinedIcon);
         TextView grpDescription = groupCard.findViewById(R.id.JoinedGroupDescription);
-
-        container.addView(groupCard);
+        grpName.setText(group.name);
+        grpDescription.setText(group.description);
+        db.loadImageFromStorage(groupCard.getContext(), group.iconUrl,grpIcon);
+        groupCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GroupChatPage.chatId = group.id;
+                goToPage(groupChatPage,getParentFragmentManager());
+                currentUser.supportGroupNo++;
+                HashMap<String,Object> data = new HashMap<>();
+                data.put("support_group_no", Integer.toString(currentUser.supportGroupNo));
+                db.updateDocument("Users", Integer.toString(currentUser.userId), data);
+            }
+        });
+//        db.loadImageFromStorage(groupCard.getContext(), group.image_url,grpIcon);
+        joinedGroupContainer.addView(groupCard);
     }
 
+    public void addCards(){
+        joinedGroupContainer.removeAllViews();
+        suggestionGroupContainer.removeAllViews();
+        for (int i=0; i<supportGroups.size(); i++) {
+            if(supportGroups.get(i).participantId.contains(currentUser.userId))
+                addJoinedGroupCard(supportGroups.get(i));
+            else
+                addSuggestionGroupCard(supportGroups.get(i));
+        }
+    }
 
-
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        addCards();
+    }
 }

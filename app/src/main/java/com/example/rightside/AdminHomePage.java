@@ -84,15 +84,29 @@ public class AdminHomePage extends Fragment {
         LinearLayout manageRequestButton = view.findViewById(R.id.AdminManageRequestButton);
         LinearLayout supportGroupsButton = view.findViewById(R.id.AdminSupportGroupsButton);
         LinearLayout eventsButton = view.findViewById(R.id.AdminEventsButton);
-        LinearLayout eventCalendarButton = view.findViewById(R.id.EventCalendarButton);
+        LinearLayout eventCalendarButton = view.findViewById(R.id.EventCalendarButton);//remove
         LinearLayout documentTemplateButton = view.findViewById(R.id.DocumentTemplateButton);
         LinearLayout liveDataButton = view.findViewById(R.id.LiveDataButton);
         LinearLayout quizButton = view.findViewById(R.id.QuizButton);
         LinearLayout reportHistoryButton = view.findViewById(R.id.ReportHistoryButton);
         LinearLayout stressManagementButton = view.findViewById(R.id.StressManagementButton);
-        LinearLayout uploadArticleButton = view.findViewById(R.id.UploadArticlesButton);
+        LinearLayout uploadArticleButton = view.findViewById(R.id.UploadArticlesButton);//remove
         LinearLayout articleButton = view.findViewById(R.id.ArticlesButton);
 
+
+        stressManagementButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(stressAssessmentPage,getParentFragmentManager());
+            }
+        });
+
+        supportGroupsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(anonymousSupportGroupAdminPage,getParentFragmentManager());
+            }
+        });
         manageRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

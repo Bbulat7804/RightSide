@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.HashMap;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link AdminProfilePage#newInstance} factory method to
@@ -35,6 +37,14 @@ public class AdminProfilePage extends Fragment {
     private String mParam1;
     private String mParam2;
     ImageView profilePhoto;
+    LinearLayout eventImageContainer;
+    TextView usernameTV;
+    TextView nameTV;
+    TextView emailTV;
+    TextView reportNoTV;
+    TextView stressLevelTV;
+    TextView eventNoTV;
+    TextView requestManagedNoTV;
 
     public AdminProfilePage() {
         // Required empty public constructor
@@ -77,14 +87,14 @@ public class AdminProfilePage extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        LinearLayout eventImageContainer = view.findViewById(R.id.JoinedEventImageContainer);
-        TextView usernameTV = view.findViewById(R.id.UsernameTV);
-        TextView nameTV = view.findViewById(R.id.NameTV);
-        TextView emailTV = view.findViewById(R.id.EmailTV);
-        TextView reportNoTV = view.findViewById(R.id.ReportNoTV);
-        TextView stressLevelTV = view.findViewById(R.id.StressLevelTV);
-        TextView eventNoTV = view.findViewById(R.id.EventNoTV);
-        TextView requestManagedNoTV = view.findViewById(R.id.RequestManagedNumber);
+        eventImageContainer = view.findViewById(R.id.JoinedEventImageContainer);
+        usernameTV = view.findViewById(R.id.UsernameTV);
+        nameTV = view.findViewById(R.id.NameTV);
+        emailTV = view.findViewById(R.id.EmailTV);
+        reportNoTV = view.findViewById(R.id.ReportNoTV);
+        stressLevelTV = view.findViewById(R.id.StressLevelTV);
+        eventNoTV = view.findViewById(R.id.EventNoTV);
+        requestManagedNoTV = view.findViewById(R.id.RequestManagedNumber);
         profilePhoto = view.findViewById(R.id.ProfilePhoto);
 
         profilePhoto.setOnClickListener(new View.OnClickListener() {
@@ -94,17 +104,7 @@ public class AdminProfilePage extends Fragment {
             }
         });
 
-        usernameTV.setText((currentAdmin.username + "'s Profile").toUpperCase());
-        nameTV.setText(currentAdmin.name);
-        emailTV.setText(currentAdmin.email);
-        reportNoTV.setText(currentAdmin.reportNo + "");
-        stressLevelTV.setText(currentAdmin.stressLevel);
-        eventNoTV.setText(currentAdmin.eventsNo + "");
-        requestManagedNoTV.setText(currentAdmin.requestManaged + "");
 
-        for(int i=0; i<10 ; i++){
-            addImage(eventImageContainer,R.drawable.sample_event_image);
-        }
     }
 
     private void openFileChooser() {
@@ -120,6 +120,9 @@ public class AdminProfilePage extends Fragment {
             Uri imageUri = data.getData();
             if (imageUri != null) {
                 db.uploadImageToFirebase(imageUri,getProfilePhotoPath(),profilePhoto,getContext());  // Call the upload function
+                HashMap<String,Object> map = new HashMap<>();
+                map.put("profile_photo_url", getProfilePhotoPath());
+                db.updateDocument("Users", Integer.toString(currentUser.userId), map);
             }
         }
     }
@@ -143,6 +146,18 @@ public class AdminProfilePage extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        eventImageContainer.removeAllViews();
         db.loadImageFromStorage(getActivity(), getProfilePhotoPath(),profilePhoto);
+        usernameTV.setText((currentAdmin.username + "'s Profile").toUpperCase());
+        nameTV.setText(currentAdmin.name);
+        emailTV.setText(currentAdmin.email);
+        reportNoTV.setText(currentAdmin.reportNo + "");
+        stressLevelTV.setText(currentAdmin.stressLevel);
+        eventNoTV.setText(currentAdmin.eventsNo + "");
+        requestManagedNoTV.setText(currentAdmin.requestManaged + "");
+
+        for(int i=0; i<10 ; i++){
+            addImage(eventImageContainer,R.drawable.sample_event_image);
+        }
     }
 }

@@ -27,10 +27,10 @@
         <EditText
             android:id="@+id/searchBar2"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="40dp"
             android:layout_marginTop="14dp"
             android:layout_marginEnd="24dp"
-            android:layout_weight="1"
+            android:layout_weight="6"
             android:background="@drawable/box_rounded_bordered_white"
             android:drawableStart="@drawable/icon_search_green"
             android:fontFamily="@font/roboto"
@@ -45,25 +45,38 @@
             android:textColor="@color/white"
             android:textSize="20sp" />
 
-        <LinearLayout
-            android:id="@+id/SuggestionSupportGroupCardContainer"
+        <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="260dp"
-            android:orientation="horizontal"></LinearLayout>
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/SuggestionSupportGroupCardContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"></LinearLayout>
+        </HorizontalScrollView>
 
         <TextView
             android:id="@+id/textView37"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
             android:text="Groups"
             android:textColor="@color/white"
             android:textSize="24sp" />
 
-        <LinearLayout
-            android:id="@+id/SupportGroupsJoinedContainer"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"></LinearLayout>
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/SupportGroupsJoinedContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"></LinearLayout>
+        </ScrollView>
 
 
     </LinearLayout>

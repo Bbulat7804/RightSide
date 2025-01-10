@@ -1,21 +1,27 @@
 package com.example.rightside;
 
+import static com.example.rightside.Manager.*;
+
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
@@ -33,8 +39,11 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.LinkedList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,6 +60,16 @@ public class DataInsightsPage extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    TextView unaffectedPercentageText;
+    TextView affectedPercentageText;
+    DateTimeFormatter dateFormatter;
+    String dateString;
+    Spinner discriminationTypeSpinner;
+    LineChart lineChart;
+    BarChart barChart;
+    PieChart pieChart;
+    Button startDateButton;
+    Button endDateButton;
 
     public DataInsightsPage() {
         // Required empty public constructor
@@ -91,20 +110,23 @@ public class DataInsightsPage extends Fragment {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         DatePickerDialog startDatePickerDialog;
         DatePickerDialog endDatePickerDialog;
-        Button startDateButton;
-        Button endDateButton;
 
         //Initialize all the views
-        LineChart lineChart = view.findViewById(R.id.lineChart);
-        BarChart barChart = view.findViewById(R.id.BarChart);
-        PieChart pieChart= view.findViewById(R.id.PieChartUnaffected);
+        lineChart = view.findViewById(R.id.lineChart);
+        barChart = view.findViewById(R.id.BarChart);
+        pieChart= view.findViewById(R.id.PieChartUnaffected);
         startDateButton = view.findViewById(R.id.StartDateButton);
         endDateButton = view.findViewById(R.id.EndDateButton);
+        discriminationTypeSpinner = view.findViewById(R.id.DiscriminationTypeSpinner);
+        affectedPercentageText = view.findViewById(R.id.AffectedPercentageText);
+        unaffectedPercentageText = view.findViewById(R.id.UnaffectedPercentageText);
+        dateFormatter = DateTimeFormatter.ofPattern("dd MM yyyy");
 
         //Setup Date Button and OnClickListener
         startDatePickerDialog = initializeDatePicker(startDateButton);
@@ -121,28 +143,55 @@ public class DataInsightsPage extends Fragment {
                 openDatePicker(endDatePickerDialog);
             }
         });
+        discriminationTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                updateLineData();
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
-
+            }
+        });
         //Initialize values for charts and dropdown
         initializeStateDropDown(view);
         initializeDiscriminationTypeDropDown(view);
-        initializeLineChartValue(view, lineChart);
-        initializeBarChartValue(view,barChart);
-        initializePieChartValue(view,pieChart);
+        insertLineChartValue(lineChart, null,null,"");
+        insertBarChartValue(view,barChart);
+        insertPieChartValue(view,pieChart);
     }
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //Initialize value for graphs
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public void initializeBarChartValue(View view, BarChart barChart){
+    public void insertBarChartValue(View view, BarChart barChart){
+        int racial = 0;
+        int gender = 0;
+        int health = 0;
+        int education = 0;
+        int income = 0;
         ArrayList<BarEntry> entries = new ArrayList<>();
-        entries.add(new BarEntry(0f, 10)); // X=1, Y=10
-        entries.add(new BarEntry(1f, 20)); // X=2, Y=20
-        entries.add(new BarEntry(2f, 30)); // X=3, Y=30
+        for(Report report : reports){
+            if(report.discriminationType.equals("Racial"))
+                racial++;
+            else if(report.discriminationType.equals("Gender"))
+                gender++;
+            else if(report.discriminationType.equals("Health"))
+                health++;
+            else if(report.discriminationType.equals("Education"))
+                education++;
+            else if(report.discriminationType.equals("Income"))
+                income++;
+        }
+        entries.add(new BarEntry(0f, racial));
+        entries.add(new BarEntry(1f, gender));
+        entries.add(new BarEntry(2f, health));
+        entries.add(new BarEntry(3f, education));
+        entries.add(new BarEntry(4f, income));
 
-        String[] categories = {"Mental", "Gender", "Race"};
+        String[] categories = {"Racial", "Gender", "Health", "Education", "Income"};
 
 // Create the data set
         BarDataSet dataSet = new BarDataSet(entries, "Descrimination Type");
@@ -174,11 +223,20 @@ public class DataInsightsPage extends Fragment {
         barChart.getDescription().setEnabled(false);
     }
 
-    public void initializePieChartValue(View view, PieChart pieChart){
+    public void insertPieChartValue(View view, PieChart pieChart){
+        float numberAffected = 9;
+        float numberUnaffected = 10;
+        float total = numberUnaffected + numberAffected;
+        float percentageAffected = ((float)Math.round((numberAffected/total)*10000))/100;
+        float percentageUnaffected = ((float)Math.round((numberUnaffected/total)*10000))/100;
+
+        unaffectedPercentageText.setText(percentageUnaffected + "%");
+        affectedPercentageText.setText(percentageAffected + "%");
+
         PieChart pieChart1 = view.findViewById(R.id.PieChartUnaffected);
         ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(60,"Unaffected"));
-        entries.add(new PieEntry(40,"Affected"));
+        entries.add(new PieEntry(percentageUnaffected,"Unaffected"));
+        entries.add(new PieEntry(percentageAffected,"Affected"));
 
         // create the data set
         int[] colors = {Color.parseColor("#5898fe"),Color.parseColor("#ef7e1e")};
@@ -197,43 +255,79 @@ public class DataInsightsPage extends Fragment {
         pieChart.setDrawSliceText(false);
         pieChart.invalidate();
     }
-    public void initializeLineChartValue(View view, LineChart lineChart){
+    public void insertLineChartValue(LineChart lineChart, Date startDate, Date endDate, String discriminationType){
         ArrayList<Entry> entries = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
+        lineChart.clear();
+        int year = 0;
+        int month = 0;
+        int total = 0;
+        int yearPassed = 0;
+        LinkedList<String> categories = new LinkedList<>();
+        for(int j=0 ; j<reports.size() ; j++){
+            Report report = reports.get(j);
+            boolean startResult = startDate!=null ? report.date.compareTo(startDate)>=0 : true;
+            boolean endResult = endDate!=null ? report.date.compareTo(endDate)<=0 : true;
 
-        for(int i=0 ; i<48 ; i++){
-            entries.add(new Entry((1/12f)*i,i+1));
+            boolean discriminationResult = !discriminationType.equals("") ? discriminationType.equals(report.discriminationType) : true;
+            if(startResult && endResult && discriminationResult){
+                calendar.setTime(report.date);
+                if(month!=calendar.get(Calendar.MONTH)+1){
+                    if(month!=0){
+                        entries.add(new Entry((((month+(12*yearPassed))/12f)),total));
+                    }
+                    month=calendar.get(Calendar.MONTH)+1;
+                    total=0;
+                    if(year<calendar.get(Calendar.YEAR)) {
+                        if(year!=0) {
+                            //getting the year gone through for graph indexing
+                            yearPassed += calendar.get(Calendar.YEAR) - year;
+                            for(int i=0 ; i<calendar.get(Calendar.YEAR)-year ; i++){
+                                categories.add(Integer.toString(year+1+i));
+                            }
+                            year=calendar.get(Calendar.YEAR);
+                        }
+                        else{
+                            year = calendar.get(Calendar.YEAR);
+                            categories.addFirst(Integer.toString(year));
+                        }
+                    }
+                }
+                total++;
+            }
         }
-        //create the label for x axis
-        String[] categories = {"2021","2022","2023","2024"};
+        if(!categories.isEmpty())
+            categories.addLast(Integer.toString(Integer.parseInt(categories.getLast())+1));
+        if(entries.size()>0) {
+            entries.add(new Entry((((month + (12 * yearPassed)) / 12f)), total));
+            // Create a dataset and set it to the chart
+            LineDataSet dataSet = new LineDataSet(entries, "Cases Reported");
+            dataSet.setValueTextSize(8);
+            LineData lineData = new LineData(dataSet);
 
-        // Create a dataset and set it to the chart
-        LineDataSet dataSet = new LineDataSet(entries, "Cases Reported");
-        dataSet.setValueTextSize(8);
-        LineData lineData = new LineData(dataSet);
+            // Set the data to the chart
+            lineChart.setData(lineData);
+            // customizing line chart
+            lineChart.getDescription().setEnabled(false);
+            YAxis rightAxis = lineChart.getAxisRight();
+            rightAxis.setEnabled(false);
+            rightAxis.setGranularity(5f);
+            rightAxis.setGranularityEnabled(true);
+            XAxis xAxis = lineChart.getXAxis();
 
-        // Set the data to the chart
-        lineChart.setData(lineData);
+            lineChart.setDragEnabled(true);
+            lineChart.setScaleEnabled(true);
+            lineChart.setPinchZoom(true);
 
-        // customizing line chart
-        lineChart.getDescription().setEnabled(false);
-        YAxis rightAxis = lineChart.getAxisRight();
-        rightAxis.setEnabled(false);
-        rightAxis.setGranularity(5f);
-        rightAxis.setGranularityEnabled(true);
-        XAxis xAxis = lineChart.getXAxis();
+            lineChart.setVisibleXRangeMaximum(1);
+            lineChart.moveViewToX(0);
 
-        lineChart.setDragEnabled(true);
-        lineChart.setScaleEnabled(true);
-        lineChart.setPinchZoom(true);
-
-        lineChart.setVisibleXRangeMaximum(1);
-        lineChart.moveViewToX(0);
-
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(categories));
-        xAxis.setGranularity(1f);
-        xAxis.setGranularityEnabled(true);
-        lineChart.invalidate();  // Refresh the chart
+            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+            xAxis.setValueFormatter(new IndexAxisValueFormatter(categories));
+            xAxis.setGranularity(1f);
+            xAxis.setGranularityEnabled(true);
+            lineChart.invalidate();  // Refresh the chart
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -265,11 +359,13 @@ public class DataInsightsPage extends Fragment {
 
     public DatePickerDialog initializeDatePicker(Button dateButton){
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onDateSet(DatePicker view, int year, int month, int day) {
                 month = month + 1;
                 String date = makeDateString(day ,month,year);
                 dateButton.setText(date);
+                updateLineData();
             }
         };
 
@@ -286,32 +382,7 @@ public class DataInsightsPage extends Fragment {
     }
 
     private String getMonthFormat(int month) {
-        if(month == 1)
-            return "Jan";
-        else if (month == 2)
-            return "Feb";
-        else if (month == 3)
-            return "Mar";
-        else if (month == 4)
-            return "Apr";
-        else if (month == 5)
-            return "May";
-        else if (month == 6)
-            return "Jun";
-        else if (month == 7)
-            return "Jul";
-        else if (month == 8)
-            return "Aug";
-        else if (month == 9)
-            return "Sep";
-        else if (month == 10)
-            return "Oct";
-        else if (month == 11)
-            return "Nov";
-        else if (month == 12)
-            return "Dec";
-        else
-            return "Jan";
+        return Integer.toString(month);
     }
 
     private String getTodaysDate() {
@@ -325,5 +396,14 @@ public class DataInsightsPage extends Fragment {
     }
     public void openDatePicker(DatePickerDialog datePickerDialog){
         datePickerDialog.show();
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void updateLineData(){
+        Date startDate = stringToDate(startDateButton.getText().toString());
+        Date endDate = stringToDate(endDateButton.getText().toString());
+        String discriminationType = discriminationTypeSpinner.getSelectedItem().toString();
+        if(discriminationType.equals("Discrimination Types"))
+            discriminationType="";
+        insertLineChartValue(lineChart, startDate, endDate, discriminationType);
     }
 }

@@ -48,9 +48,11 @@
 
     <string-array name="DiscriminationTypes">
         <item>Discrimination Types</item>
-        <item>Mental</item>
+        <item>Health</item>
         <item>Gender</item>
-        <item>Race</item>
+        <item>Racial</item>
+        <item>Education</item>
+        <item>Income</item>
     </string-array>
 
     <string-array name="LegalConsultationReason">

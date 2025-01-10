@@ -20,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.HashMap;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link UserProfilePage#newInstance} factory method to
@@ -121,6 +123,9 @@ public class UserProfilePage extends Fragment {
             Uri imageUri = data.getData();
             if (imageUri != null) {
                 db.uploadImageToFirebase(imageUri,getProfilePhotoPath(),profilePhoto,getContext());  // Call the upload function
+                HashMap<String,Object> map = new HashMap<>();
+                map.put("profile_photo_url", getProfilePhotoPath());
+                db.updateDocument("Users", Integer.toString(currentUser.userId), map);
             }
         }
     }

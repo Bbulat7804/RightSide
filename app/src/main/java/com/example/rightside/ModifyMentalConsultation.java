@@ -1,14 +1,15 @@
 package com.example.rightside;
 
 import static com.example.rightside.Manager.db;
-import static com.example.rightside.Manager.latestRequestIndex;
+import static com.example.rightside.Manager.goToPage;
 import static com.example.rightside.Manager.requests;
+import static com.example.rightside.Manager.stack;
+import static com.example.rightside.Manager.userRequestPage;
 import static com.example.rightside.Manager.viewRequestPage;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,8 +22,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -57,16 +56,19 @@ public class ModifyMentalConsultation extends Fragment {
     ListView attachmentList;
     Spinner spinnerReasonConsultation;
     Spinner spinnerDesiredOutcome;
-    RadioGroup preferredConsultation;
+    RadioGroup preferredConsultationRB;
     RadioButton inPerson;
     RadioButton phoneCall;
     RadioButton videoCall;
     RadioButton textChat;
-    RadioGroup urgency;
+    RadioGroup urgencyRB;
     RadioButton urgent;
     RadioButton nonUrgent;
     Button submitButton;
     String selectedText;
+    String selectedText2;
+    View view;
+    Button buttonDelete;
 
     public ModifyMentalConsultation() {
         // Required empty public constructor
@@ -113,23 +115,15 @@ public class ModifyMentalConsultation extends Fragment {
         dateTV = view.findViewById(R.id.ETpreferredDateMental);
         timeTV = view.findViewById(R.id.ETpreferredTimeMental);
         descriptionTV = view.findViewById(R.id.editTextDescribeMental);
+        this.view = view;
+        preferredConsultationRB = view.findViewById(R.id.RadioGroupPreferredConsultation);
+        urgencyRB = view.findViewById(R.id.RadioGroupUrgency);
 
-        preferredConsultation = view.findViewById(R.id.RadioGroupPreferredConsultation);
-        int checkedRadioButtonId = preferredConsultation.getCheckedRadioButtonId();
-            if (checkedRadioButtonId != -1) {
-                RadioButton checkedRadioButton = view.findViewById(checkedRadioButtonId);
-                selectedText = checkedRadioButton.getText().toString();
-            }
 
-        urgency = view.findViewById(R.id.RadioGroupUrgency);
-            int checkedRadioButton2 = urgency.getCheckedRadioButtonId();
-            if (checkedRadioButtonId != -1) {
-
-            }
         inPerson = view.findViewById(R.id.buttonInPersonMental);
         phoneCall = view.findViewById(R.id.buttonPhoneCallMental);
         videoCall = view.findViewById(R.id.buttonVideoCallMental);
-        textChat = view.findViewById(R.id.buttonVideoCallMental);
+        textChat = view.findViewById(R.id.buttonTextChatMental);
         urgent = view.findViewById(R.id.buttonUrgentMental);
         nonUrgent = view.findViewById(R.id.buttonNonUrgentMental);
 
@@ -157,9 +151,27 @@ public class ModifyMentalConsultation extends Fragment {
             public void onClick(View v) {
                 showTimePicker(timeTV);
             }
+
         });
 
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (int i = 0; i < requests.size(); i++) {
+                    if (ViewRequestPage.requestId == requests.get(i).requestId) {
+                        requests.remove(i);
+                        db.deleteDocument("Requests", Integer.toString(ViewRequestPage.requestId));
+
+                        goToPage(userRequestPage, getParentFragmentManager());
+                        stack.removeFirst();
+                        stack.removeFirst();
+                        stack.removeFirst();
+                    }
+                }
+            }
+        });
     }
+
 
     private void showTimePicker(TextView timeTextView) {
         // Get the current time
@@ -253,7 +265,7 @@ public class ModifyMentalConsultation extends Fragment {
                 r = requests.get(i);
             }
         }
-        final Request request = r;
+        final Request request = r; //request is object
         dateTV.setText(request.date);
         timeTV.setText(request.time);
         descriptionTV.setText(request.description);
@@ -307,11 +319,42 @@ public class ModifyMentalConsultation extends Fragment {
                 request.desiredOutcome = spinnerDesiredOutcome.getSelectedItem().toString();
                 request.date = dateTV.getText().toString();
                 request.time = timeTV.getText().toString();
-                request.method = selectedText; //nnot sure
+
+                int checkedRadioButtonId = preferredConsultationRB.getCheckedRadioButtonId();
+                if (checkedRadioButtonId != -1) {
+                    RadioButton checkedRadioButton = view.findViewById(checkedRadioButtonId);
+                    selectedText = checkedRadioButton.getText().toString();
+                }
+
+                int checkedRadioButtonId2 = urgencyRB.getCheckedRadioButtonId();
+                if (checkedRadioButtonId2 != -1) {
+                    RadioButton checkedRadioButton2 = view.findViewById(checkedRadioButtonId2);
+                    selectedText2 = checkedRadioButton2.getText().toString();
+                }
+                request.method = selectedText;
+                request.urgency = selectedText2;
+                request.description = descriptionTV.getText().toString().trim();
+
+                goToPage(viewRequestPage, getParentFragmentManager());
+                stack.removeFirst();
+                stack.removeFirst();
+
+                updateRequest(request);
             }
         });
     }
 
-
+    public void updateRequest (Request request) {
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("date", request.date);
+        data.put("description", request.description);
+        data.put("desired_outcome", request.desiredOutcome);
+        data.put("method", request.method);
+        data.put("reason", request.reason);
+        data.put("status", request.status);
+        data.put("time", request.time);
+        data.put("urgency", request.urgency);
+        db.updateDocument("Requests", Integer.toString(request.requestId), data);
+    }
 }
 

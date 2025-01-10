@@ -165,9 +165,10 @@
                     android:background="@drawable/box_rounded_bordered_white"
                     android:ems="10"
                     android:gravity="center"
+                    android:hint="Date"
                     android:inputType="text"
-                    android:text="19/12/2024"
-                    android:textAlignment="gravity" />
+                    android:textAlignment="gravity"
+                    android:textColor="@color/design_default_color_on_secondary" />
 
                 <TextView
                     android:id="@+id/ETpreferredTimeLegal"
@@ -177,9 +178,10 @@
                     android:background="@drawable/box_rounded_bordered_white"
                     android:ems="10"
                     android:gravity="center"
+                    android:hint="Time"
                     android:inputType="text"
-                    android:text="17:00"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="#000000" />
             </LinearLayout>
 
             <TextView
@@ -202,6 +204,7 @@
                 android:hint="Tell us what is the incident about in details...."
                 android:inputType="text"
                 android:padding="10dp"
+                android:textColor="@color/design_default_color_on_secondary"
                 android:textSize="14dp" />
 
             <TextView

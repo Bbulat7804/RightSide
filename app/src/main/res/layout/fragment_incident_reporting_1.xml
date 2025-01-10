@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkBlue">
+
+
+    <TextView
+        android:id="@+id/textView64"
+        android:layout_width="349dp"
+        android:layout_height="77dp"
+        android:background="@drawable/box_rounded_white"
+        android:fontFamily="@font/roboto_bold"
+        android:paddingLeft="25dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:text="              Racial Discrimination"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textView60"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.932" />
+
+    <TextView
+        android:id="@+id/textView61"
+        android:layout_width="349dp"
+        android:layout_height="77dp"
+        android:background="@drawable/box_rounded_white"
+        android:fontFamily="@font/roboto_bold"
+        android:paddingLeft="25dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:text="              Gender Discrimination"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textView62"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.932"  />
+
+
+
+    <TextView
+        android:id="@+id/textView60"
+        android:layout_width="349dp"
+        android:layout_height="77dp"
+        android:background="@drawable/box_rounded_white"
+        android:fontFamily="@font/roboto_bold"
+        android:paddingLeft="25dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:text="              Health Discrimination"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textView61"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.932" />
+
+    <Button
+        android:id="@+id/button9"
+        android:layout_width="62dp"
+        android:layout_height="48dp"
+        android:backgroundTint="@color/green"
+        android:text="Click"
+        android:textColor="@color/white"
+        android:textSize="6sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView60"
+        app:layout_constraintEnd_toEndOf="@+id/textView60"
+        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintStart_toStartOf="@+id/textView60"
+        app:layout_constraintTop_toTopOf="@+id/textView60"
+        app:layout_constraintVertical_bias="0.222" />
+
+    <TextView
+        android:id="@+id/textView62"
+        android:layout_width="349dp"
+        android:layout_height="77dp"
+        android:background="@drawable/box_rounded_white"
+        android:fontFamily="@font/roboto_bold"
+        android:paddingLeft="25dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:text="              Education Discrimination"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textView63"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.932" />
+
+
+    <Button
+        android:id="@+id/button11"
+        android:layout_width="62dp"
+        android:layout_height="48dp"
+        android:backgroundTint="@color/green"
+        android:text="Click"
+        android:textSize="6sp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/textView62"
+        app:layout_constraintEnd_toEndOf="@+id/textView62"
+        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintStart_toStartOf="@+id/textView62"
+        app:layout_constraintTop_toTopOf="@+id/textView62"
+        app:layout_constraintVertical_bias="0.222" />
+
+    <TextView
+        android:id="@+id/textView69"
+        android:layout_width="195dp"
+        android:layout_height="44dp"
+        android:fontFamily="@font/roboto"
+        android:text="Experienced inequality due to you gender? Let;s make sure your story is heard."
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView61"
+        app:layout_constraintEnd_toEndOf="@+id/textView60"
+        app:layout_constraintHorizontal_bias="0.542"
+        app:layout_constraintStart_toStartOf="@+id/textView61"
+        app:layout_constraintTop_toTopOf="@+id/textView61"
+        app:layout_constraintVertical_bias="1.0" />
+
+
+    <TextView
+        android:id="@+id/textView63"
+        android:layout_width="349dp"
+        android:layout_height="77dp"
+        android:background="@drawable/box_rounded_white"
+        android:fontFamily="@font/roboto_bold"
+        android:paddingLeft="25dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:text="              Income Discrimination"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.612"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.911" />
+
+    <TextView
+        android:id="@+id/textView71"
+        android:layout_width="195dp"
+        android:layout_height="44dp"
+        android:fontFamily="@font/roboto"
+        android:text="Denied opportunities beacuse of your education? Share your story-we're here to listen."
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView60"
+        app:layout_constraintEnd_toEndOf="@+id/textView60"
+        app:layout_constraintHorizontal_bias="0.542"
+        app:layout_constraintStart_toStartOf="@+id/textView60"
+        app:layout_constraintTop_toTopOf="@+id/textView60"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView58"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:text="What Happened?"
+        android:textColor="@color/white"
+
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.144"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.081" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/imageView27"
+        android:layout_width="68dp"
+        android:layout_height="62dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView64"
+    app:layout_constraintEnd_toEndOf="@+id/textView64"
+    app:layout_constraintHorizontal_bias="0.035"
+    app:layout_constraintStart_toStartOf="@+id/textView64"
+    app:layout_constraintTop_toTopOf="@+id/textView64"
+    app:layout_constraintVertical_bias="0.466"
+    app:srcCompat="@drawable/racial" />
+
+    <ImageView
+        android:id="@+id/imageView28"
+        android:layout_width="68dp"
+        android:layout_height="62dp"
+        app:srcCompat="@drawable/health"
+        app:layout_constraintBottom_toBottomOf="@+id/textView60"
+        app:layout_constraintEnd_toEndOf="@+id/textView60"
+        app:layout_constraintHorizontal_bias="0.035"
+        app:layout_constraintStart_toStartOf="@+id/textView60"
+        app:layout_constraintTop_toTopOf="@+id/textView60"
+        app:layout_constraintVertical_bias="0.466" />
+
+    <ImageView
+        android:id="@+id/imageView29"
+        android:layout_width="68dp"
+        android:layout_height="62dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView61"
+        app:layout_constraintEnd_toEndOf="@+id/textView61"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toStartOf="@+id/textView61"
+        app:layout_constraintTop_toTopOf="@+id/textView61"
+        app:layout_constraintVertical_bias="0.4"
+        app:srcCompat="@drawable/gender" />
+
+    <ImageView
+        android:id="@+id/imageView31"
+        android:layout_width="68dp"
+        android:layout_height="62dp"
+        app:srcCompat="@drawable/education"
+        app:layout_constraintBottom_toBottomOf="@+id/textView62"
+        app:layout_constraintEnd_toEndOf="@+id/textView62"
+        app:layout_constraintHorizontal_bias="0.035"
+        app:layout_constraintStart_toStartOf="@+id/textView62"
+        app:layout_constraintTop_toTopOf="@+id/textView62"
+        app:layout_constraintVertical_bias="0.466" />
+
+    <ImageView
+        android:id="@+id/imageView32"
+        android:layout_width="68dp"
+        android:layout_height="62dp"
+        app:srcCompat="@drawable/income"
+        app:layout_constraintBottom_toBottomOf="@+id/textView63"
+        app:layout_constraintEnd_toEndOf="@+id/textView63"
+        app:layout_constraintHorizontal_bias="0.035"
+        app:layout_constraintStart_toStartOf="@+id/textView63"
+        app:layout_constraintTop_toTopOf="@+id/textView63"
+        app:layout_constraintVertical_bias="0.466" />
+
+    <TextView
+        android:id="@+id/textView65"
+        android:layout_width="195dp"
+        android:layout_height="44dp"
+        android:fontFamily="@font/roboto"
+        android:text="Facing challenges because of health issues? Your voice matters-tell us what's happening."
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView62"
+        app:layout_constraintEnd_toEndOf="@+id/textView62"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/textView62"
+        app:layout_constraintTop_toTopOf="@+id/textView62"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView67"
+        android:layout_width="195dp"
+        android:layout_height="44dp"
+        android:fontFamily="@font/roboto"
+        android:text="Treated unfairly because of ypur income level? Let's report it and make change happen. "
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView63"
+        app:layout_constraintEnd_toEndOf="@+id/textView63"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/textView63"
+        app:layout_constraintTop_toTopOf="@+id/textView63"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView66"
+        android:layout_width="195dp"
+        android:layout_height="44dp"
+        android:fontFamily="@font/roboto"
+        android:text="Have you faced bias based on your race? Let's work together to bring fairness to light."
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView64"
+        app:layout_constraintEnd_toEndOf="@+id/textView64"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="@+id/textView64"
+        app:layout_constraintTop_toTopOf="@+id/textView64"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/button8"
+        android:layout_width="62dp"
+        android:layout_height="48dp"
+        android:backgroundTint="@color/green"
+        android:text="Click"
+        android:textSize="6sp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/textView63"
+        app:layout_constraintEnd_toEndOf="@+id/textView63"
+        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintStart_toStartOf="@+id/textView63"
+        app:layout_constraintTop_toTopOf="@+id/textView63"
+        app:layout_constraintVertical_bias="0.222"  />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="62dp"
+        android:layout_height="48dp"
+        android:backgroundTint="@color/green"
+        android:text="Click"
+        android:textSize="6sp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/textView64"
+        app:layout_constraintEnd_toEndOf="@+id/textView64"
+        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintStart_toStartOf="@+id/textView64"
+        app:layout_constraintTop_toTopOf="@+id/textView64"
+        app:layout_constraintVertical_bias="0.222" />
+
+    <Button
+        android:id="@+id/button10"
+        android:layout_width="62dp"
+        android:layout_height="48dp"
+        android:backgroundTint="@color/green"
+        android:text="Click"
+        android:textSize="6sp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/textView61"
+        app:layout_constraintEnd_toEndOf="@+id/textView61"
+        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintStart_toStartOf="@+id/textView61"
+        app:layout_constraintTop_toTopOf="@+id/textView61"
+        app:layout_constraintVertical_bias="0.222" />
+
+
+    <ImageView
+        android:id="@+id/imageView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.081"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.172"
+        app:srcCompat="@drawable/progressbarstart" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

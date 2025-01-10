@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,17 +20,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 public class LoginPage extends AppCompatActivity {
     boolean hide = true;
@@ -132,6 +122,7 @@ public class LoginPage extends AppCompatActivity {
             }
         });
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void fetchUserData(String userId, String loginType){
         db.getDocument(USERLIBRARY,userId).addOnSuccessListener(document ->{
             if (document.exists()) {
@@ -146,12 +137,14 @@ public class LoginPage extends AppCompatActivity {
                 String password = document.getString("password");
                 String profilePhotoUrl = document.getString("profile_photo_url");
                 String supportGroupNo = document.getString("support_group_no");
-
-                Manager.currentUser = new User(name,Integer.parseInt(userId),username,email,Integer.parseInt(reportNo),stressLevel,Integer.parseInt(eventNo),phoneNo,Integer.parseInt(adminId),password,profilePhotoUrl,Integer.parseInt(supportGroupNo));
+                String stressScore = document.getString("stress_score");
+                Manager.currentUser = new User(name,Integer.parseInt(userId),username,email,Integer.parseInt(reportNo),stressLevel,Integer.parseInt(eventNo),phoneNo,Integer.parseInt(adminId),password,profilePhotoUrl,Integer.parseInt(supportGroupNo), Integer.parseInt(stressScore));
                 if(loginType.equals(USER)) {
                     fetchRequest(currentUser.userId, "user_id");
                     fetchArticle();
                     fetchEvents();
+                    fetchSupportGroup();
+                    fetchReports(currentUser.userId, "user_id");
                     login(loginType);
                 }
                 else{
@@ -161,15 +154,52 @@ public class LoginPage extends AppCompatActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void fetchAdminData(String loginType){
         db.getDocument("Admins",Integer.toString(currentUser.adminId)).addOnSuccessListener(document ->{
             if (document.exists()) {
                 int requestManaged = Integer.parseInt(document.getString("request_managed"));
-                currentAdmin = new Admin(currentUser.name, currentUser.userId, currentUser.username, currentUser.email, currentUser.reportNo, currentUser.stressLevel, currentUser.eventsNo, currentUser.phoneNo, currentUser.adminId, currentUser.password, currentUser.profilePhotoUrl, currentUser.supportGroupNo, requestManaged);
+                currentAdmin = new Admin(currentUser.name, currentUser.userId, currentUser.username, currentUser.email, currentUser.reportNo, currentUser.stressLevel, currentUser.eventsNo, currentUser.phoneNo, currentUser.adminId, currentUser.password, currentUser.profilePhotoUrl, currentUser.supportGroupNo, requestManaged, currentUser.stressScore);
                 fetchArticle();
                 fetchEvents();
+                fetchSupportGroup();
                 fetchRequest(currentAdmin.adminId, "admin_id");
+                fetchReports(currentUser.userId, "user_id");
                 login(loginType);
+            }
+        });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void fetchReports(int id, String idType){
+        reports.clear();
+        db.getCollection("Reports").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot snapshot = task.getResult();
+                if (snapshot != null) {
+                    for (QueryDocumentSnapshot document : snapshot) {
+                        latestReportIndex = latestReportIndex < Integer.parseInt(document.getId()) ? Integer.parseInt(document.getId()) : latestReportIndex;
+                        if (id == Integer.parseInt(document.getString(idType))){
+                            int userId = Integer.parseInt((String) document.get("user_id"));
+                            int adminId = Integer.parseInt((String) document.get("admin_id"));
+                            String discriminationType = (String) document.get("discrimination_type");
+                            String location = (String) document.get("location");
+                            Date date = stringToDate(document.getString("date"));
+                            String description = (String) document.get("description");
+                            String phoneNumber = (String) document.get("phone_number");
+                            String email = (String) document.get("email");
+                            String witness = (String) document.get("witness");
+                            String extraInfo = (String) document.get("extra_info");
+                            String personInvolved = (String) document.get("person_involved");
+                            String injury = (String) document.get("injury");
+                            boolean isAnonymous = Boolean.parseBoolean(document.get("is_anonymous").toString());
+                        }
+                    }
+                } else {
+                    System.out.println("No documents found in the collection.");
+                }
+            } else {
+                System.err.println("Error fetching documents: " + task.getException());
             }
         });
     }
@@ -181,7 +211,7 @@ public class LoginPage extends AppCompatActivity {
                 QuerySnapshot snapshot = task.getResult();
                 if (snapshot != null) {
                     for (QueryDocumentSnapshot document : snapshot) {
-                        latestRequestIndex = Integer.parseInt(document.getId());
+                        latestRequestIndex = latestRequestIndex < Integer.parseInt(document.getId()) ? Integer.parseInt(document.getId()) : latestRequestIndex;
                         //kena cek whether user or admin because kalau user kita display request tapi admin tunjuk request yg dia manage
                         if (id == Integer.parseInt(document.getString(idType))){ //jadikan variable sbb nak dua2 type of user (user and admin sbb kalau admin masuk and kita amik
                             //as current user id, jadi mcm display request of the admin je but cannot manage the reqs
@@ -218,7 +248,7 @@ public class LoginPage extends AppCompatActivity {
                 QuerySnapshot snapshot = task.getResult();
                 if (snapshot != null) {
                     for (QueryDocumentSnapshot document : snapshot) {
-                        latestArticleIndex = Integer.parseInt(document.getId());
+                        latestArticleIndex = latestArticleIndex < Integer.parseInt(document.getId()) ? Integer.parseInt(document.getId()) : latestArticleIndex;
                         articles.add(new Article(Integer.parseInt(document.getId()),document.getString("article_url"), document.getString("caption"), document.getString("image_url"), document.getString("author"), document.getString("date"), document.getString("type")));
                     }
                 } else {
@@ -274,11 +304,35 @@ public class LoginPage extends AppCompatActivity {
         });
     }
 
+    private void fetchSupportGroup(){
+        supportGroups.clear();
+        db.getCollection("Support Groups").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot snapshot = task.getResult();
+                if (snapshot != null) {
+                    for (QueryDocumentSnapshot document : snapshot) {
+                        latestSupportGroupIndex = latestSupportGroupIndex < Integer.parseInt(document.getId()) ? Integer.parseInt(document.getId()) : latestSupportGroupIndex;
+                        ArrayList<String> temp = (ArrayList<String>) document.get("participants_id");
+                        ArrayList<Integer> participantsId = new ArrayList();
+                        for(int i=0 ; i<temp.size() ; i++){
+                            participantsId.add(Integer.parseInt(temp.get(i)));
+                        }
+                        supportGroups.add(new SupportGroup(document.getString("name"), document.getString("description"), Integer.parseInt(document.getId()), document.getString("icon_url"), participantsId));
+                    }
+                } else {
+                    System.out.println("No documents found in the collection.");
+                }
+            } else {
+                System.err.println("Error fetching documents: " + task.getException());
+            }
+        });
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
-        emailInput.setText("hazimnidzam@gmail.com");
-        passwordInput.setText("1234");
+        emailInput.setText("Afzan@gmail.com");
+        passwordInput.setText("SayaAdmin");
     }
 
     @Override

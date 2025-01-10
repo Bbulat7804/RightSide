@@ -16,8 +16,9 @@ public class User {
     String password;
     String profilePhotoUrl;
     int supportGroupNo;
+    int stressScore;
 
-    public User(String name, int userId, String username, String email, int reportNo, String stressLevel, int eventsNo, String phoneNo, int adminId, String password, String profilePhotoUrl, int supportGroupNo) {
+    public User(String name, int userId, String username, String email, int reportNo, String stressLevel, int eventsNo, String phoneNo, int adminId, String password, String profilePhotoUrl, int supportGroupNo, int stressScore) {
         this.name = name;
         this.userId = userId;
         this.username = username;
@@ -30,6 +31,7 @@ public class User {
         this.password = password;
         this.profilePhotoUrl = profilePhotoUrl;
         this.supportGroupNo = supportGroupNo;
+        this.stressScore = stressScore;
     }
 
 

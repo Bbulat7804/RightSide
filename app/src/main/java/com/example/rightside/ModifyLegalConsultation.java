@@ -1,5 +1,12 @@
 package com.example.rightside;
 
+import static com.example.rightside.Manager.db;
+import static com.example.rightside.Manager.goToPage;
+import static com.example.rightside.Manager.requests;
+import static com.example.rightside.Manager.stack;
+import static com.example.rightside.Manager.userRequestPage;
+import static com.example.rightside.Manager.viewRequestPage;
+
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -13,12 +20,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
+import java.util.HashMap;
+
+import javax.xml.transform.Result;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +49,26 @@ public class ModifyLegalConsultation extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    Button submitButton;
+    TextView dateTV;
+    TextView timeTV;
+    TextView descriptionTV;
+    Spinner spinnerReasonConsultation;
+    Spinner spinnerDesiredOutcome;
+    RadioButton inPerson;
+    RadioButton phoneCall;
+    RadioButton videoCall;
+    RadioButton textChat;
+    RadioGroup urgencyRB;
+    RadioButton urgent;
+    RadioButton nonUrgent;
+    RadioGroup preferredConsultationRB;
+    String selectedText2;
+    String selectedText;
+    View view;
+    Button buttonDelete;
+
 
     public ModifyLegalConsultation() {
         // Required empty public constructor
@@ -78,18 +112,34 @@ public class ModifyLegalConsultation extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Spinner spinnerReasonConsultation = view.findViewById(R.id.LegalConsultationReasonSpinner);
+        inPerson = view.findViewById(R.id.buttonInPersonLegal);
+        phoneCall = view.findViewById(R.id.buttonPhoneCallLegal);
+        videoCall = view.findViewById(R.id.buttonVideoCallLegal);
+        textChat = view.findViewById(R.id.buttonTextChatLegal);
+        urgent = view.findViewById(R.id.buttonUrgentLegal);
+        nonUrgent = view.findViewById(R.id.buttonNonUrgentLegal);
+        buttonDelete = view.findViewById(R.id.buttonCancelRequestLegal);
+
+        dateTV = view.findViewById(R.id.ETpreferredDateLegal);
+        timeTV = view.findViewById(R.id.ETpreferredTimeLegal);
+        descriptionTV = view.findViewById(R.id.editTextDescribeLegal);
+        this.view = view;
+        preferredConsultationRB = view.findViewById(R.id.RadioGroupPreferredConsultation);
+        urgencyRB = view.findViewById(R.id.RadioGroupUrgency);
+
+        spinnerReasonConsultation = view.findViewById(R.id.LegalConsultationReasonSpinner);
         ArrayAdapter<CharSequence> reasonConsultationAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.LegalConsultationReason, R.layout.layout_spinner);
         spinnerReasonConsultation.setAdapter(reasonConsultationAdapter);
 
-        Spinner spinnerDesiredOutcome = view.findViewById(R.id.LegalDesiredOutcomeSpinner);
+        spinnerDesiredOutcome = view.findViewById(R.id.LegalDesiredOutcomeSpinner);
         ArrayAdapter<CharSequence> desiredOutcomeAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.LegalDesiredOutcome, R.layout.layout_spinner);
         spinnerDesiredOutcome.setAdapter(desiredOutcomeAdapter);
+
 
         TextView dateButton = view.findViewById(R.id.ETpreferredDateLegal);
         DatePickerDialog datePickerDialog = initializeDatePicker(dateButton);
         TextView timeButton = view.findViewById(R.id.ETpreferredTimeLegal);
-
+        submitButton = view.findViewById(R.id.buttonSubmitLegalForm);
         timeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,10 +150,125 @@ public class ModifyLegalConsultation extends Fragment {
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDatePicker(datePickerDialog);
+
             }
         });
 
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (int i = 0; i < requests.size(); i++) {
+                    if (ViewRequestPage.requestId == requests.get(i).requestId) {
+                        requests.remove(i);
+                        db.deleteDocument("Requests", Integer.toString(ViewRequestPage.requestId));
+                    }
+                }
+                goToPage(userRequestPage, getParentFragmentManager());
+                stack.removeFirst();
+                stack.removeFirst();
+                stack.removeFirst();
+            }
+        });
+    }
+
+
+
+    @Override
+    //this method is called when the fragment become visible to user
+    public void onResume() {
+        super.onResume();
+        Request r = null;
+        for (int i = 0; i < requests.size(); i++) {
+            if (ViewRequestPage.requestId == requests.get(i).requestId) {
+                r = requests.get(i);
+            }
+        }
+
+        final Request request = r;
+        SpinnerAdapter spinnerAdapter = spinnerReasonConsultation.getAdapter();
+        for (int i = 0; i < spinnerAdapter.getCount(); i++) {
+            if (spinnerAdapter.getItem(i).equals(request.reason)) {
+                spinnerReasonConsultation.setSelection(i);
+                break;
+            }
+        }
+        SpinnerAdapter spinnerAdapter1 = spinnerDesiredOutcome.getAdapter();
+        for (int i = 0; i < spinnerAdapter1.getCount(); i++) {
+            if (spinnerAdapter1.getItem(i).equals(request.desiredOutcome)) {
+                spinnerDesiredOutcome.setSelection(i);
+                break;
+            }
+        }
+        switch (request.method) {
+            case "In-Person":
+                inPerson.setChecked(true);
+                break;
+            case "Phone Call":
+                phoneCall.setChecked(true);
+                break;
+            case "Video Call":
+                videoCall.setChecked(true);
+                break;
+            case "Text Chat":
+                textChat.setChecked(true);
+                break;
+            default:
+                break;
+        }
+
+        if (request.urgency.equals("Urgent")) {
+            urgent.setChecked(true);
+        } else
+            nonUrgent.setChecked(true);
+
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                request.reason = spinnerReasonConsultation.getSelectedItem().toString();
+                request.desiredOutcome = spinnerDesiredOutcome.getSelectedItem().toString();
+                request.date = dateTV.getText().toString();
+                request.time = timeTV.getText().toString();
+
+                int checkedRadioButtonId = preferredConsultationRB.getCheckedRadioButtonId();
+                if (checkedRadioButtonId != -1) {
+                    RadioButton checkedRadioButton = view.findViewById(checkedRadioButtonId);
+                    selectedText = checkedRadioButton.getText().toString();
+                }
+
+                int checkedRadioButtonId2 = urgencyRB.getCheckedRadioButtonId();
+
+                if (checkedRadioButtonId2 != -1) {
+                    RadioButton checkedRadioButton2 = view.findViewById(checkedRadioButtonId2);
+                    selectedText2 = checkedRadioButton2.getText().toString();
+                }
+                request.method = selectedText;
+                request.urgency = selectedText2;
+                request.description = descriptionTV.getText().toString().trim();
+                goToPage(viewRequestPage, getParentFragmentManager());
+                stack.removeFirst();
+                stack.removeFirst();
+
+                updateRequest(request);
+            }
+        });
+        //set data kat object request (ArrayList)
+        dateTV.setText(request.date);
+        timeTV.setText(request.time);
+        descriptionTV.setText(request.description);
+
+    }
+
+    public void updateRequest(Request request) {
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("date", request.date);
+        data.put("description", request.description);
+        data.put("desired_outcome", request.desiredOutcome);
+        data.put("method", request.method);
+        data.put("reason", request.reason);
+        data.put("status", request.status);
+        data.put("time", request.time);
+        data.put("urgency", request.urgency);
+        db.updateDocument("Requests", Integer.toString(request.requestId), data);
     }
 
     private void showTimePicker(TextView timeTextView) {
@@ -113,7 +278,7 @@ public class ModifyLegalConsultation extends Fragment {
         int minute = calendar.get(Calendar.MINUTE);
 
         // Create and show TimePickerDialog
-        TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(),AlertDialog.THEME_HOLO_LIGHT,
+        TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(), AlertDialog.THEME_HOLO_LIGHT,
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -123,13 +288,13 @@ public class ModifyLegalConsultation extends Fragment {
                 }, hour, minute, true); // true for 24-hour format
         timePickerDialog.show();
     }
-
-    public DatePickerDialog initializeDatePicker(TextView dateButton){
+    public DatePickerDialog initializeDatePicker(TextView dateButton) {
+        
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int day) {
                 month = month + 1;
-                String date = makeDateString(day ,month,year);
+                String date = makeDateString(day, month, year);
                 dateButton.setText(date);
             }
         };
@@ -139,15 +304,15 @@ public class ModifyLegalConsultation extends Fragment {
         int month = cal.get(Calendar.MONTH);
         int day = cal.get(Calendar.DAY_OF_MONTH);
         int style = AlertDialog.THEME_HOLO_LIGHT;
-        return new DatePickerDialog(getActivity(),style,dateSetListener,year,month,day);
+        return new DatePickerDialog(getActivity(), style, dateSetListener, year, month, day);
     }
 
-    private String makeDateString(int day, int month, int year){
+    private String makeDateString(int day, int month, int year) {
         return getMonthFormat(month) + " " + day + " " + year;
     }
 
     private String getMonthFormat(int month) {
-        if(month == 1)
+        if (month == 1)
             return "Jan";
         else if (month == 2)
             return "Feb";
@@ -179,12 +344,19 @@ public class ModifyLegalConsultation extends Fragment {
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
-        month = month+1;
+        month = month + 1;
         int day = cal.get(Calendar.DAY_OF_MONTH);
 
-        return makeDateString(day,month,year);
+        return makeDateString(day, month, year);
     }
-    public void openDatePicker(DatePickerDialog datePickerDialog){
+
+    public static void openDatePicker(DatePickerDialog datePickerDialog) {
         datePickerDialog.show();
     }
+
+
 }
+
+
+
+

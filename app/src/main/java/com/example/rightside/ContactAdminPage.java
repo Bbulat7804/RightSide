@@ -7,10 +7,12 @@ import static com.example.rightside.Manager.goToSiblingPage;
 import static com.example.rightside.Manager.viewRequestPage;
 import static com.google.firebase.firestore.DocumentChange.Type.*;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -20,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.firebase.firestore.DocumentChange;
@@ -30,6 +33,8 @@ import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -48,12 +53,13 @@ public class ContactAdminPage extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    int chatIndex = 0;
+    long currentId = 0;
     EditText chatInput;
     LinearLayout chatContainer;
     ListenerRegistration registration;
     public boolean first;
     ArrayList<DocumentSnapshot> textList= new ArrayList();
+    ScrollView chatScroll;
 
     public ContactAdminPage() {
         // Required empty public constructor
@@ -100,8 +106,11 @@ public class ContactAdminPage extends Fragment {
         ImageButton sendTextButton = view.findViewById(R.id.SendTextButton);
         chatInput = view.findViewById(R.id.ChatInput);
         chatContainer = view.findViewById(R.id.ChatLinearLayout);
+        chatScroll =  view.findViewById(R.id.ChatContainer);
+        chatScroll.post(() -> chatScroll.fullScroll(View.FOCUS_DOWN));
 
         sendTextButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 if(chatInput.getText().toString().trim().equals(""))
@@ -124,8 +133,8 @@ public class ContactAdminPage extends Fragment {
         TextView chatText = chat.findViewById(R.id.ChatText);
         chatText.setText(text);
         chatInput.setText("");
-
         chatContainer.addView(chat);
+        chatScroll.post(() -> chatScroll.fullScroll(View.FOCUS_DOWN));
     }
 
     private void receiveText(String text) {
@@ -135,35 +144,33 @@ public class ContactAdminPage extends Fragment {
 
         TextView chatText = chat.findViewById(R.id.ChatText);
         chatText.setText(text);
-        chatInput.setText("");
-
         chatContainer.addView(chat);
+        chatScroll.post(() -> chatScroll.fullScroll(View.FOCUS_DOWN));
     }
 
-    @Override
     public void onResume() {
         super.onResume();
         first = true;
         textList.clear();
         chatContainer.removeAllViews();
-        chatIndex = 0;
-        registration = db.getCollection("ChatRoom" + ViewRequestPage.requestId).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        currentId = 0;
+        registration = db.getCollection("ChatRooms").document("ChatRoom" + ViewRequestPage.requestId).collection("Chats").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                System.out.println("masuk");
                 for (DocumentChange documentChange : value.getDocumentChanges()) {
                     switch (documentChange.getType()) {
                         case ADDED:
                             DocumentSnapshot document = documentChange.getDocument();
+                            System.out.println(document);
                             if(first){
                                 textList.add(document);
                             }
                             else {
-                                if(Integer.parseInt(document.getId())<=chatIndex)
+                                if(Long.parseLong(document.getId())<=currentId)
                                     continue;
-                                chatIndex++;
+                                currentId = Long.parseLong(document.getId());
+                                System.out.println("current ID = " + currentId);
                                 if (document.getString("sender").equals(USER)) {
-                                    System.out.println("haa");
                                     sendText(document.getString("text"));
                                 } else {
                                     receiveText(document.getString("text"));
@@ -186,7 +193,7 @@ public class ContactAdminPage extends Fragment {
                         // Last i elements are already in place
                         for (int j = 0; j < n - 1 - i; j++) {
                             // Compare adjacent elements and swap if needed
-                            if (Integer.parseInt(textList.get(j).getId()) > Integer.parseInt(textList.get(j + 1).getId())) {
+                            if (Long.parseLong(textList.get(j).getId()) > Long.parseLong(textList.get(j + 1).getId())) {
                                 DocumentSnapshot temp = textList.get(j);
                                 textList.set(j, textList.get(j + 1));
                                 textList.set(j + 1, temp);
@@ -194,8 +201,9 @@ public class ContactAdminPage extends Fragment {
                         }
                     }
                     for(int i=0 ; i<textList.size() ; i++){
-                        chatIndex++;
-                        if (textList.get(i).getString("sender").equals(USER)) {
+                        currentId = currentId < Long.parseLong(textList.get(i).getId()) ? Long.parseLong(textList.get(i).getId()) : currentId;
+                        if (textList.get(i).getString("sender").equals(ADMIN)) {
+                            System.out.println("sampai");
                             sendText(textList.get(i).getString("text"));
                         } else {
                             receiveText(textList.get(i).getString("text"));
@@ -207,11 +215,12 @@ public class ContactAdminPage extends Fragment {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void uploadMessage(String text){
-        HashMap<String,String> data = new HashMap<>();
+        HashMap<String,Object> data = new HashMap<>();
         data.put("sender",USER);
         data.put("text", text);
-        db.addDocument("ChatRoom" + ViewRequestPage.requestId, data,Integer.toString(chatIndex+1));
+        db.getCollection("ChatRooms").document("ChatRoom" + ViewRequestPage.requestId).collection("Chats").document(getTimeStamp()).set(data);
     }
 
     @Override
@@ -219,5 +228,11 @@ public class ContactAdminPage extends Fragment {
         super.onStop();
         if(registration!=null)
             registration.remove();
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public String getTimeStamp(){
+        DateTimeFormatter timeStampFormat = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
+        LocalDateTime now = LocalDateTime.now();
+        return now.format(timeStampFormat);
     }
 }
