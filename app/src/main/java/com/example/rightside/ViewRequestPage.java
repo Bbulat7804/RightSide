@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -43,8 +47,9 @@ public class ViewRequestPage extends Fragment {
     TextView dateTV;
     TextView timeTV;
     TextView descriptionTV;
-    ListView attachmentList;
     ImageButton editButton;
+
+    LinearLayout attachmentContainer;
 
     public ViewRequestPage() {
         // Required empty public constructor
@@ -98,8 +103,8 @@ public class ViewRequestPage extends Fragment {
         dateTV = view.findViewById(R.id.ETpreferredDateLegal);
         timeTV = view.findViewById(R.id.ETpreferredTimeLegal);
         descriptionTV = view.findViewById(R.id.TVdescribeRequest);
-        attachmentList = view.findViewById(R.id.attachments);
         editButton = view.findViewById(R.id.editButton);
+        attachmentContainer = view.findViewById(R.id.AttachmentContainer);
 
         contactAdminButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,5 +142,10 @@ public class ViewRequestPage extends Fragment {
                     goToPage(modifyLegalConsultationPage,getParentFragmentManager());
             }
         });
+        attachmentContainer.removeAllViews();
+        for(String path : request.attachmentPaths){
+            db.addAttachmentCard(attachmentContainer,path.split("/")[0] + "/" + path.split("/")[1] + "/", path.split("/")[2],getActivity());
+        }
+
     }
 }

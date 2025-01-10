@@ -244,12 +244,11 @@
                 android:textColor="@color/white"
                 android:textSize="16dp" />
 
-            <ListView
-                android:id="@+id/attachments"
+            <LinearLayout
+                android:id="@+id/AttachmentContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@color/white" />
+                android:orientation="vertical"></LinearLayout>
 
             <TextView
                 android:id="@+id/emptyAttachments"

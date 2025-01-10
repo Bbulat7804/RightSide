@@ -113,7 +113,7 @@ public class ManageRequestPage extends Fragment {
             @Override
             public void onClick(View v) {
                 ViewRequestAdminPage.requestId = id;
-                goToPage(viewRequestAdminPage,getParentFragmentManager());
+                goToPage(Manager.viewRequestAdminPage,getParentFragmentManager());
             }
         });
 
