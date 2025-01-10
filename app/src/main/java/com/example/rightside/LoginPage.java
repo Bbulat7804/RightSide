@@ -133,14 +133,14 @@ public class LoginPage extends AppCompatActivity {
                     for (QueryDocumentSnapshot document : snapshot) {
                         if(password.equals(document.getString("password")) && email.equals(document.getString("email"))) {
                             if(loginType.equals(Manager.ADMIN) && document.getString("admin_id").equals("0")) {
-                                Toast.makeText(LoginPage.this, "You are not an admin", Toast.LENGTH_SHORT).show();;
+                                Toast.makeText(LoginPage.this, "You are not an admin", Toast.LENGTH_SHORT).show();
                                 return;
                             }
                             fetchUserData(document.getId(),loginType);
+                            return;
                         }
-                        else
-                            Toast.makeText(LoginPage.this, "incorrect password or email", Toast.LENGTH_SHORT).show();
                     }
+                    Toast.makeText(LoginPage.this, "incorrect password or email", Toast.LENGTH_SHORT).show();
                 } else {
                     System.out.println("No documents found in the collection.");
                 }

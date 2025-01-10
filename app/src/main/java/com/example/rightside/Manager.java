@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -122,5 +123,14 @@ public class Manager {
             e.printStackTrace();
         }
         return date;
+    }
+
+    public static boolean isValidURL(String urlString){
+        try {
+            new URL(urlString).toURI(); // Converts to URI to ensure stricter validation
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
