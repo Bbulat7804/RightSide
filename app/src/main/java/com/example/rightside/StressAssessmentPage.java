@@ -4,6 +4,7 @@ import static com.example.rightside.Manager.currentUser;
 import static com.example.rightside.Manager.goToPage;
 import static com.example.rightside.Manager.stressTestPage;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,11 +14,19 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.api.Distribution;
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
+
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,6 +69,9 @@ import com.google.api.Distribution;
     TextView normalNumTextView;
     TextView stressLevelTextView;
 
+    PieChart semiCircleChart;
+
+
     public StressAssessmentPage() {
         // Required empty public constructor
     }
@@ -94,10 +106,10 @@ import com.google.api.Distribution;
         super.onViewCreated(view, savedInstanceState);
 
         LinearLayout getStressScoreButton = view.findViewById(R.id.StressButton);
-        scoreTextView = view.findViewById(R.id.score_TV);
         levelTextView = view.findViewById(R.id.levelTV);
         normalNumTextView = view.findViewById(R.id.normalNumTV);
         stressLevelTextView = view.findViewById(R.id.stressLevelTV);
+        semiCircleChart = view.findViewById(R.id.semiCircleChart);
 
         // Display the passed data
 
@@ -111,12 +123,59 @@ import com.google.api.Distribution;
             }
         });
 
+        setupSemiCircleChart();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        scoreTextView.setText(currentUser.stressScore + "");
         levelTextView.setText(currentUser.stressLevel);
+        updateSemiCircleChart(currentUser.stressScore);
     }
-}
+
+    private void setupSemiCircleChart() {
+        semiCircleChart.setUsePercentValues(true);
+        semiCircleChart.setDrawHoleEnabled(true);
+        semiCircleChart.setHoleRadius(80f);
+        semiCircleChart.setTransparentCircleRadius(85f);
+        semiCircleChart.setRotationEnabled(false);
+        semiCircleChart.setRotationAngle(180f);
+        semiCircleChart.setDrawEntryLabels(false);
+
+        Description description = new Description();
+        description.setText("");
+        semiCircleChart.setDescription(description);
+        semiCircleChart.setMaxAngle(180f); // Half pie chart
+        semiCircleChart.setRotationAngle(180f);
+        semiCircleChart.getLegend().setEnabled(false); // Disable legend
+    }
+
+    private void updateSemiCircleChart(int score) {
+        ArrayList<PieEntry> entries = new ArrayList<>();
+        entries.add(new PieEntry(score));
+        entries.add(new PieEntry(40 - score));
+
+        PieDataSet dataSet = new PieDataSet(entries, "");
+
+        // Set colors based on score range
+        if (score <= 13) {
+            dataSet.setColors(Color.GREEN, Color.LTGRAY);
+        } else if (score <= 26) {
+            dataSet.setColors(Color.YELLOW, Color.LTGRAY);
+        } else {
+            dataSet.setColors(Color.RED, Color.LTGRAY);
+        }
+
+        dataSet.setDrawValues(false); // Disable value labels
+
+        PieData data = new PieData(dataSet);
+        semiCircleChart.setData(data);
+        semiCircleChart.setCenterText(String.valueOf(score)); // Set score in center
+        semiCircleChart.setCenterTextSize(24f);
+        semiCircleChart.setCenterTextColor(Color.BLACK);
+        semiCircleChart.setCenterTextTypeface(android.graphics.Typeface.create("roboto", android.graphics.Typeface.BOLD));
+        semiCircleChart.invalidate(); // Refresh chart
+        semiCircleChart.animateY(1000, Easing.EaseInOutCubic);
+    }
+    }
+
