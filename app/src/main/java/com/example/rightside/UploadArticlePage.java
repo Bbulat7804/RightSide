@@ -24,7 +24,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.net.URL;
 import java.util.Calendar;
 import java.util.HashMap;
 
@@ -119,7 +121,20 @@ public class UploadArticlePage extends Fragment {
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Article article = new Article(latestArticleIndex+1, urlInput.getText().toString().trim(), captionInput.getText().toString().trim(),getIconPath(), authorInput.getText().toString().trim(), dateButton.getText().toString().trim(), articleTypeSpinner.getSelectedItem().toString().trim());
+                String url = urlInput.getText().toString().trim();
+                String caption = captionInput.getText().toString().trim();
+                String author = authorInput.getText().toString().trim();
+                String date = dateButton.getText().toString().trim();
+                String articleType =  articleTypeSpinner.getSelectedItem().toString().trim();
+                if(url.equals("") || caption.equals("") || url.equals("") || author.equals("")){
+                    Toast.makeText(getActivity(),"Fill in all details", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(!isValidURL(url)){
+                    Toast.makeText(getActivity(),"URL is not valid", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Article article = new Article(latestArticleIndex+1, url, caption,getIconPath(), author, date,articleType);
                 latestArticleIndex++;
                 articles.add(article);
                 uploadArticleToFirestore(article);
@@ -242,4 +257,6 @@ public class UploadArticlePage extends Fragment {
 
         db.addDocument("Articles", data, Integer.toString(article.id));
     }
+
+
 }

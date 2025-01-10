@@ -1,6 +1,8 @@
 
 package com.example.rightside;
 
+import static android.app.Activity.RESULT_OK;
+import static com.example.rightside.Manager.PICK_IMAGE_REQUEST;
 import static com.example.rightside.Manager.currentUser;
 import static com.example.rightside.Manager.goToPage;
 import static com.example.rightside.Manager.latestRequestIndex;
@@ -11,6 +13,8 @@ import static com.example.rightside.Manager.userRequestPage;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -169,6 +173,23 @@ public class LegalConsultationForm extends Fragment {
         });
     }
 
+    private void openFileChooser() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("*/*");
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
+            Uri imageUri = data.getData();
+            if (imageUri != null) {
+                db.uploadImageToFirebase(imageUri,getIconPath(),imageUploadButton,getContext());  // Call the upload function
+            }
+        }
+    }
+
     public void uploadRequest(Request request) {
         //upload into fireStore wajib guna HashMap
         HashMap<String, Object> data = new HashMap<>();
@@ -207,7 +228,6 @@ public class LegalConsultationForm extends Fragment {
         timePickerDialog.show();
     }
     public DatePickerDialog initializeDatePicker(TextView dateButton) {
-
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int day) {

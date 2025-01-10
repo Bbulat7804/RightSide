@@ -9,8 +9,11 @@ import static java.security.AccessController.getContext;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -29,6 +33,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class DatabaseConnection {
@@ -129,4 +135,30 @@ public class DatabaseConnection {
         StorageReference sf = storageReference.child(path);
         sf.delete();
     }
+
+//    public void uploadFileToDatabase(Uri fileUri, String path, LinearLayout container, Context context, ArrayList<String> paths){
+//        StorageReference fileReference = storageReference.child(path);
+//
+//        // Upload the file to Firebase Storage
+//        fileReference.putFile(fileUri)
+//                .addOnSuccessListener(taskSnapshot -> {
+//                    // Get the download URL after successful upload
+//                    fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
+//                        paths.add(path);
+//                        String name = path.split("/")[2];
+//                        addAttachmentCard(container, name, context);
+//                    });
+//                })
+//                .addOnFailureListener(e -> {
+//                    System.out.println("Upload failed: " + e.getMessage());
+//                });
+//    }
+//
+//    public void addAttachmentCard(LinearLayout container, String name, Context context){
+//        View card = LayoutInflater.from(context).inflate(R.layout.,container, false);
+//        TextView textView = card.findViewById(R.id.);
+//        textView.setText(name);
+//
+//        container.addView(card);
+//    }
 }
