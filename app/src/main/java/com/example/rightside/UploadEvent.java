@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -218,7 +219,7 @@ public class UploadEvent extends Fragment {
 
 
     public void uploadArticleToFirestore(Event event){
-        HashMap<String,String> data = new HashMap();
+        Map<String, Object> data = new HashMap();
         data.put("event_url", event.url);
         data.put("title", event.title);
         data.put("description", event.description);

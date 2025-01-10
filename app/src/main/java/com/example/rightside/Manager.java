@@ -73,9 +73,7 @@ public class Manager {
     public static ArrayList<Request> requests = new ArrayList<>();
     public static SimpleDateFormat dateFormat = new SimpleDateFormat("dd MM yyyy");
     public static ArrayList<SupportGroup> supportGroups = new ArrayList<>();
-    public static ArrayList<Article> articles = new ArrayList<>();
-    public static ArrayList<Report> reports = new ArrayList<>();
-    public static LinkedList<Fragment> stack = new LinkedList();
+        public static ArrayList<Report> reports = new ArrayList<>();
 
 
     public static void goToPage(Fragment fragment, FragmentManager fm){
