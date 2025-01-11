@@ -22,32 +22,22 @@
             android:textColor="@color/white"
             android:textSize="30sp" />
 
-        <ListView
+        <LinearLayout
+            android:id="@+id/legalDocumentContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="15dp"
-            android:background="@color/white"
-            android:paddingEnd="24dp">
-
-        </ListView>
-
-        <TextView
-            android:id="@+id/emptyAttachments2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto"
-            android:text="No file found"
-            android:textColor="@color/white"
-            android:visibility="gone" />
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical"></LinearLayout>
 
         <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
+            android:id="@+id/buttonAdd"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
             android:backgroundTint="@color/blue"
             android:fontFamily="@font/roboto_bold"
-            android:text="Upload"
+            android:text="Add"
             android:textColor="@color/white" />
 
     </LinearLayout>

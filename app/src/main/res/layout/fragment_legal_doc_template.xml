@@ -21,16 +21,12 @@
             android:textColor="@color/white"
             android:textSize="30sp" />
 
-        <ListView
+        <LinearLayout
+            android:id="@+id/documentContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="15dp"
-            android:background="@color/white"
-            android:paddingEnd="24dp">
-
-        </ListView>
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"></LinearLayout>
 
         <TextView
             android:id="@+id/emptyAttachments2"

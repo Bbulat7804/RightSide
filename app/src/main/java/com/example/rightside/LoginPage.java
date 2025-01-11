@@ -149,6 +149,16 @@ public class LoginPage extends AppCompatActivity {
             }
         });
     }
+
+    public void fetchDocumentTemplate() {
+        documentPaths.clear();
+        db.getDocument("Document Template","1").addOnSuccessListener(document ->{
+            if (document.exists()) {
+                documentPaths.addAll(   (ArrayList<String>)   document.get("paths")      );
+            }
+        });
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void fetchUserData(String userId, String loginType){
         db.getDocument(USERLIBRARY,userId).addOnSuccessListener(document ->{
@@ -173,6 +183,7 @@ public class LoginPage extends AppCompatActivity {
                     fetchSupportGroup();
                     fetchUsers();
                     fetchReports();
+                    fetchDocumentTemplate();
                     login(loginType);
                 }
                 else{
@@ -194,6 +205,7 @@ public class LoginPage extends AppCompatActivity {
                 fetchUsers();
                 fetchRequest(currentAdmin.adminId, "admin_id");
                 fetchReports();
+                fetchDocumentTemplate();
                 login(loginType);
             }
         });

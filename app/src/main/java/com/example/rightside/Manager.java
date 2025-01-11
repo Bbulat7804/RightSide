@@ -80,7 +80,7 @@ public class Manager {
     public static ArrayList<User> users = new ArrayList<>();
     public static LinkedList<Fragment> stack = new LinkedList();
     public static ArrayList<Report> reports = new ArrayList<>();
-
+    public static ArrayList<String> documentPaths = new ArrayList<>();
 
     public static void goToPage(Fragment fragment, FragmentManager fm){
         int containerId = R.id.fragment_container;
