@@ -42,7 +42,8 @@ public class IncidentReporting2 extends AppCompatActivity {
     LinearLayout ButtonContainer;
     private RadioButton checkBoxOnlyMe, checkBoxMeAndOthers, checkBoxPreferNotToDisclose, checkBoxInjured, checkBoxNotInjured;
     CheckBox checkBoxAnonymitySubmission;
-    ArrayList<String> attachmentPaths = new ArrayList<>();
+
+
 
 
     @Override
@@ -90,6 +91,14 @@ public class IncidentReporting2 extends AppCompatActivity {
             navigateToPage3();
         });
     }
+
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        for(){
+//
+//        }
+//    }
 
     // Load saved data from singleton
     private void loadSavedData() {
@@ -145,7 +154,7 @@ public class IncidentReporting2 extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        UserDataSingleton dataSingleton = UserDataSingleton.getInstance();
         if (resultCode == RESULT_OK && data != null) {
             Uri selectedFile = data.getData(); // Get the selected file URI
 
@@ -153,15 +162,15 @@ public class IncidentReporting2 extends AppCompatActivity {
                 switch (requestCode) {
                     case REQUEST_CODE_FILES:
                         Toast.makeText(this, "File selected: " + selectedFile.getPath(), Toast.LENGTH_SHORT).show();
-                        db.uploadFileToDatabase(selectedFile,"ReportAttachment/Report" + (latestReportIndex+1) + "/" + getFileName(selectedFile,IncidentReporting2.this),ButtonContainer,IncidentReporting2.this,attachmentPaths);
+                        db.uploadFileToDatabase(selectedFile,"ReportAttachment/Report" + (latestReportIndex+1) + "/" + getFileName(selectedFile,IncidentReporting2.this),ButtonContainer,IncidentReporting2.this,dataSingleton.attachmentPaths);
                         break;
                     case REQUEST_CODE_IMAGES:
                         Toast.makeText(this, "Image selected: " + selectedFile.getPath(), Toast.LENGTH_SHORT).show();
-                        db.uploadFileToDatabase(selectedFile,"ReportAttachment/Report" + (latestReportIndex+1) + "/" + getFileName(selectedFile,IncidentReporting2.this),ButtonContainer,IncidentReporting2.this,attachmentPaths);
+                        db.uploadFileToDatabase(selectedFile,"ReportAttachment/Report" + (latestReportIndex+1) + "/" + getFileName(selectedFile,IncidentReporting2.this),ButtonContainer,IncidentReporting2.this,dataSingleton.attachmentPaths);
                         break;
                     case REQUEST_CODE_AUDIO:
                         Toast.makeText(this, "Audio selected: " + selectedFile.getPath(), Toast.LENGTH_SHORT).show();
-                        db.uploadFileToDatabase(selectedFile,"ReportAttachment/Report" + (latestReportIndex+1) + "/" + getFileName(selectedFile,IncidentReporting2.this),ButtonContainer,IncidentReporting2.this,attachmentPaths);
+                        db.uploadFileToDatabase(selectedFile,"ReportAttachment/Report" + (latestReportIndex+1) + "/" + getFileName(selectedFile,IncidentReporting2.this),ButtonContainer,IncidentReporting2.this,dataSingleton.attachmentPaths);
                         break;
                 }
             }
@@ -200,7 +209,6 @@ public class IncidentReporting2 extends AppCompatActivity {
 
     public String getFileName(Uri uri, Context context) {
         String fileName = null;
-
         // For content URI (e.g., from file picker)
         if (uri.getScheme().equals("content")) {
             Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
@@ -217,7 +225,6 @@ public class IncidentReporting2 extends AppCompatActivity {
 
         return fileName;
     }
-
     private String getMonthFormat(int month) {
         return Integer.toString(month);
     }

@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -149,6 +150,16 @@ public class LoginPage extends AppCompatActivity {
             }
         });
     }
+
+    public void fetchDocumentTemplate() {
+        documentPaths.clear();
+        db.getDocument("Document Template","1").addOnSuccessListener(document ->{
+            if (document.exists()) {
+                documentPaths.addAll(   (ArrayList<String>)   document.get("paths")      );
+            }
+        });
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void fetchUserData(String userId, String loginType){
         db.getDocument(USERLIBRARY,userId).addOnSuccessListener(document ->{
@@ -158,14 +169,17 @@ public class LoginPage extends AppCompatActivity {
                 String email = document.getString("email");
                 String reportNo = document.getString("report_no");
                 String stressLevel = document.getString("stress_level");
-                String eventNo = document.getString("event_no");
+                Log.d("SINISINISINI", "FETCH DOC DB");
+                Long dailyQuizScoreTemp = (Long) document.get("daily_quiz_score");
+                int dailyQuizScore =  dailyQuizScoreTemp.intValue();
+                Log.d("SINISINISINI", "FETCH DOC DB tak jadi");
                 String phoneNo = document.getString("phone_no");
                 String adminId = document.getString("admin_id");
                 String password = document.getString("password");
                 String profilePhotoUrl = document.getString("profile_photo_url");
                 String supportGroupNo = document.getString("support_group_no");
                 String stressScore = document.getString("stress_score");
-                currentUser = new User(name,Integer.parseInt(userId),username,email,Integer.parseInt(reportNo),stressLevel,Integer.parseInt(eventNo),phoneNo,Integer.parseInt(adminId),password,profilePhotoUrl,Integer.parseInt(supportGroupNo), Integer.parseInt(stressScore));
+                currentUser = new User(name,Integer.parseInt(userId),username,email,Integer.parseInt(reportNo),stressLevel,dailyQuizScore,phoneNo,Integer.parseInt(adminId),password,profilePhotoUrl,Integer.parseInt(supportGroupNo), Integer.parseInt(stressScore));
                 if(loginType.equals(USER)) {
                     fetchRequest(currentUser.userId, "user_id");
                     fetchArticle();
@@ -173,6 +187,7 @@ public class LoginPage extends AppCompatActivity {
                     fetchSupportGroup();
                     fetchUsers();
                     fetchReports();
+                    fetchDocumentTemplate();
                     login(loginType);
                 }
                 else{
@@ -187,13 +202,14 @@ public class LoginPage extends AppCompatActivity {
         db.getDocument("Admins",Integer.toString(currentUser.adminId)).addOnSuccessListener(document ->{
             if (document.exists()) {
                 int requestManaged = Integer.parseInt(document.getString("request_managed"));
-                currentAdmin = new Admin(currentUser.name, currentUser.userId, currentUser.username, currentUser.email, currentUser.reportNo, currentUser.stressLevel, currentUser.eventsNo, currentUser.phoneNo, currentUser.adminId, currentUser.password, currentUser.profilePhotoUrl, currentUser.supportGroupNo, requestManaged, currentUser.stressScore);
+                currentAdmin = new Admin(currentUser.name, currentUser.userId, currentUser.username, currentUser.email, currentUser.reportNo, currentUser.stressLevel, currentUser.dailyQuizScore, currentUser.phoneNo, currentUser.adminId, currentUser.password, currentUser.profilePhotoUrl, currentUser.supportGroupNo, requestManaged, currentUser.stressScore);
                 fetchArticle();
                 fetchEvents();
                 fetchSupportGroup();
                 fetchUsers();
                 fetchRequest(currentAdmin.adminId, "admin_id");
                 fetchReports();
+                fetchDocumentTemplate();
                 login(loginType);
             }
         });
@@ -390,14 +406,17 @@ public class LoginPage extends AppCompatActivity {
                         String email = document.getString("email");
                         String reportNo = document.getString("report_no");
                         String stressLevel = document.getString("stress_level");
-                        String eventNo = document.getString("event_no");
+                        Log.d("SINISINISINI", "FETCH DOC DB");
+                        Long dailyQuizScoreTemp = (Long) document.get("daily_quiz_score");
+
+                        Log.d("SINISINISINI", "FETCH DOC DB tak jadi");
                         String phoneNo = document.getString("phone_no");
                         String adminId = document.getString("admin_id");
                         String password = document.getString("password");
                         String profilePhotoUrl = document.getString("profile_photo_url");
                         String supportGroupNo = document.getString("support_group_no");
                         String stressScore = document.getString("stress_score");
-                        users.add(new User(name,Integer.parseInt(document.getId()),username,email,Integer.parseInt(reportNo),stressLevel,Integer.parseInt(eventNo),phoneNo,Integer.parseInt(adminId),password,profilePhotoUrl,Integer.parseInt(supportGroupNo), Integer.parseInt(stressScore)));
+                        users.add(new User(name,Integer.parseInt(document.getId()),username,email,Integer.parseInt(reportNo),stressLevel,dailyQuizScoreTemp.intValue(),phoneNo,Integer.parseInt(adminId),password,profilePhotoUrl,Integer.parseInt(supportGroupNo), Integer.parseInt(stressScore)));
                     }
                 } else {
                     System.out.println("No documents found in the collection.");

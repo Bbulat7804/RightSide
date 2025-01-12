@@ -139,7 +139,7 @@ public class SignUpPage extends AppCompatActivity {
         HashMap<String,Object> userData = new HashMap();
         userData.put("admin_id","0");
         userData.put("email",email);
-        userData.put("event_no","0");
+        userData.put("daily_quiz_score",0);
         userData.put("name",name);
         userData.put("password",password);
         userData.put("phone_no",phoneNo);

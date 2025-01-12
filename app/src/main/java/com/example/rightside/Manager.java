@@ -69,6 +69,7 @@ public class Manager {
     public static int latestSupportGroupIndex = 0;
     public static int latestReportIndex = 0;
     public static int latestEventIndex = 0;
+    public static int dailyQuizScore = -1;
     public static final int PICK_IMAGE_REQUEST = 1;
     public static final int PICK_GROUP_ICON_REQUEST = 10;
     public static final int PICK_IMAGE_EVENT_REQUEST = 1;
@@ -80,7 +81,7 @@ public class Manager {
     public static ArrayList<User> users = new ArrayList<>();
     public static LinkedList<Fragment> stack = new LinkedList();
     public static ArrayList<Report> reports = new ArrayList<>();
-
+    public static ArrayList<String> documentPaths = new ArrayList<>();
 
     public static void goToPage(Fragment fragment, FragmentManager fm){
         int containerId = R.id.fragment_container;
