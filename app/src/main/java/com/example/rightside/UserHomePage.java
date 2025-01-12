@@ -109,6 +109,7 @@ public class UserHomePage extends Fragment {
                 Intent intent = new Intent(getActivity(), IncidentReporting1.class);
                 System.out.println(getActivity());
                 System.out.println(IncidentReporting1.class);
+                UserDataSingleton.getInstance().resetData();
                 startActivity(intent);
             }
         });

@@ -89,6 +89,7 @@ public class UserDataSingleton {
         page4Action3 = null;
         page4Condition1 = null; // Reset acknowledgment checkbox
         page4Condition2 = null; // Reset understanding checkbox
+        attachmentPaths.clear();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

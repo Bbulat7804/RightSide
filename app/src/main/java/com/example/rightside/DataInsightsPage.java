@@ -227,6 +227,10 @@ public class DataInsightsPage extends Fragment {
         int affect = 0;
         int unaffect = 0;
         for(int i=0 ; i<users.size() ; i++){
+            if(users.get(i).userId==currentUser.userId) {
+                users.get(i).stressLevel = currentUser.stressLevel;
+                users.get(i).stressScore = currentUser.stressScore;
+            }
             if(users.get(i).stressLevel.equals("Low Stress"))
                 unaffect++;
             else

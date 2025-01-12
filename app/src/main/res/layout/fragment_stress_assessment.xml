@@ -129,6 +129,7 @@
                     android:layout_gravity="center"
                     android:fontFamily="@font/roboto_condensed_bold"
                     android:text="Take this simple test and measure the stress in your life"
+                    android:textColor="#000000"
                     android:textSize="17sp" />
 
                 <LinearLayout
@@ -152,6 +153,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="@font/roboto_condensed_bold"
                         android:text="  Get Your Stress Score"
+                        android:textColor="#000000"
                         android:textSize="30sp" />
                 </LinearLayout>
 
@@ -163,6 +165,7 @@
                     android:fontFamily="@font/roboto_condensed_bold"
                     android:padding="10dp"
                     android:text="How the Stress Test works"
+                    android:textColor="#000000"
                     android:textSize="20sp" />
 
                 <TextView
@@ -173,6 +176,7 @@
                     android:layout_margin="5dp"
                     android:text="The test uses the Perceived Stress Scale (PSS). Created by Cohen et al (1983), it is a highly recognized psychological tool for measuring stress that's clinically validated and widely used. The test measures how stressful situations are perceived by scoring how unpredictable, uncontrollable, and overloaded you feel your life to be. The questions ask about your thoughts and feelings during the last month, are easy to understand and are of a general nature."
                     android:textAlignment="center"
+                    android:textColor="#000000"
                     android:textSize="20sp" />
 
             </LinearLayout>
