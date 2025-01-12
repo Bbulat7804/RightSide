@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,10 +29,43 @@ public class IncidentReporting3 extends AppCompatActivity {
 
         // Set click listener for CONTINUE button
         continueButton.setOnClickListener(v -> {
-            // Save data before navigating
-            saveUserData();
-            navigateToPage4();
+            if (validateFields()) {
+                // Save data before navigating
+                saveUserData();
+                navigateToPage4();
+            }
         });
+    }
+
+    // Validate all required fields
+    private boolean validateFields() {
+        boolean isValid = true;
+
+        if (phoneNumberField.getText().toString().trim().isEmpty()) {
+            phoneNumberField.setError("Phone Number cannot be empty");
+            isValid = false;
+        }
+
+        if (emailField.getText().toString().trim().isEmpty()) {
+            emailField.setError("Email Address cannot be empty");
+            isValid = false;
+        }
+
+        if (witnessField.getText().toString().trim().isEmpty()) {
+            witnessField.setError("Witness field cannot be empty");
+            isValid = false;
+        }
+
+        if (extraInfoField.getText().toString().trim().isEmpty()) {
+            extraInfoField.setError("Extra Information cannot be empty");
+            isValid = false;
+        }
+
+        if (!isValid) {
+            Toast.makeText(this, "Please fill in all required fields", Toast.LENGTH_SHORT).show();
+        }
+
+        return isValid;
     }
 
     // Load saved data from singleton
