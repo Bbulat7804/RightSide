@@ -131,17 +131,13 @@ public class AdminProfilePage extends Fragment {
     public String getProfilePhotoPath(){
         return "ProfilePhoto/" + currentUser.userId + ".png";
     }
-    public void addImage(LinearLayout container, int imageResource){
-        ImageView imageView = new ImageView(container.getContext());
-        imageView.setImageResource(imageResource);
+    public void addImage(LinearLayout container, String imagePath){
 
-        // Set layout parameters for proper sizing
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(1000, LinearLayout.LayoutParams.MATCH_PARENT);
-
-        params.setMargins(20, 0, 0, 10); // Optional: Add spacing between images
-        imageView.setLayoutParams(params);
-
-        container.addView(imageView);
+        View card = LayoutInflater.from(getActivity()).inflate(R.layout.card_image_container,container,false);
+        ImageView imageView = card.findViewById(R.id.imageContainer);
+        db.loadImageFromStorage(getActivity(),imagePath,imageView);
+        System.out.println(card);
+        container.addView(card);
     }
 
     @Override
@@ -162,8 +158,8 @@ public class AdminProfilePage extends Fragment {
             dailyQuizScoreTV.setText(currentUser.dailyQuizScore + "");
         }
 
-        for(int i=0; i<10 ; i++){
-            addImage(eventImageContainer,R.drawable.sample_event_image);
+        for(int i=0; i<events.size() ; i++){
+            addImage(eventImageContainer,events.get(i).imageURL);
         }
     }
 }
