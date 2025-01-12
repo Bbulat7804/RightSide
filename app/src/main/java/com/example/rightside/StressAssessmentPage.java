@@ -117,7 +117,7 @@ import java.util.ArrayList;
 
         normalNumTextView.setText("5 - 25");
 
-        getStressScoreText.setOnClickListener(new View.OnClickListener() {
+        getStressScoreText  .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToPage(stressTestPage, getParentFragmentManager());

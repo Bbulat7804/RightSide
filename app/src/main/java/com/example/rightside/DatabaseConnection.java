@@ -42,9 +42,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DatabaseConnection {
-    private final FirebaseFirestore db;
-    private final FirebaseStorage storage;
-    private final StorageReference storageReference;
+    public final FirebaseFirestore db;
+    public final FirebaseStorage storage;
+    public final StorageReference storageReference;
     public DatabaseConnection() {
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
