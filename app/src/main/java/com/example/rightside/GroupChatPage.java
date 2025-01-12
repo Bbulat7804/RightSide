@@ -218,7 +218,6 @@ public class GroupChatPage extends Fragment {
         chatText.setText(text);
         TextView senderName = chat.findViewById(R.id.senderName);
         senderName.setText("user_" + id);
-        chatInput.setText("");
         chatScroll.post(() -> chatScroll.fullScroll(View.FOCUS_DOWN));
         chatContainer.addView(chat);
     }

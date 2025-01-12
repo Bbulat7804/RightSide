@@ -205,7 +205,7 @@ public class ContactAdminPage extends Fragment {
                     }
                     for(int i=0 ; i<textList.size() ; i++){
                         currentId = currentId < Long.parseLong(textList.get(i).getId()) ? Long.parseLong(textList.get(i).getId()) : currentId;
-                        if (textList.get(i).getString("sender").equals(ADMIN)) {
+                        if (textList.get(i).getString("sender").equals(USER)) {
                             System.out.println("sampai");
                             sendText(textList.get(i).getString("text"));
                         } else {

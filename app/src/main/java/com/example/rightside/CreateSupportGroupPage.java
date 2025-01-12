@@ -99,6 +99,10 @@ public class CreateSupportGroupPage extends Fragment {
                 latestSupportGroupIndex++;
                 supportGroups.add(group);
                 uploadGroupToFirestore(group);
+                goToPage(userHomePage,getParentFragmentManager());
+                for(int i=0 ; i<3 ; i++){
+                    stack.removeFirst();
+                }
             }
         });
 
