@@ -90,15 +90,16 @@ public class IncidentReporting2 extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         UserDataSingleton data = UserDataSingleton.getInstance();
-        for(int i=4 ; i<ButtonContainer.getChildCount() ; i++){
+        for (int i = 4; i < ButtonContainer.getChildCount(); i++) {
             ButtonContainer.removeViewAt(i);
         }
         System.out.println("nope");
-        for(String p : data.attachmentPaths){
+        for (String p : data.attachmentPaths) {
             String path = p.split("/")[0] + "/" + p.split("/")[1] + "/";
             String name = p.split("/")[2];
-            db.addAttachmentCard(ButtonContainer, path, name,IncidentReporting2.this);
+            db.addAttachmentCard(ButtonContainer, path, name, IncidentReporting2.this);
         }
+    }
     private boolean validateFields() {
         boolean isValid = true;
 
