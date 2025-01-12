@@ -128,14 +128,19 @@ public class EventsPage extends Fragment {
             LocalDate localEventDate = eventDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             long daysBetween = ChronoUnit.DAYS.between(currentDate, localEventDate);
             if (daysBetween >= 0 && daysBetween <= 30){
-                addCardNowCalling(eventCardContainer, events.get(i));
+                int finalY = i;
+                //tambah delay
+                handler.postDelayed(() -> {
+                    //tambah yang lain kat bawah
+                    addCardNowCalling(eventCardContainer, events.get(finalY));
+                },i*150);
             } else {
                 int finalI = i;
                 //tambah delay
                 handler.postDelayed(() -> {
                     //tambah yang lain kat bawah
                     addCardUpcomingEvents(upcomingEventsContainer, events.get(finalI));
-                        },i*500);
+                        },i*150);
             }
         }
     }
@@ -222,8 +227,8 @@ public class EventsPage extends Fragment {
     }
 
     private void animateCard(View cardView) {
-        TranslateAnimation slideIn = new TranslateAnimation(0, 0, -100, cardView.getY());
-        slideIn.setDuration(500);
+        TranslateAnimation slideIn = new TranslateAnimation(0, 0, -50, cardView.getY());
+        slideIn.setDuration(200);
         cardView.startAnimation(slideIn);
     }
 

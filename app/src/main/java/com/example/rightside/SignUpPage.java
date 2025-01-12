@@ -31,6 +31,10 @@ public class SignUpPage extends AppCompatActivity {
     DatabaseConnection db = new DatabaseConnection();
 
     Typeface font;
+    private TextView emailInput;
+    private TextView usernameInput;
+    private TextView reconfirmPasswordInput;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,11 +46,11 @@ public class SignUpPage extends AppCompatActivity {
             return insets;
         });
         TextView nameInput = findViewById(R.id.SignUpNameInput);
-        TextView usernameInput = findViewById(R.id.SignUpUsernameInput);
+        usernameInput = findViewById(R.id.SignUpUsernameInput);
         TextView phoneNoInput = findViewById(R.id.SignUpPhoneNoInput);
-        TextView emailInput = findViewById(R.id.SignUpEmailInput);
+        emailInput = findViewById(R.id.SignUpEmailInput);
         TextView passwordInput = findViewById(R.id.SignUpPasswordInput);
-        TextView reconfirmPasswordInput = findViewById(R.id.SignUpReconfirmPasswordInput);
+        reconfirmPasswordInput = findViewById(R.id.SignUpReconfirmPasswordInput);
         Button signUpButton = findViewById(R.id.SignUpButton);
         Button goToLoginButton = findViewById(R.id.GoToLoginButton);
         ImageButton passwordHideButton = findViewById(R.id.HidePasswordButton);
@@ -59,8 +63,14 @@ public class SignUpPage extends AppCompatActivity {
                 if(!nameInput.getText().toString().trim().equals("") && !usernameInput.getText().toString().trim().equals("") && !phoneNoInput.getText().toString().trim().equals("") && !emailInput.getText().toString().trim().equals("") && !passwordInput.getText().toString().trim().equals("") && !reconfirmPasswordInput.getText().toString().trim().equals("")) {
                     validateSignUpData(nameInput.getText().toString(), usernameInput.getText().toString(), phoneNoInput.getText().toString(), emailInput.getText().toString(), passwordInput.getText().toString(), reconfirmPasswordInput.getText().toString());
                 }
-                else
+                else{
+                    nameInput.setError("Fill in all details");
+                    usernameInput.setError("Fill in all details");
+                    phoneNoInput.setError("Fill in all details");
+                    emailInput.setError("Fill in all details");
+                    passwordInput.setError("Fill in all details");
                     Toast.makeText(SignUpPage.this, "Fill in all details", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -111,15 +121,20 @@ public class SignUpPage extends AppCompatActivity {
                     for (QueryDocumentSnapshot document : snapshot) {
                         if(document.getString("email").equalsIgnoreCase(email) || document.getString("username").equalsIgnoreCase(username)){
                             valid = false;
-                            if(document.getString("email").equals(email))
+                            if(document.getString("email").equals(email)){
+                                emailInput.setError("Email already exist");
                                 Toast.makeText(SignUpPage.this, "Email already exist", Toast.LENGTH_SHORT).show();
-                            else
+                            }
+                            else{
+                                usernameInput.setError("Username already exist");
                                 Toast.makeText(SignUpPage.this, "Username already exist", Toast.LENGTH_SHORT).show();
+                            }
                         }
                         id = Integer.parseInt(document.getId());
                     }
                     if(!password.equals(reconfirmPassword)){
                         valid = false;
+                        reconfirmPasswordInput.setError("Password doesn't match");
                         Toast.makeText(SignUpPage.this, "Your passwords doesn't match", Toast.LENGTH_SHORT).show();
                     }
 

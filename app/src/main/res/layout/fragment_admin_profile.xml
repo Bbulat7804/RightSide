@@ -130,6 +130,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_bold"
+                        android:layout_marginStart="16dp"
                         android:text="Request Managed"
                         android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -144,7 +145,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_bold"
-                        android:text="Events Joined"
+                        android:text="Daily Quiz Score"
                         android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -178,7 +179,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView26" />
 
                     <TextView
-                        android:id="@+id/EventNoTV"
+                        android:id="@+id/DailyQuizScoreTV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto"
@@ -193,8 +194,9 @@
                         android:id="@+id/imageView13"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:layout_marginStart="8dp"
-                        android:src="@drawable/icon_events"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/icon_quiz"
+                        android:tint="@color/white"
                         app:layout_constraintBottom_toBottomOf="@+id/textView29"
                         app:layout_constraintStart_toEndOf="@+id/textView29"
                         app:layout_constraintTop_toTopOf="@+id/textView29" />

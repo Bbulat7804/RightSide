@@ -1,5 +1,7 @@
 package com.example.rightside;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,7 +11,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,62 +75,85 @@ public class FAQPage extends Fragment {
         TextView faqQuestion1 = view.findViewById(R.id.faqQuestion1);
         TextView faqAnswer1 = view.findViewById(R.id.faqAnswer1);
         faqQuestion1.setOnClickListener(v -> {
-            faqAnswer1.setVisibility(faqAnswer1.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
+            displayRetract(faqAnswer1);
         });
 
         TextView faqQuestion2 = view.findViewById(R.id.faqQuestion2);
         TextView faqAnswer2 = view.findViewById(R.id.faqAnswer2);
         faqQuestion2.setOnClickListener(v -> {
-            faqAnswer2.setVisibility(faqAnswer2.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
+            displayRetract(faqAnswer2);
         });
 
         TextView faqQuestion3 = view.findViewById(R.id.faqQuestion3);
         TextView faqAnswer3 = view.findViewById(R.id.faqAnswer3);
         faqQuestion3.setOnClickListener(v -> {
-            faqAnswer3.setVisibility(faqAnswer3.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
+            displayRetract(faqAnswer3);
         });
 
         TextView faqQuestion4 = view.findViewById(R.id.faqQuestion4);
         TextView faqAnswer4 = view.findViewById(R.id.faqAnswer4);
         faqQuestion4.setOnClickListener(v -> {
-            faqAnswer4.setVisibility(faqAnswer4.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
+            displayRetract(faqAnswer4);
         });
 
         TextView faqQuestion5 = view.findViewById(R.id.faqQuestion5);
         TextView faqAnswer5 = view.findViewById(R.id.faqAnswer5);
         faqQuestion5.setOnClickListener(v -> {
-            faqAnswer5.setVisibility(faqAnswer5.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
+            displayRetract(faqAnswer5);
         });
 
         TextView faqQuestion6 = view.findViewById(R.id.faqQuestion6);
         TextView faqAnswer6 = view.findViewById(R.id.faqAnswer6);
         faqQuestion6.setOnClickListener(v -> {
-            faqAnswer6.setVisibility(faqAnswer6.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
+            displayRetract(faqAnswer6);
         });
 
         TextView faqQuestion7 = view.findViewById(R.id.faqQuestion7);
         TextView faqAnswer7 = view.findViewById(R.id.faqAnswer7);
         faqQuestion7.setOnClickListener(v -> {
-            faqAnswer7.setVisibility(faqAnswer7.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
+            displayRetract(faqAnswer7);
         });
 
         TextView faqQuestion8 = view.findViewById(R.id.faqQuestion8);
         TextView faqAnswer8 = view.findViewById(R.id.faqAnswer8);
         faqQuestion8.setOnClickListener(v -> {
-            faqAnswer8.setVisibility(faqAnswer8.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
+            displayRetract(faqAnswer8);
         });
 
         TextView faqQuestion9 = view.findViewById(R.id.faqQuestion9);
         TextView faqAnswer9 = view.findViewById(R.id.faqAnswer9);
         faqQuestion9.setOnClickListener(v -> {
-            faqAnswer9.setVisibility(faqAnswer9.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
+            displayRetract(faqAnswer9);
         });
 
         TextView faqQuestion10 = view.findViewById(R.id.faqQuestion10);
         TextView faqAnswer10 = view.findViewById(R.id.faqAnswer10);
         faqQuestion10.setOnClickListener(v -> {
-            faqAnswer10.setVisibility(faqAnswer10.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
+            displayRetract(faqAnswer10);
         });
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    private void displayRetract(TextView tv){
+        if (tv.getVisibility() == View.GONE) {
+            // Make the view visible and run a fade-in animation
+            tv.setVisibility(View.VISIBLE);
+            tv.setAlpha(0f); // Start with fully transparent
+            tv.animate()
+                    .alpha(1f) // Fade in to fully visible
+                    .setDuration(200) // Animation duration in milliseconds
+                    .setListener(null);
+        } else {
+            // Run a fade-out animation, then hide the view
+            tv.animate()
+                    .alpha(0f) // Fade out to fully transparent
+                    .setDuration(150) // Animation duration in milliseconds
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            tv.setVisibility(View.GONE); // Set visibility to GONE after fade-out
+                        }
+                    });
+        }
     }
 }
