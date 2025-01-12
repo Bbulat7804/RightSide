@@ -156,9 +156,9 @@ public class GroupChatPage extends Fragment {
                                     continue;
                                 currentId = Long.parseLong(document.getId());
                                 if (document.getString("sender").equals(Integer.toString(currentUser.userId))) {
-                                    sendText(document.getString("text"));
+                                    sendText(document.getString("text"),document.getString("sender"));
                                 } else {
-                                    receiveText(document.getString("text"));
+                                    receiveText(document.getString("text"),document.getString("sender"));
                                 }
                             }
                             break;
@@ -188,9 +188,9 @@ public class GroupChatPage extends Fragment {
                     for(int i=0 ; i<textList.size() ; i++){
                         currentId = currentId < Long.parseLong(textList.get(i).getId()) ? Long.parseLong(textList.get(i).getId()) : currentId;
                         if (textList.get(i).getString("sender").equals(Integer.toString(currentUser.userId))) {
-                            sendText(textList.get(i).getString("text"));
+                            sendText(textList.get(i).getString("text"),textList.get(i).getString("sender"));
                         } else {
-                            receiveText(textList.get(i).getString("text"));
+                            receiveText(textList.get(i).getString("text"),textList.get(i).getString("sender"));
                         }
                     }
                     first = false;
@@ -198,23 +198,26 @@ public class GroupChatPage extends Fragment {
             }
         });
     }
-    private void sendText(String text) {
+    private void sendText(String text, String id) {
         View chat = LayoutInflater.from(getActivity()).inflate(R.layout.layout_chat_bubble_send,chatContainer,false);
-
         TextView chatText = chat.findViewById(R.id.ChatText);
         chatText.setText(text);
+        TextView senderName = chat.findViewById(R.id.senderName);
+        senderName.setText("user_" + id);
         chatInput.setText("");
         chatScroll.post(() -> chatScroll.fullScroll(View.FOCUS_DOWN));
         chatContainer.addView(chat);
     }
 
-    private void receiveText(String text) {
+    private void receiveText(String text, String id) {
         if(text.equals(""))
             return;
         View chat = LayoutInflater.from(getActivity()).inflate(R.layout.layout_chat_bubble_receive,chatContainer,false);
 
         TextView chatText = chat.findViewById(R.id.ChatText);
         chatText.setText(text);
+        TextView senderName = chat.findViewById(R.id.senderName);
+        senderName.setText("user_" + id);
         chatInput.setText("");
         chatScroll.post(() -> chatScroll.fullScroll(View.FOCUS_DOWN));
         chatContainer.addView(chat);
