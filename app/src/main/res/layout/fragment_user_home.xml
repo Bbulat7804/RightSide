@@ -44,12 +44,12 @@
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/box_rounded_bordered_white"
                 android:orientation="vertical"
                 android:padding="20dp"
                 app:layout_constraintTop_toTopOf="@+id/linearLayout2"
-                tools:layout_editor_absoluteX="16dp">
+                tools:layout_editor_absoluteX="0dp">
 
                 <TextView
                     android:id="@+id/textView20"
@@ -92,15 +92,6 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal" />
                 </HorizontalScrollView>
-
-                <TextView
-                    android:id="@+id/textView22"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="@font/roboto_bold"
-                    android:text="Events"
-                    android:textColor="#000000" />
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
