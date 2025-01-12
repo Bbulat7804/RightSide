@@ -14,8 +14,8 @@
             android:id="@+id/upcomingEventsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="24dp">
+            android:layout_margin="24dp"
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -32,19 +32,19 @@
                         android:id="@+id/date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
                         android:text="Friday, 18 May"
                         android:textColor="@color/white"
-                        android:textSize="30sp"
-                        android:fontFamily="@font/roboto_bold"/>
+                        android:textSize="30sp" />
 
                     <TextView
                         android:id="@+id/location"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
                         android:text="Petaling Jaya, Kuala Lumpur"
                         android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:fontFamily="@font/roboto_bold"/>
+                        android:textSize="16sp" />
 
                     <!-- search bar -->
                     <EditText
@@ -56,10 +56,10 @@
                         android:background="@drawable/box_rounded_bordered_white"
                         android:drawableStart="@drawable/icon_search_green"
                         android:fontFamily="@font/roboto"
+                        android:hint="search for and event"
                         android:padding="8dp"
                         android:textColor="@color/green"
-                        android:hint="search for and event"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <!--<com.google.android.gms.maps.MapView
@@ -85,9 +85,9 @@
                     android:id="@+id/uploadEventAdminButton"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/icon_upload_button"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
-                    android:layout_alignParentEnd="true"/>
+                    android:src="@drawable/icon_upload_button" />
             </RelativeLayout>
 
             <HorizontalScrollView
@@ -98,7 +98,7 @@
                     android:id="@+id/EventCardContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"/>
+                    android:orientation="horizontal" />
 
             </HorizontalScrollView>
 

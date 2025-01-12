@@ -46,6 +46,7 @@
                 android:layout_marginTop="30dp"
                 android:background="@drawable/box_rounded_bordered_white"
                 android:orientation="vertical"
+                android:layout_marginBottom="16dp"
                 android:padding="20dp">
 
                 <TextView
@@ -89,15 +90,6 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal" />
                 </HorizontalScrollView>
-
-                <TextView
-                    android:id="@+id/textView22"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="@font/roboto_bold"
-                    android:text="Events"
-                    android:textColor="#000000" />
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
