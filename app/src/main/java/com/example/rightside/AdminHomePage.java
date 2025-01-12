@@ -85,13 +85,11 @@ public class AdminHomePage extends Fragment {
         LinearLayout manageRequestButton = view.findViewById(R.id.AdminManageRequestButton);
         LinearLayout supportGroupsButton = view.findViewById(R.id.AdminSupportGroupsButton);
         LinearLayout eventsButton = view.findViewById(R.id.AdminEventsButton);
-        LinearLayout eventCalendarButton = view.findViewById(R.id.EventCalendarButton);//remove
         LinearLayout documentTemplateButton = view.findViewById(R.id.DocumentTemplateButton);
         LinearLayout liveDataButton = view.findViewById(R.id.LiveDataButton);
         LinearLayout quizButton = view.findViewById(R.id.QuizButton);
         LinearLayout reportHistoryButton = view.findViewById(R.id.ReportHistoryButton);
         LinearLayout stressManagementButton = view.findViewById(R.id.StressManagementButton);
-        LinearLayout uploadArticleButton = view.findViewById(R.id.UploadArticlesButton);//remove
         LinearLayout articleButton = view.findViewById(R.id.ArticlesButton);
 
         reportHistoryButton.setOnClickListener(new View.OnClickListener() {
@@ -167,24 +165,20 @@ public class AdminHomePage extends Fragment {
         });
 
 
-        for(int i=0; i<10 ; i++){
-            addImage(eventImageContainer,R.drawable.sample_event_image);
+        for(int i=0; i<events.size() ; i++){
+            addImage(eventImageContainer,events.get(i).imageURL);
         }
-        for(int i=0; i<10 ; i++){
-            addImage(articleImageContainer,R.drawable.sample_article_image);
+        for(int i=0; i<articles.size() ; i++){
+            addImage(articleImageContainer,articles.get(i).imageURL);
         }
     }
 
-    public void addImage(LinearLayout container, int imageResource){
-        ImageView imageView = new ImageView(container.getContext());
-        imageView.setImageResource(imageResource);
+    public void addImage(LinearLayout container, String imagePath){
 
-        // Set layout parameters for proper sizing
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(1000, LinearLayout.LayoutParams.MATCH_PARENT);
-
-        params.setMargins(20, 0, 0, 10); // Optional: Add spacing between images
-        imageView.setLayoutParams(params);
-
-        container.addView(imageView);
+        View card = LayoutInflater.from(getActivity()).inflate(R.layout.card_image_container,container,false);
+        ImageView imageView = card.findViewById(R.id.imageContainer);
+        db.loadImageFromStorage(getActivity(),imagePath,imageView);
+        System.out.println(card);
+        container.addView(card);
     }
 }

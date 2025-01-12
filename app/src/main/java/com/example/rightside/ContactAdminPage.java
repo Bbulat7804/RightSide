@@ -2,6 +2,7 @@ package com.example.rightside;
 
 import static com.example.rightside.Manager.ADMIN;
 import static com.example.rightside.Manager.USER;
+import static com.example.rightside.Manager.currentUser;
 import static com.example.rightside.Manager.goToSiblingPage;
 import static com.example.rightside.Manager.viewRequestPage;
 import static com.google.firebase.firestore.DocumentChange.Type.*;
@@ -131,17 +132,20 @@ public class ContactAdminPage extends Fragment {
 
         TextView chatText = chat.findViewById(R.id.ChatText);
         chatText.setText(text);
+        TextView senderName = chat.findViewById(R.id.senderName);
+        senderName.setText(currentUser.name);
         chatInput.setText("");
         chatContainer.addView(chat);
         chatScroll.post(() -> chatScroll.fullScroll(View.FOCUS_DOWN));
     }
 
-    private void receiveText(String text) {
+    private void receiveText(String text, String name) {
         if(text.equals(""))
             return;
         View chat = LayoutInflater.from(getActivity()).inflate(R.layout.layout_chat_bubble_receive,chatContainer,false);
-
         TextView chatText = chat.findViewById(R.id.ChatText);
+        TextView senderName = chat.findViewById(R.id.senderName);
+        senderName.setText(name);
         chatText.setText(text);
         chatContainer.addView(chat);
         chatScroll.post(() -> chatScroll.fullScroll(View.FOCUS_DOWN));
@@ -171,8 +175,8 @@ public class ContactAdminPage extends Fragment {
                                 System.out.println("current ID = " + currentId);
                                 if (document.getString("sender").equals(USER)) {
                                     sendText(document.getString("text"));
-                                } else {
-                                    receiveText(document.getString("text"));
+                                } else{
+                                    receiveText(document.getString("text"), document.getString("name"));
                                 }
                             }
                             break;
@@ -205,7 +209,7 @@ public class ContactAdminPage extends Fragment {
                             System.out.println("sampai");
                             sendText(textList.get(i).getString("text"));
                         } else {
-                            receiveText(textList.get(i).getString("text"));
+                            receiveText(textList.get(i).getString("text"),textList.get(i).getString("name"));
                         }
                     }
                     first = false;
@@ -219,6 +223,7 @@ public class ContactAdminPage extends Fragment {
         HashMap<String,Object> data = new HashMap<>();
         data.put("sender",USER);
         data.put("text", text);
+        data.put("name", currentUser.name);
         db.getCollection("ChatRooms").document("ChatRoom" + ViewRequestPage.requestId).collection("Chats").document(getTimeStamp()).set(data);
     }
 
