@@ -42,7 +42,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="495dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/box_rounded_bordered_white"
                 android:orientation="vertical"
@@ -59,7 +59,7 @@
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="96dp"
+                    android:layout_height="wrap_content"
                     android:fillViewport="true">
 
                     <LinearLayout
@@ -80,7 +80,7 @@
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="96dp"
+                    android:layout_height="wrap_content"
                     android:fillViewport="true">
 
                     <LinearLayout
@@ -109,40 +109,37 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:padding="10dp">
+                        android:padding="10dp"
+                        android:gravity="center_horizontal">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="30dp"
                             android:orientation="vertical">
 
                             <LinearLayout
-                                android:id="@+id/EventCalendarButton"
+                                android:id="@+id/ArticlesButton"
                                 android:layout_width="50dp"
                                 android:layout_height="match_parent"
-                                android:layout_marginBottom="5dp"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:orientation="vertical">
 
                                 <ImageView
-                                    android:id="@+id/imageView10"
                                     android:layout_width="25dp"
                                     android:layout_height="25dp"
                                     android:layout_weight="1"
-                                    android:src="@drawable/icon_event_calendar" />
+                                    android:src="@drawable/icon_article" />
 
                                 <TextView
-                                    android:id="@+id/textView23"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:fontFamily="@font/roboto_bold"
                                     android:gravity="center_horizontal"
-                                    android:text="Event Calendar"
+                                    android:text="Articles"
                                     android:textColor="@color/green"
-                                    android:textSize="7dp" />
+                                    android:textSize="7sp" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -284,64 +281,6 @@
                                     android:fontFamily="@font/roboto_bold"
                                     android:gravity="center_horizontal"
                                     android:text="Stress Management"
-                                    android:textColor="@color/green"
-                                    android:textSize="7sp" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="30dp"
-                            android:orientation="vertical">
-
-                            <LinearLayout
-                                android:id="@+id/UploadArticlesButton"
-                                android:layout_width="50dp"
-                                android:layout_height="match_parent"
-                                android:layout_marginBottom="5dp"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:orientation="vertical">
-
-                                <ImageView
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:layout_weight="1"
-                                    android:src="@drawable/icon_upload" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:fontFamily="@font/roboto_bold"
-                                    android:gravity="center_horizontal"
-                                    android:text="Upload Articles"
-                                    android:textColor="@color/green"
-                                    android:textSize="7dp" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/ArticlesButton"
-                                android:layout_width="50dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:orientation="vertical">
-
-                                <ImageView
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:layout_weight="1"
-                                    android:src="@drawable/icon_article" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:fontFamily="@font/roboto_bold"
-                                    android:gravity="center_horizontal"
-                                    android:text="Articles"
                                     android:textColor="@color/green"
                                     android:textSize="7sp" />
                             </LinearLayout>

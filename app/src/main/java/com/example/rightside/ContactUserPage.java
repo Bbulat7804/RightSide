@@ -121,13 +121,25 @@ public class ContactUserPage extends Fragment {
     }
 
     private void sendText(String text) {
-        if(text.equals(""))
-            return;
         View chat = LayoutInflater.from(getActivity()).inflate(R.layout.layout_chat_bubble_send,chatContainer,false);
 
         TextView chatText = chat.findViewById(R.id.ChatText);
         chatText.setText(text);
+        TextView senderName = chat.findViewById(R.id.senderName);
+        senderName.setText(currentUser.name);
         chatInput.setText("");
+        chatContainer.addView(chat);
+        chatScroll.post(() -> chatScroll.fullScroll(View.FOCUS_DOWN));
+    }
+
+    private void receiveText(String text, String name) {
+        if(text.equals(""))
+            return;
+        View chat = LayoutInflater.from(getActivity()).inflate(R.layout.layout_chat_bubble_receive,chatContainer,false);
+        TextView chatText = chat.findViewById(R.id.ChatText);
+        TextView senderName = chat.findViewById(R.id.senderName);
+        senderName.setText(name);
+        chatText.setText(text);
         chatContainer.addView(chat);
         chatScroll.post(() -> chatScroll.fullScroll(View.FOCUS_DOWN));
     }
@@ -137,17 +149,6 @@ public class ContactUserPage extends Fragment {
         DateTimeFormatter timeStampFormat = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
         LocalDateTime now = LocalDateTime.now();
         return now.format(timeStampFormat);
-    }
-
-    private void receiveText(String text) {
-        if(text.equals(""))
-            return;
-        View chat = LayoutInflater.from(getActivity()).inflate(R.layout.layout_chat_bubble_receive,chatContainer,false);
-
-        TextView chatText = chat.findViewById(R.id.ChatText);
-        chatText.setText(text);
-        chatContainer.addView(chat);
-        chatScroll.post(() -> chatScroll.fullScroll(View.FOCUS_DOWN));
     }
 
 
@@ -177,7 +178,7 @@ public class ContactUserPage extends Fragment {
                                 if (document.getString("sender").equals(ADMIN)) {
                                     sendText(document.getString("text"));
                                 } else {
-                                    receiveText(document.getString("text"));
+                                    receiveText(document.getString("text"),document.getString("name"));
                                 }
                             }
                             break;
@@ -211,7 +212,7 @@ public class ContactUserPage extends Fragment {
                             System.out.println("sampai");
                             sendText(textList.get(i).getString("text"));
                         } else {
-                            receiveText(textList.get(i).getString("text"));
+                            receiveText(textList.get(i).getString("text"),textList.get(i).getString("name"));
                         }
                     }
                     first = false;
@@ -225,6 +226,7 @@ public class ContactUserPage extends Fragment {
         HashMap <String,Object> data = new HashMap<>();
         data.put("sender",ADMIN);
         data.put("text", text);
+        data.put("name", currentUser.name);
         db.getCollection("ChatRooms").document("ChatRoom" + ViewRequestAdminPage.requestId).collection("Chats").document(getTimeStamp()).set(data);
     }
 

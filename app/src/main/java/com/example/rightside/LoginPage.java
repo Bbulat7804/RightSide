@@ -22,12 +22,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.CollectionReference;
+
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FirebaseStorage;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -141,6 +139,8 @@ public class LoginPage extends AppCompatActivity {
                             return;
                         }
                     }
+                    passwordInput.setError("incorrect password or email");
+                    emailInput.setError("incorrect password or email");
                     Toast.makeText(LoginPage.this, "incorrect password or email", Toast.LENGTH_SHORT).show();
                 } else {
                     System.out.println("No documents found in the collection.");
@@ -182,13 +182,11 @@ public class LoginPage extends AppCompatActivity {
                 currentUser = new User(name,Integer.parseInt(userId),username,email,Integer.parseInt(reportNo),stressLevel,dailyQuizScore,phoneNo,Integer.parseInt(adminId),password,profilePhotoUrl,Integer.parseInt(supportGroupNo), Integer.parseInt(stressScore));
                 if(loginType.equals(USER)) {
                     fetchRequest(currentUser.userId, "user_id");
-                    fetchArticle();
-                    fetchEvents();
+                    fetchArticle(loginType);
                     fetchSupportGroup();
                     fetchUsers();
                     fetchReports();
                     fetchDocumentTemplate();
-                    login(loginType);
                 }
                 else{
                     fetchAdminData(loginType);
@@ -203,14 +201,12 @@ public class LoginPage extends AppCompatActivity {
             if (document.exists()) {
                 int requestManaged = Integer.parseInt(document.getString("request_managed"));
                 currentAdmin = new Admin(currentUser.name, currentUser.userId, currentUser.username, currentUser.email, currentUser.reportNo, currentUser.stressLevel, currentUser.dailyQuizScore, currentUser.phoneNo, currentUser.adminId, currentUser.password, currentUser.profilePhotoUrl, currentUser.supportGroupNo, requestManaged, currentUser.stressScore);
-                fetchArticle();
-                fetchEvents();
+                fetchArticle(loginType);
                 fetchSupportGroup();
                 fetchUsers();
                 fetchRequest(currentAdmin.adminId, "admin_id");
                 fetchReports();
                 fetchDocumentTemplate();
-                login(loginType);
             }
         });
     }
@@ -307,7 +303,7 @@ public class LoginPage extends AppCompatActivity {
         });
     }
 
-    private void fetchArticle (){
+    private void fetchArticle (String loginType){
         articles.clear();
         db.getCollection("Articles").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -320,13 +316,15 @@ public class LoginPage extends AppCompatActivity {
                 } else {
                     System.out.println("No documents found in the collection.");
                 }
+                fetchEvents(loginType);
             } else {
                 System.err.println("Error fetching documents: " + task.getException());
             }
+
         });
     }
 
-    private void fetchEvents (){
+    private void fetchEvents (String loginType){
         events.clear();
         db.getCollection("Events").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -364,6 +362,7 @@ public class LoginPage extends AppCompatActivity {
                 }else {
                     System.out.println("No documents found in the collection.");
                 }
+                login(loginType);
             } else {
                 System.err.println("Error fetching documents: " + task.getException());
             }
