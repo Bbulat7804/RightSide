@@ -3,6 +3,7 @@ package com.example.rightside;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static androidx.core.content.ContextCompat.getSystemService;
 
+import static com.example.rightside.Manager.currentUser;
 import static com.example.rightside.Manager.dailyQuizScore;
 import static com.example.rightside.Manager.db;
 import static com.example.rightside.Manager.goToPage;
@@ -162,6 +163,12 @@ public class QuizQuestions extends Fragment {
             if (selectedAnswer.equals(correctAnswer)){
                 dailyQuizScore++;
             }
+        }
+
+        if(currentUser.dailyQuizScore<=dailyQuizScore){
+            currentUser.dailyQuizScore = dailyQuizScore;
+
+            db.getCollection("Users").document(Integer.toString(currentUser.userId)).update("daily_quiz_score",dailyQuizScore);
         }
 
         showPopup(v, dailyQuizScore);

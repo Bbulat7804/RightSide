@@ -43,7 +43,7 @@ public class AdminProfilePage extends Fragment {
     TextView emailTV;
     TextView reportNoTV;
     TextView stressLevelTV;
-    TextView eventNoTV;
+    TextView dailyQuizScoreTV;
     TextView requestManagedNoTV;
     DatabaseConnection db = new DatabaseConnection();
 
@@ -94,7 +94,7 @@ public class AdminProfilePage extends Fragment {
         emailTV = view.findViewById(R.id.EmailTV);
         reportNoTV = view.findViewById(R.id.ReportNoTV);
         stressLevelTV = view.findViewById(R.id.StressLevelTV);
-        eventNoTV = view.findViewById(R.id.EventNoTV);
+        dailyQuizScoreTV = view.findViewById(R.id.DailyQuizScoreTV);
         requestManagedNoTV = view.findViewById(R.id.RequestManagedNumber);
         profilePhoto = view.findViewById(R.id.ProfilePhoto);
 
@@ -154,8 +154,13 @@ public class AdminProfilePage extends Fragment {
         emailTV.setText(currentAdmin.email);
         reportNoTV.setText(currentAdmin.reportNo + "");
         stressLevelTV.setText(currentAdmin.stressLevel);
-        eventNoTV.setText(currentAdmin.eventsNo + "");
         requestManagedNoTV.setText(currentAdmin.requestManaged + "");
+
+        if (currentUser.dailyQuizScore == -1){
+            dailyQuizScoreTV.setText("N/A");
+        } else {
+            dailyQuizScoreTV.setText(currentUser.dailyQuizScore + "");
+        }
 
         for(int i=0; i<10 ; i++){
             addImage(eventImageContainer,R.drawable.sample_event_image);

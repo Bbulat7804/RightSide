@@ -202,6 +202,20 @@ public class EventsPage extends Fragment {
         orgNameTextView.setText(event.organizer);
         eventDateTextView.setText(event.date);
         db.loadImageFromStorage(getContext(), event.imageURL, eventImageView);
+
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(event.url));
+                try {
+                    startActivity(intent);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(getContext(), "Unable to open URL", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         // Add the card to the HorizontalScrollView
         upcomingEventsContainer.addView(cardView);
         animateCard(cardView);

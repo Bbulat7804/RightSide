@@ -87,7 +87,7 @@ public class UserProfilePage extends Fragment {
         TextView emailTV = view.findViewById(R.id.EmailTV);
         TextView reportNoTV = view.findViewById(R.id.ReportNoTV);
         TextView stressLevelTV = view.findViewById(R.id.StressLevelTV);
-        TextView eventNoTV = view.findViewById(R.id.EventNoTV);
+        TextView dailyQuizScoreTV = view.findViewById(R.id.DailyQuizScoreTV);
         TextView supportGroupNoTV = view.findViewById(R.id.SupportGroupNoTV);
         profilePhoto = view.findViewById(R.id.ProfilePhoto);
         System.out.println("sini ke");
@@ -96,7 +96,6 @@ public class UserProfilePage extends Fragment {
         emailTV.setText(currentUser.email);
         reportNoTV.setText(currentUser.reportNo + "");
         stressLevelTV.setText(currentUser.stressLevel);
-        eventNoTV.setText(currentUser.eventsNo + "");
         supportGroupNoTV.setText(currentUser.supportGroupNo + "");
         System.out.println("tak");
         profilePhoto.setOnClickListener(new View.OnClickListener() {
@@ -107,6 +106,12 @@ public class UserProfilePage extends Fragment {
         });
         for(int i=0; i<10 ; i++){
             addImage(eventImageContainer,R.drawable.sample_event_image);
+        }
+
+        if (currentUser.dailyQuizScore == -1){
+            dailyQuizScoreTV.setText("N/A");
+        } else {
+            dailyQuizScoreTV.setText(currentUser.dailyQuizScore + "");
         }
     }
 

@@ -1,5 +1,7 @@
 package com.example.rightside;
 
+import static com.example.rightside.Manager.currentUser;
+import static com.example.rightside.Manager.dailyQuizScore;
 import static com.example.rightside.Manager.db;
 import static com.example.rightside.Manager.goToPage;
 import static com.example.rightside.Manager.quizQuestions;
@@ -33,6 +35,7 @@ QuizIntroPage extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private TextView quizScore;
 
     public QuizIntroPage() {
         // Required empty public constructor
@@ -79,6 +82,14 @@ QuizIntroPage extends Fragment {
         TextView title = view.findViewById(R.id.QuizTitle);
         TextView description = view.findViewById(R.id.QuizDesc);
         Button startButton = view.findViewById(R.id.QuizIntroStartButton);
+        quizScore = view.findViewById(R.id.QuizScore);
+
+        quizScore.setVisibility(View.GONE);
+        if (currentUser.dailyQuizScore != -1){
+            quizScore.setVisibility(View.VISIBLE);
+            quizScore.setText(currentUser.dailyQuizScore+"/5");
+            startButton.setText("Try again");
+        }
 
         db.getDocument("Quiz Sets","1").addOnSuccessListener(document -> {
             if (document.exists()) {
@@ -95,4 +106,5 @@ QuizIntroPage extends Fragment {
         });
 
     }
+
 }
