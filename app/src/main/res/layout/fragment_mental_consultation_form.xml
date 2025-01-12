@@ -179,8 +179,8 @@
                     android:background="@drawable/box_rounded_bordered_white"
                     android:ems="10"
                     android:gravity="center"
+                    android:hint="Date"
                     android:inputType="text"
-                    android:text="19/12/2024"
                     android:textAlignment="gravity"
                     android:textColor="#000000" />
 
@@ -192,8 +192,8 @@
                     android:background="@drawable/box_rounded_bordered_white"
                     android:ems="10"
                     android:gravity="center"
+                    android:hint="Time"
                     android:inputType="text"
-                    android:text="17:00"
                     android:textAlignment="center"
                     android:textColor="#000000" />
             </LinearLayout>
@@ -258,6 +258,7 @@
                 android:layout_height="45dp"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:backgroundTint="@color/blue"
+                android:textColor="@color/white"
                 android:text="SUBMIT" />
 
         </LinearLayout>

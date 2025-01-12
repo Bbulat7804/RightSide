@@ -242,6 +242,7 @@
                 android:layout_height="45dp"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:backgroundTint="@color/blue"
+                android:textColor="@color/white"
                 android:text="SUBMIT" />
 
         </LinearLayout>

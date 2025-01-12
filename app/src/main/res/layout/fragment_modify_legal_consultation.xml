@@ -166,7 +166,6 @@
                     android:ems="10"
                     android:gravity="center"
                     android:inputType="text"
-                    android:text="19/12/2024"
                     android:textAlignment="gravity"
                     android:textColor="#000000" />
 
@@ -179,7 +178,6 @@
                     android:ems="10"
                     android:gravity="center"
                     android:inputType="text"
-                    android:text="17:00"
                     android:textAlignment="center"
                     android:textColor="#000000" />
             </LinearLayout>
@@ -203,7 +201,6 @@
                 android:gravity="left"
                 android:inputType="text|textMultiLine"
                 android:padding="10dp"
-                android:text="I've been working at my company for two years and recently found out that my male colleague is being paid more for the same role. I'm not sure if this qualifies as gender discrimination, and I want to know what my rights are regarding equal pay. How should I approach my employer about this, and what legal steps can I take if they don’t respond?"
                 android:textAlignment="gravity"
                 android:textColor="#000000"
                 android:textSize="14dp" />
@@ -248,7 +245,8 @@
                     android:id="@+id/buttonCancelRequestLegal"
                     android:layout_width="wrap_content"
                     android:layout_height="45dp"
-                    android:text="Cancel Request"
+                    android:backgroundTint="@color/green"
+                    android:text="CANCEL REQUEST"
                     android:textColor="@color/white" />
 
                 <Space
