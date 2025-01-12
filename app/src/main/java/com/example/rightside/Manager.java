@@ -69,6 +69,7 @@ public class Manager {
     public static int latestSupportGroupIndex = 0;
     public static int latestReportIndex = 0;
     public static int latestEventIndex = 0;
+    public static int dailyQuizScore = -1;
     public static final int PICK_IMAGE_REQUEST = 1;
     public static final int PICK_GROUP_ICON_REQUEST = 10;
     public static final int PICK_IMAGE_EVENT_REQUEST = 1;

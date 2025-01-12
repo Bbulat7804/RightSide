@@ -3,6 +3,8 @@ package com.example.rightside;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static androidx.core.content.ContextCompat.getSystemService;
 
+import static com.example.rightside.Manager.currentUser;
+import static com.example.rightside.Manager.dailyQuizScore;
 import static com.example.rightside.Manager.db;
 import static com.example.rightside.Manager.goToPage;
 import static com.example.rightside.Manager.quizIntroPage;
@@ -13,6 +15,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -27,6 +30,7 @@ import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -112,14 +116,10 @@ public class QuizQuestions extends Fragment {
                     for (QueryDocumentSnapshot document : documents) {
                         List<String> options = (List<String>) document.get("answer_choices");
                         questionsList.add(new Questions(document.getString("question"), options, document.getLong("correct_option_index").intValue()));
-                        Log.d("QuizQuestions", questionsList.get(0).getQuestionText());
-                        Log.d("QuizQuestions", questionsList.get(0).getOptions().get(0));
-                        Log.d("QuizQuestions", "Correct Option Index: " + document.getLong("correct_option_index"));
                     }
                     for (int i = 0; i < questionsList.size(); i++) {
                         addQuestionCard(questionsLayout, questionsList, i, submitButton);
                     }
-
         });
 
 
@@ -127,15 +127,60 @@ public class QuizQuestions extends Fragment {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopup(v);
+                checkAnswers(v, questionsLayout);
             }
         });
     }
 
-    private void showPopup(View v) {
+    private void checkAnswers(View v,LinearLayout questionsLayout) {
+        Manager.dailyQuizScore = 0;
+        for (int i = 0; i < 5; i++) {
+            //gets cardview
+            View childView = questionsLayout.getChildAt(i);
+            if (!(childView instanceof CardView)) {
+                Log.e("Error", "Not a CardView: " + childView.getClass().getSimpleName());
+                return;
+            }
+
+            CardView cardView = (CardView) childView;
+            //get the linear layout & radio group
+            LinearLayout linearLayout = cardView.findViewById(R.id.QuestionCardLayout);
+            RadioGroup radioGroup = linearLayout.findViewById(R.id.Options);
+
+            if (radioGroup == null) {
+                Log.e("Error", "Radio group not found in card view: " + cardView.getClass().getSimpleName());
+                return;
+            }
+            int selectedOptionId = radioGroup.getCheckedRadioButtonId();
+            if (selectedOptionId == -1){
+                Toast.makeText(requireContext(), "Answer all questions first.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            RadioButton selectedRadioButton = radioGroup.findViewById(selectedOptionId);
+            String selectedAnswer = selectedRadioButton.getText().toString();
+            String correctAnswer = questionsList.get(i).getOptions().get(questionsList.get(i).getCorrectAnswerIndex());
+            if (selectedAnswer.equals(correctAnswer)){
+                dailyQuizScore++;
+            }
+        }
+
+        if(currentUser.dailyQuizScore<=dailyQuizScore){
+            currentUser.dailyQuizScore = dailyQuizScore;
+
+            db.getCollection("Users").document(Integer.toString(currentUser.userId)).update("daily_quiz_score",dailyQuizScore);
+        }
+
+        showPopup(v, dailyQuizScore);
+    }
+
+    private void showPopup(View v, int dailyQuizScore) {
         // Inflate the popup_layout.xml
         LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.popup_layout_quiz, null);
+        TextView popupScore = popupView.findViewById(R.id.popupScore);
+
+        popupScore.setText("You answered "+dailyQuizScore+"/5 questions correctly");
 
         // Create the PopupWindow
         popupWindow = new PopupWindow(popupView,
@@ -182,7 +227,7 @@ public class QuizQuestions extends Fragment {
         RadioButton option3 = cardView.findViewById(R.id.Option3);
         RadioButton option4 = cardView.findViewById(R.id.Option4);
 
-        questionText.setText(questionsList.get(index).getQuestionText());
+        questionText.setText(index+1 + ". " + questionsList.get(index).getQuestionText());
         option1.setText(questionsList.get(index).getOptions().get(0));
         option2.setText(questionsList.get(index).getOptions().get(1));
         option3.setText(questionsList.get(index).getOptions().get(2));

@@ -42,8 +42,6 @@ public class IncidentReporting2 extends AppCompatActivity {
     LinearLayout ButtonContainer;
     private RadioButton checkBoxOnlyMe, checkBoxMeAndOthers, checkBoxPreferNotToDisclose, checkBoxInjured, checkBoxNotInjured;
     CheckBox checkBoxAnonymitySubmission;
-    ArrayList<String> attachmentPaths = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,14 +51,14 @@ public class IncidentReporting2 extends AppCompatActivity {
         // Initialize fields and buttons
         locationField = findViewById(R.id.searchBar4);
         dateField = findViewById(R.id.searchBar2);
-        describeMoreField = findViewById(R.id.searchBar3); // "Describe More" field
+        describeMoreField = findViewById(R.id.searchBar3);
         checkBoxOnlyMe = findViewById(R.id.Action1);
         checkBoxMeAndOthers = findViewById(R.id.Impact2);
         checkBoxPreferNotToDisclose = findViewById(R.id.Impact4);
         checkBoxInjured = findViewById(R.id.Action2);
         checkBoxNotInjured = findViewById(R.id.Condition2);
-        checkBoxAnonymitySubmission = findViewById(R.id.Impact3); // "Anonymity Submission" checkbox
-        ButtonContainer= findViewById(R.id.ButtonContainer);
+        checkBoxAnonymitySubmission = findViewById(R.id.Impact3);
+        ButtonContainer = findViewById(R.id.ButtonContainer);
         ImageButton buttonFiles1 = findViewById(R.id.imageButton2);
         ImageButton buttonImages = findViewById(R.id.imageButton3);
         ImageButton buttonAudio = findViewById(R.id.imageButton4);
@@ -71,27 +69,60 @@ public class IncidentReporting2 extends AppCompatActivity {
         buttonAudio.setOnClickListener(v -> openAudioChooser());
         buttonFiles2.setOnClickListener(v -> openFileChooser(REQUEST_CODE_FILES));
 
-        Button continueButton = findViewById(R.id.button2); // CONTINUE button
+        Button continueButton = findViewById(R.id.button2);
 
         // Load saved data
         loadSavedData();
 
         DatePickerDialog datePickerDialog = initializeDatePicker(dateField);
-        dateField.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDatePicker(datePickerDialog);
-            }
-        });
-        // Set click listener for CONTINUE button to navigate to the third page
+        dateField.setOnClickListener(v -> openDatePicker(datePickerDialog));
+
+        // Set click listener for CONTINUE button to validate and navigate
         continueButton.setOnClickListener(v -> {
-            // Save data before navigating
-            saveUserData();
-            navigateToPage3();
+            if (validateFields() && validateCheckBoxes()) {
+                saveUserData();
+                navigateToPage3();
+            }
         });
     }
 
-    // Load saved data from singleton
+    private boolean validateFields() {
+        boolean isValid = true;
+
+        if (locationField.getText().toString().trim().isEmpty()) {
+            locationField.setError("Location cannot be empty");
+            isValid = false;
+        }
+
+        if (dateField.getText().toString().trim().isEmpty()) {
+            dateField.setError("Date cannot be empty");
+            isValid = false;
+        }
+
+        if (describeMoreField.getText().toString().trim().isEmpty()) {
+            describeMoreField.setError("Description cannot be empty");
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    private boolean validateCheckBoxes() {
+        boolean isValid = true;
+
+        if (!checkBoxOnlyMe.isChecked() && !checkBoxMeAndOthers.isChecked() && !checkBoxPreferNotToDisclose.isChecked()) {
+            Toast.makeText(this, "Please select at least one option for 'People Involved'", Toast.LENGTH_SHORT).show();
+            isValid = false;
+        }
+
+        if (!checkBoxInjured.isChecked() && !checkBoxNotInjured.isChecked()) {
+            Toast.makeText(this, "Please select an option for 'Injury'", Toast.LENGTH_SHORT).show();
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
     private void loadSavedData() {
         UserDataSingleton data = UserDataSingleton.getInstance();
         if (data.location != null) {
@@ -123,7 +154,6 @@ public class IncidentReporting2 extends AppCompatActivity {
         }
     }
 
-    // Save user data into the singleton
     private void saveUserData() {
         UserDataSingleton data = UserDataSingleton.getInstance();
         data.location = locationField.getText().toString();
@@ -134,34 +164,26 @@ public class IncidentReporting2 extends AppCompatActivity {
         data.page2CheckBoxPreferNotToDisclose = checkBoxPreferNotToDisclose.isChecked();
         data.page2CheckBoxInjured = checkBoxInjured.isChecked();
         data.page2CheckBoxNotInjured = checkBoxNotInjured.isChecked();
-        data.page2CheckBoxAnonymitySubmission = checkBoxAnonymitySubmission.isChecked(); // Save the state
+        data.page2CheckBoxAnonymitySubmission = checkBoxAnonymitySubmission.isChecked();
     }
 
-    // Method to open file chooser for general files
-
-    // Method to open gallery for selecting images
-
-    // Handle the result from the intents
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        UserDataSingleton dataSingleton = UserDataSingleton.getInstance();
         if (resultCode == RESULT_OK && data != null) {
-            Uri selectedFile = data.getData(); // Get the selected file URI
+            Uri selectedFile = data.getData();
 
             if (selectedFile != null) {
                 switch (requestCode) {
                     case REQUEST_CODE_FILES:
-                        Toast.makeText(this, "File selected: " + selectedFile.getPath(), Toast.LENGTH_SHORT).show();
-                        db.uploadFileToDatabase(selectedFile,"ReportAttachment/Report" + (latestReportIndex+1) + "/" + getFileName(selectedFile,IncidentReporting2.this),ButtonContainer,IncidentReporting2.this,attachmentPaths);
+                        db.uploadFileToDatabase(selectedFile, "ReportAttachment/Report" + (latestReportIndex + 1) + "/" + getFileName(selectedFile, this), ButtonContainer, this, dataSingleton.attachmentPaths);
                         break;
                     case REQUEST_CODE_IMAGES:
-                        Toast.makeText(this, "Image selected: " + selectedFile.getPath(), Toast.LENGTH_SHORT).show();
-                        db.uploadFileToDatabase(selectedFile,"ReportAttachment/Report" + (latestReportIndex+1) + "/" + getFileName(selectedFile,IncidentReporting2.this),ButtonContainer,IncidentReporting2.this,attachmentPaths);
+                        db.uploadFileToDatabase(selectedFile, "ReportAttachment/Report" + (latestReportIndex + 1) + "/" + getFileName(selectedFile, this), ButtonContainer, this, dataSingleton.attachmentPaths);
                         break;
                     case REQUEST_CODE_AUDIO:
-                        Toast.makeText(this, "Audio selected: " + selectedFile.getPath(), Toast.LENGTH_SHORT).show();
-                        db.uploadFileToDatabase(selectedFile,"ReportAttachment/Report" + (latestReportIndex+1) + "/" + getFileName(selectedFile,IncidentReporting2.this),ButtonContainer,IncidentReporting2.this,attachmentPaths);
+                        db.uploadFileToDatabase(selectedFile, "ReportAttachment/Report" + (latestReportIndex + 1) + "/" + getFileName(selectedFile, this), ButtonContainer, this, dataSingleton.attachmentPaths);
                         break;
                 }
             }
@@ -175,33 +197,35 @@ public class IncidentReporting2 extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public DatePickerDialog initializeDatePicker(TextView dateButton){
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int day) {
-                month = month + 1;
-                String date = makeDateString(day ,month,year);
-                dateButton.setText(date);
-            }
+    public DatePickerDialog initializeDatePicker(TextView dateButton) {
+        DatePickerDialog.OnDateSetListener dateSetListener = (view, year, month, day) -> {
+            month = month + 1;
+            String date = makeDateString(day, month, year);
+            dateButton.setText(date);
         };
 
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
         int day = cal.get(Calendar.DAY_OF_MONTH);
-        int style = AlertDialog.THEME_HOLO_LIGHT;
-        return new DatePickerDialog(IncidentReporting2.this,style,dateSetListener,year,month,day);
+        return new DatePickerDialog(this, AlertDialog.THEME_HOLO_LIGHT, dateSetListener, year, month, day);
     }
 
-    private String makeDateString(int day, int month, int year){
+    private String makeDateString(int day, int month, int year) {
         return day + " " + getMonthFormat(month) + " " + year;
     }
 
-    public String getFileName(Uri uri, Context context) {
+    private String getMonthFormat(int month) {
+        return Integer.toString(month);
+    }
+
+    private void openDatePicker(DatePickerDialog datePickerDialog) {
+        datePickerDialog.show();
+    }
+
+    private String getFileName(Uri uri, Context context) {
         String fileName = null;
 
-        // For content URI (e.g., from file picker)
         if (uri.getScheme().equals("content")) {
             Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
             if (cursor != null && cursor.moveToFirst()) {
@@ -209,47 +233,27 @@ public class IncidentReporting2 extends AppCompatActivity {
                 fileName = cursor.getString(nameIndex);
                 cursor.close();
             }
-        }
-        // For file URI (direct file path)
-        else if (uri.getScheme().equals("file")) {
+        } else if (uri.getScheme().equals("file")) {
             fileName = uri.getLastPathSegment();
         }
 
         return fileName;
     }
 
-    private String getMonthFormat(int month) {
-        return Integer.toString(month);
-    }
-
-    private String getTodaysDate() {
-        Calendar cal = Calendar.getInstance();
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        month = month+1;
-        int day = cal.get(Calendar.DAY_OF_MONTH);
-
-        return makeDateString(day,month,year);
-    }
-    public void openDatePicker(DatePickerDialog datePickerDialog){
-        datePickerDialog.show();
-    }
     private void openFileChooser(int requestCode) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("*/*"); // Allows selection of any file type
+        intent.setType("*/*");
         startActivityForResult(intent, requestCode);
     }
 
-    // Method to open gallery for selecting images
     private void openGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, REQUEST_CODE_IMAGES);
     }
 
-    // Method to open file chooser for audio files
     private void openAudioChooser() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("audio/*"); // Restricts to audio file types
+        intent.setType("audio/*");
         startActivityForResult(intent, REQUEST_CODE_AUDIO);
     }
 }

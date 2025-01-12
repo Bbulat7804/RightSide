@@ -46,6 +46,7 @@ public class UserDataSingleton {
     // Mandatory acknowledgment and understanding checkboxes
     public Boolean page4Condition1; // Acknowledgment checkbox
     public Boolean page4Condition2; // Understanding checkbox
+    ArrayList<String> attachmentPaths = new ArrayList<>();
 
     DatabaseConnection db = new DatabaseConnection();
 
